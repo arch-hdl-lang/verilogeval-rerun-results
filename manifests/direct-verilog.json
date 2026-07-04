@@ -1,0 +1,33 @@
+{
+  "lane": "direct-verilog",
+  "source_repo": "/Users/shuqingzhao/github/verilog-eval-verilog",
+  "upstream_base_commit": "c498220d0a52248f8e3fdffe279075215bde2da6",
+  "task": "spec-to-rtl",
+  "simulator": "Icarus Verilog 12.0",
+  "total_problems": 156,
+  "first_pass": {
+    "passed": 133,
+    "failed": 23
+  },
+  "repair": {
+    "max_attempts_per_problem": 4,
+    "repaired": 19,
+    "total_attempts": 36
+  },
+  "final": {
+    "passed": 152,
+    "failed": 4,
+    "unrepaired": [
+      "Prob082_lfsr32",
+      "Prob099_m2014_q6c",
+      "Prob141_count_clock",
+      "Prob156_review2015_fancytimer"
+    ]
+  },
+  "artifacts": {
+    "report": "reports/direct-verilog/FINAL_REPORT.md",
+    "first_pass_accounting": "reports/direct-verilog/first_pass_accounting_summary.json",
+    "repair_accounting": "reports/direct-verilog/repair_accounting_summary.json"
+  }
+}
+

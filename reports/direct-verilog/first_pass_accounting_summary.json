@@ -1,0 +1,34 @@
+{
+  "total": 156,
+  "summary": {
+    "pass": 133,
+    "compile_fail": 10,
+    "mismatch": 10,
+    "timeout": 3
+  },
+  "failed": [
+    "Prob009_popcount3",
+    "Prob034_dff8",
+    "Prob053_m2014_q4d",
+    "Prob062_bugs_mux2",
+    "Prob066_edgecapture",
+    "Prob070_ece241_2013_q2",
+    "Prob082_lfsr32",
+    "Prob093_ece241_2014_q3",
+    "Prob099_m2014_q6c",
+    "Prob104_mt2015_muxdff",
+    "Prob131_mt2015_q4",
+    "Prob133_2014_q3fsm",
+    "Prob136_m2014_q6",
+    "Prob139_2013_q2bfsm",
+    "Prob140_fsm_hdlc",
+    "Prob141_count_clock",
+    "Prob146_fsm_serialdata",
+    "Prob147_circuit10",
+    "Prob149_ece241_2013_q4",
+    "Prob151_review2015_fsm",
+    "Prob154_fsm_ps2data",
+    "Prob155_lemmings4",
+    "Prob156_review2015_fancytimer"
+  ]
+}

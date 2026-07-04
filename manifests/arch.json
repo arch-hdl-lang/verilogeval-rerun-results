@@ -1,0 +1,44 @@
+{
+  "lane": "arch-hdl",
+  "source_repo": "/Users/shuqingzhao/github/verilog-eval-arch",
+  "upstream_base_commit": "c498220d0a52248f8e3fdffe279075215bde2da6",
+  "task": "spec-to-rtl",
+  "simulator": "Icarus Verilog 12.0",
+  "arch": {
+    "version": "0.70.5",
+    "binary": "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+    "mcp_server": "arch-hdl-release-v0705"
+  },
+  "total_problems": 156,
+  "first_pass": {
+    "passed": 148,
+    "failed": 8
+  },
+  "repair_fair_comparison": {
+    "max_attempts_per_problem": 4,
+    "repaired": 6,
+    "final_passed": 154,
+    "final_failed": 2,
+    "unrepaired": [
+      "Prob066_edgecapture",
+      "Prob099_m2014_q6c"
+    ]
+  },
+  "repair_all_recorded_attempts": {
+    "total_attempts": 14,
+    "passed_repairs": 7,
+    "failed_attempts": 7,
+    "final_passed": 155,
+    "final_failed": 1,
+    "unrepaired": [
+      "Prob099_m2014_q6c"
+    ],
+    "note": "Prob066_edgecapture passed on repair_attempt_07, outside the max-4 fair-comparison budget."
+  },
+  "artifacts": {
+    "report": "reports/arch/FINAL_REPORT.md",
+    "first_pass_accounting": "reports/arch/first_pass_accounting_summary.json",
+    "repair_accounting": "reports/arch/repair_accounting_summary.json"
+  }
+}
+
