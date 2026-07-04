@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob022_mux2to1",
+  "samples": 122,
+  "source": "runs/arch/Prob022_mux2to1/Prob022_mux2to1.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob022_mux2to1/Prob022_mux2to1.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob022_mux2to1/Prob022_mux2to1.sv",
+        "runs/arch/Prob022_mux2to1/Prob022_mux2to1.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob022_mux2to1/Prob022_mux2to1.ivvp",
+        "runs/arch/Prob022_mux2to1/Prob022_mux2to1.sv",
+        "dataset_spec-to-rtl/Prob022_mux2to1_test.sv",
+        "dataset_spec-to-rtl/Prob022_mux2to1_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob022_mux2to1/Prob022_mux2to1.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

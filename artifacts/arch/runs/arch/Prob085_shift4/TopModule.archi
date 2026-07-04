@@ -1,0 +1,8 @@
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port areset: in Reset<Async>;
+  port load: in Bool;
+  port ena: in Bool;
+  port data: in UInt<4>;
+  port q: out pipe_reg<UInt<4>, 1> reset areset => 0;
+end module TopModule

@@ -1,0 +1,31 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob057_kmap2_prompt.txt
+//! tags: [kmap, combinational, boolean-logic]
+//! refs: []
+//! ---
+//!
+//! Implements the one-bit combinational output defined by the Prob057_kmap2 Karnaugh map.
+
+/// Top-level combinational logic for the requested Karnaugh-map truth table.
+module TopModule
+  port a: in Bool;
+  port b: in Bool;
+  port c: in Bool;
+  port d: in Bool;
+  port out: out Bool;
+
+  let m0000: Bool = (not a) and (not b) and (not c) and (not d);
+  let m0100: Bool = (not a) and b and (not c) and (not d);
+  let m1000: Bool = a and (not b) and (not c) and (not d);
+  let m0001: Bool = (not a) and (not b) and (not c) and d;
+  let m1001: Bool = a and (not b) and (not c) and d;
+  let m0111: Bool = (not a) and b and c and d;
+  let m1111: Bool = a and b and c and d;
+  let m1011: Bool = a and (not b) and c and d;
+  let m0010: Bool = (not a) and (not b) and c and (not d);
+  let m0110: Bool = (not a) and b and c and (not d);
+
+  let out = m0000 or m0100 or m1000 or m0001 or m1001 or m0111 or m1111 or m1011 or m0010 or m0110;
+end module TopModule
+[DONE]

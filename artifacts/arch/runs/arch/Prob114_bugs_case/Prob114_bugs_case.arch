@@ -1,0 +1,40 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob114_bugs_case_prompt.txt
+//! tags: [decode, keyboard, scancode]
+//! refs: []
+//! ---
+//!
+//! Combinational keyboard scancode decoder for decimal keys 0 through 9.
+//! Recognized 8-bit scancodes produce the corresponding 4-bit key value and
+//! assert valid; all other inputs drive both outputs to zero.
+
+/// Top-level combinational decoder preserving the requested VerilogEval
+/// interface.
+module TopModule
+  port code: in UInt<8>;
+  port out: out UInt<4>;
+  port valid: out Bool;
+
+  let hit0: Bool = code == 8'h45;
+  let hit1: Bool = code == 8'h16;
+  let hit2: Bool = code == 8'h1e;
+  let hit3: Bool = code == 8'h26;
+  let hit4: Bool = code == 8'h25;
+  let hit5: Bool = code == 8'h2e;
+  let hit6: Bool = code == 8'h36;
+  let hit7: Bool = code == 8'h3d;
+  let hit8: Bool = code == 8'h3e;
+  let hit9: Bool = code == 8'h46;
+
+  let valid = hit0 or hit1 or hit2 or hit3 or hit4 or hit5 or hit6 or hit7 or hit8 or hit9;
+  let out = hit1 ? 4'd1 :
+            hit2 ? 4'd2 :
+            hit3 ? 4'd3 :
+            hit4 ? 4'd4 :
+            hit5 ? 4'd5 :
+            hit6 ? 4'd6 :
+            hit7 ? 4'd7 :
+            hit8 ? 4'd8 :
+            hit9 ? 4'd9 :
+                   4'd0;
+end module TopModule

@@ -1,0 +1,11 @@
+{
+  "problem": "Prob137_fsm_serial",
+  "status": "pass",
+  "mismatches": 0,
+  "samples": 905,
+  "arch_check": "pass",
+  "arch_build": "pass",
+  "verilator_lint": "pass",
+  "icarus_compile": "pass",
+  "icarus_run": "pass"
+}

@@ -1,0 +1,12 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob153_gshare/Prob153_gshare.ivvp runs/verilog/Prob153_gshare/Prob153_gshare.sv dataset_spec-to-rtl/Prob153_gshare_test.sv dataset_spec-to-rtl/Prob153_gshare_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob153_gshare/Prob153_gshare.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob153_gshare_test.sv:161: $finish called at 5416 (1ps)
+Hint: Output 'predict_taken' has no mismatches.
+Hint: Output 'predict_history' has no mismatches.
+Hint: Total mismatched samples is 0 out of 1083 samples
+
+Simulation finished at 5416 ps
+Mismatches: 0 in 1083 samples
+SIM_STATUS: 0

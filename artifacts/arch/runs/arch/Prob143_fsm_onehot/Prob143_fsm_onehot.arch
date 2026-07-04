@@ -1,0 +1,77 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob143_fsm_onehot_prompt.txt
+//! tags: [fsm, onehot, combinational, transition-logic]
+//! refs: []
+//! ---
+//!
+//! Implements the combinational transition and output logic for the Prob143
+//! one-hot FSM prompt. The current state vector may contain multiple active
+//! states, so each next-state and output bit is the OR of all active source
+//! states that contribute to it.
+
+/// TopModule implements the requested one-hot FSM next-state and output logic.
+///
+/// Port timing/type notes:
+/// - `in`: combinational one-bit input; no clock sampling occurs in this module.
+/// - `state`: combinational 10-bit current-state vector, with state[i] mapping to Si.
+/// - `next_state`: combinational 10-bit next-state vector, with next_state[i] mapping to Si.
+/// - `out1`, `out2`: combinational state-derived outputs, ORed across active state bits.
+///
+/// Transition table:
+/// | input condition | current state | next state | output (out1, out2) |
+/// | in == 0 | S0 | S0 | (0, 0) |
+/// | in == 1 | S0 | S1 | (0, 0) |
+/// | in == 0 | S1 | S0 | (0, 0) |
+/// | in == 1 | S1 | S2 | (0, 0) |
+/// | in == 0 | S2 | S0 | (0, 0) |
+/// | in == 1 | S2 | S3 | (0, 0) |
+/// | in == 0 | S3 | S0 | (0, 0) |
+/// | in == 1 | S3 | S4 | (0, 0) |
+/// | in == 0 | S4 | S0 | (0, 0) |
+/// | in == 1 | S4 | S5 | (0, 0) |
+/// | in == 0 | S5 | S8 | (0, 0) |
+/// | in == 1 | S5 | S6 | (0, 0) |
+/// | in == 0 | S6 | S9 | (0, 0) |
+/// | in == 1 | S6 | S7 | (0, 0) |
+/// | in == 0 | S7 | S0 | (0, 1) |
+/// | in == 1 | S7 | S7 | (0, 1) |
+/// | in == 0 | S8 | S0 | (1, 0) |
+/// | in == 1 | S8 | S1 | (1, 0) |
+/// | in == 0 | S9 | S0 | (1, 1) |
+/// | in == 1 | S9 | S1 | (1, 1) |
+module TopModule
+  port in: in Bool;
+  port state: in UInt<10>;
+  port next_state: out UInt<10>;
+  port out1: out Bool;
+  port out2: out Bool;
+
+  let input_zero: Bool = in == false;
+  let input_one: Bool = in == true;
+
+  let s0: Bool = state[0];
+  let s1: Bool = state[1];
+  let s2: Bool = state[2];
+  let s3: Bool = state[3];
+  let s4: Bool = state[4];
+  let s5: Bool = state[5];
+  let s6: Bool = state[6];
+  let s7: Bool = state[7];
+  let s8: Bool = state[8];
+  let s9: Bool = state[9];
+
+  let ns0: Bool = input_zero and (s0 or s1 or s2 or s3 or s4 or s7 or s8 or s9);
+  let ns1: Bool = input_one and (s0 or s8 or s9);
+  let ns2: Bool = input_one and s1;
+  let ns3: Bool = input_one and s2;
+  let ns4: Bool = input_one and s3;
+  let ns5: Bool = input_one and s4;
+  let ns6: Bool = input_one and s5;
+  let ns7: Bool = input_one and (s6 or s7);
+  let ns8: Bool = input_zero and s5;
+  let ns9: Bool = input_zero and s6;
+
+  let next_state = {ns9, ns8, ns7, ns6, ns5, ns4, ns3, ns2, ns1, ns0};
+  let out1 = s8 or s9;
+  let out2 = s7 or s9;
+end module TopModule

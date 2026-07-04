@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob024_hadd",
+  "samples": 200,
+  "source": "runs/arch/Prob024_hadd/Prob024_hadd.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob024_hadd/Prob024_hadd.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob024_hadd/Prob024_hadd.sv",
+        "runs/arch/Prob024_hadd/Prob024_hadd.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob024_hadd/Prob024_hadd.ivvp",
+        "runs/arch/Prob024_hadd/Prob024_hadd.sv",
+        "dataset_spec-to-rtl/Prob024_hadd_test.sv",
+        "dataset_spec-to-rtl/Prob024_hadd_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob024_hadd/Prob024_hadd.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+module TopModule
+  port y: in UInt<6>;
+  port w: in Bool;
+  port Y1: out Bool comb_dep_on(w, y);
+  port Y3: out Bool comb_dep_on(w, y);
+end module TopModule

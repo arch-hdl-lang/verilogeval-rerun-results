@@ -1,0 +1,39 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob118_history_shift_prompt.txt
+//! tags: [branch-history, shift-register, rollback, async-reset]
+//! refs: []
+//! ---
+//!
+//! Implements a 32-bit global branch history register. Predictions shift the
+//! predicted direction into the youngest bit, while misprediction recovery
+//! restores the supplied pre-branch history plus the resolved branch result.
+
+/// Top-level 32-bit global branch history register.
+///
+/// `predict_history` is the current register value. Sequential updates occur
+/// on the rising edge of `clk`; active-high asynchronous reset clears history,
+/// and misprediction recovery has priority over prediction updates.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port areset: in Reset<Async, High>;
+  port predict_valid: in Bool;
+  port predict_taken: in Bool;
+  port train_mispredicted: in Bool;
+  port train_taken: in Bool;
+  port train_history: in UInt<32>;
+  port predict_history: out UInt<32>;
+
+  reg history: UInt<32> reset areset => 0;
+
+  let predict_history = history;
+
+  default seq on clk rising;
+
+  seq
+    if train_mispredicted
+      history <= {train_history[30:0], train_taken};
+    elsif predict_valid
+      history <= {history[30:0], predict_taken};
+    end if
+  end seq
+end module TopModule

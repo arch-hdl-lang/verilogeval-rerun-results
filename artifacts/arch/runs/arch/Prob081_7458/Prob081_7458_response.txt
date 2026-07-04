@@ -1,0 +1,34 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob081_7458_prompt.txt
+//! tags: [combinational, gates, ttl7458]
+//! ---
+//!
+//! Implements the requested 7458-style combinational gate network with two OR outputs fed by four AND terms.
+
+/// Top-level 7458-compatible combinational logic block.
+///
+/// p1y is the OR of two three-input AND terms, and p2y is the OR of two two-input AND terms.
+module TopModule
+  port p1a: in Bool;
+  port p1b: in Bool;
+  port p1c: in Bool;
+  port p1d: in Bool;
+  port p1e: in Bool;
+  port p1f: in Bool;
+  port p2a: in Bool;
+  port p2b: in Bool;
+  port p2c: in Bool;
+  port p2d: in Bool;
+  port p1y: out Bool;
+  port p2y: out Bool;
+
+  let p1_term0: Bool = p1a and p1b and p1c;
+  let p1_term1: Bool = p1d and p1e and p1f;
+  let p2_term0: Bool = p2a and p2b;
+  let p2_term1: Bool = p2c and p2d;
+
+  let p1y = p1_term0 or p1_term1;
+  let p2y = p2_term0 or p2_term1;
+end module TopModule
+[DONE]

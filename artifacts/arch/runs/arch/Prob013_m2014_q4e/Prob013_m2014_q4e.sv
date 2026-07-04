@@ -1,0 +1,20 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob013_m2014_q4e_prompt.txt
+//! tags: [combinational, gate, nor]
+//! refs: []
+//! ---
+//!
+//! TopModule implements the requested two-input NOR gate using one-bit logical ports.
+/// Two-input NOR gate.
+///
+/// Drives out high only when both one-bit inputs are low.
+module TopModule (
+  input logic in1,
+  input logic in2,
+  output logic out
+);
+
+  assign out = !(in1 || in2);
+
+endmodule
+

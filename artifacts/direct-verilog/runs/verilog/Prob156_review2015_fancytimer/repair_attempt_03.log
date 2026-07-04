@@ -1,0 +1,14 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob156_review2015_fancytimer/repair_attempt_03.ivvp runs/verilog/Prob156_review2015_fancytimer/repair_attempt_03.sv dataset_spec-to-rtl/Prob156_review2015_fancytimer_test.sv dataset_spec-to-rtl/Prob156_review2015_fancytimer_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob156_review2015_fancytimer/repair_attempt_03.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+runs/verilog/Prob156_review2015_fancytimer/repair_attempt_03.sv:30: $finish called at 1000000 (1ps)
+TIMEOUT
+Hint: Output 'count' has no mismatches.
+Hint: Output 'counting' has no mismatches.
+Hint: Output 'done' has no mismatches.
+Hint: Total mismatched samples is 0 out of 200000 samples
+
+Simulation finished at 1000000 ps
+Mismatches: 0 in 200000 samples
+SIM_STATUS: 0

@@ -1,0 +1,44 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob100_fsm3comb_prompt.txt
+//! tags: [fsm, combinational, moore, next-state]
+//! refs: []
+//! ---
+//!
+//! Combinational Moore FSM transition and output logic for the VerilogEval Prob100_fsm3comb prompt.
+//! The current encoded state is supplied as an input, and this module computes next_state and out without internal storage.
+
+/// TopModule implements the combinational portion of a four-state Moore FSM.
+///
+/// Port timing/type:
+/// input in: combinational one-bit input used to choose the next state.
+/// input state: combinational 2-bit encoded current state, with A=2'b00, B=2'b01, C=2'b10, D=2'b11.
+/// output next_state: combinational 2-bit encoded next state.
+/// output out: combinational Moore output derived from the current state.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// | in=0 | A (2'b00) | A (2'b00) | 0 |
+/// | in=1 | A (2'b00) | B (2'b01) | 0 |
+/// | in=0 | B (2'b01) | C (2'b10) | 0 |
+/// | in=1 | B (2'b01) | B (2'b01) | 0 |
+/// | in=0 | C (2'b10) | A (2'b00) | 0 |
+/// | in=1 | C (2'b10) | D (2'b11) | 0 |
+/// | in=0 | D (2'b11) | C (2'b10) | 1 |
+/// | in=1 | D (2'b11) | B (2'b01) | 1 |
+module TopModule
+  port in: in Bool;
+  port state: in UInt<2>;
+  port next_state: out UInt<2>;
+  port out: out Bool;
+
+  comb
+    unique match state
+      2'b00 => next_state = in ? 2'b01 : 2'b00;
+      2'b01 => next_state = in ? 2'b01 : 2'b10;
+      2'b10 => next_state = in ? 2'b11 : 2'b00;
+      2'b11 => next_state = in ? 2'b01 : 2'b10;
+    end match
+
+    out = state == 2'b11;
+  end comb
+end module TopModule

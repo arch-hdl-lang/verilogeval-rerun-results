@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob108_rule90",
+  "samples": 7121,
+  "source": "runs/arch/Prob108_rule90/Prob108_rule90.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob108_rule90/Prob108_rule90.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob108_rule90/Prob108_rule90.sv",
+        "runs/arch/Prob108_rule90/Prob108_rule90.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob108_rule90/Prob108_rule90.ivvp",
+        "runs/arch/Prob108_rule90/Prob108_rule90.sv",
+        "dataset_spec-to-rtl/Prob108_rule90_test.sv",
+        "dataset_spec-to-rtl/Prob108_rule90_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob108_rule90/Prob108_rule90.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

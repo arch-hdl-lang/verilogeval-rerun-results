@@ -1,0 +1,13 @@
+module TopModule
+  port a: in UInt<16>;
+  port b: in UInt<16>;
+  port c: in UInt<16>;
+  port d: in UInt<16>;
+  port e: in UInt<16>;
+  port f: in UInt<16>;
+  port g: in UInt<16>;
+  port h: in UInt<16>;
+  port i: in UInt<16>;
+  port sel: in UInt<4>;
+  port out: out UInt<16> comb_dep_on(a, b, c, d, e, f, g, h, i, sel);
+end module TopModule

@@ -1,0 +1,7 @@
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port resetn: in Reset<Sync, Low>;
+  port byteena: in UInt<2>;
+  port d: in UInt<16>;
+  port q: out UInt<16> comb_dep_on();
+end module TopModule

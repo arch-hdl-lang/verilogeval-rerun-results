@@ -1,0 +1,18 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob093_ece241_2014_q3/repair_attempt_01.sv
+Wrote runs/arch/Prob093_ece241_2014_q3/TopModule.archi
+
+Icarus compile:
+
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob093_ece241_2014_q3_test.sv:38: $finish called at 300 (1ps)
+Hint: Output 'mux_in' has no mismatches.
+Hint: Total mismatched samples is 0 out of 60 samples
+
+Simulation finished at 300 ps
+Mismatches: 0 in 60 samples

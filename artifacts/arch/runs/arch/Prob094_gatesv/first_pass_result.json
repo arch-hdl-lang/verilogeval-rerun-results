@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob094_gatesv",
+  "samples": 213,
+  "source": "runs/arch/Prob094_gatesv/Prob094_gatesv.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob094_gatesv/Prob094_gatesv.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob094_gatesv/Prob094_gatesv.sv",
+        "runs/arch/Prob094_gatesv/Prob094_gatesv.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob094_gatesv/Prob094_gatesv.ivvp",
+        "runs/arch/Prob094_gatesv/Prob094_gatesv.sv",
+        "dataset_spec-to-rtl/Prob094_gatesv_test.sv",
+        "dataset_spec-to-rtl/Prob094_gatesv_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob094_gatesv/Prob094_gatesv.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

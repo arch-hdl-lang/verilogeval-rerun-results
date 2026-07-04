@@ -1,0 +1,13 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob044_vectorgates/Prob044_vectorgates.ivvp runs/verilog/Prob044_vectorgates/Prob044_vectorgates.sv dataset_spec-to-rtl/Prob044_vectorgates_test.sv dataset_spec-to-rtl/Prob044_vectorgates_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob044_vectorgates/Prob044_vectorgates.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob044_vectorgates_test.sv:39: $finish called at 1306 (1ps)
+Hint: Output 'out_or_bitwise' has no mismatches.
+Hint: Output 'out_or_logical' has no mismatches.
+Hint: Output 'out_not' has no mismatches.
+Hint: Total mismatched samples is 0 out of 261 samples
+
+Simulation finished at 1306 ps
+Mismatches: 0 in 261 samples
+SIM_STATUS: 0

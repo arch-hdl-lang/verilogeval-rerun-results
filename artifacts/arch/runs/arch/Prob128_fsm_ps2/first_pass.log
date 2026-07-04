@@ -1,0 +1,20 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob128_fsm_ps2/Prob128_fsm_ps2.sv
+Wrote runs/arch/Prob128_fsm_ps2/TopModule.archi
+
+Icarus compile:
+runs/arch/Prob128_fsm_ps2/Prob128_fsm_ps2.sv:49: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+runs/arch/Prob128_fsm_ps2/Prob128_fsm_ps2.sv:51: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+runs/arch/Prob128_fsm_ps2/Prob128_fsm_ps2.sv:71: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob128_fsm_ps2_test.sv:18: $finish called at 2001 (1ps)
+Hint: Output 'done' has no mismatches.
+Hint: Total mismatched samples is 0 out of 400 samples
+
+Simulation finished at 2001 ps
+Mismatches: 0 in 400 samples

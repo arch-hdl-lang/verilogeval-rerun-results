@@ -1,0 +1,21 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob134_2014_q3c/Prob134_2014_q3c.sv
+Wrote runs/arch/Prob134_2014_q3c/TopModule.archi
+
+Icarus compile:
+runs/arch/Prob134_2014_q3c/Prob134_2014_q3c.sv:25: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+runs/arch/Prob134_2014_q3c/Prob134_2014_q3c.sv:26: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+runs/arch/Prob134_2014_q3c/Prob134_2014_q3c.sv:46: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob134_2014_q3c_test.sv:18: $finish called at 1001 (1ps)
+Hint: Output 'Y0' has no mismatches.
+Hint: Output 'z' has no mismatches.
+Hint: Total mismatched samples is 0 out of 200 samples
+
+Simulation finished at 1001 ps
+Mismatches: 0 in 200 samples

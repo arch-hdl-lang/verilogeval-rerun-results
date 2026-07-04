@@ -1,0 +1,29 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob065_7420_prompt.txt
+//! tags: [combinational, logic, nand, ttl]
+//! ---
+//!
+//! Implements the VerilogEval Prob065_7420 specification: a 7420-compatible
+//! dual four-input NAND gate named TopModule.
+
+/// Dual four-input NAND gate matching a 7420 logic chip.
+///
+/// Each one-bit output is driven combinationally low only when all four
+/// corresponding inputs are high.
+module TopModule
+  port p1a: in Bool;
+  port p1b: in Bool;
+  port p1c: in Bool;
+  port p1d: in Bool;
+  port p2a: in Bool;
+  port p2b: in Bool;
+  port p2c: in Bool;
+  port p2d: in Bool;
+  port p1y: out Bool;
+  port p2y: out Bool;
+
+  let p1y = not (p1a & p1b & p1c & p1d);
+  let p2y = not (p2a & p2b & p2c & p2d);
+end module TopModule
+[DONE]

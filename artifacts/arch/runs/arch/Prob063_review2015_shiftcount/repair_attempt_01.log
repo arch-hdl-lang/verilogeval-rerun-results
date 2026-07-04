@@ -1,0 +1,18 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob063_review2015_shiftcount/repair_attempt_01.sv
+Wrote runs/arch/Prob063_review2015_shiftcount/TopModule.archi
+
+Icarus compile:
+
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob063_review2015_shiftcount_test.sv:63: $finish called at 10356 (1ps)
+Hint: Output 'q' has no mismatches.
+Hint: Total mismatched samples is 0 out of 2071 samples
+
+Simulation finished at 10356 ps
+Mismatches: 0 in 2071 samples

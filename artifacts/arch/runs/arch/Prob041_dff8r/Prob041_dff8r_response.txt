@@ -1,0 +1,27 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob041_dff8r_prompt.txt
+//! tags: [dff, register, reset, synchronous]
+//! refs: []
+//! ---
+//!
+//! Implements an 8-bit bank of positive-edge-triggered D flip-flops with
+//! active-high synchronous reset to zero.
+
+/// Top-level 8-bit D flip-flop register bank.
+///
+/// Captures `d` on each rising edge of `clk`; synchronous active-high `reset`
+/// sets `q` to zero.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port d: in UInt<8>;
+  port q: out pipe_reg<UInt<8>, 1> reset reset => 0;
+
+  default seq on clk rising;
+
+  seq
+    q@1 <= d;
+  end seq
+end module TopModule
+[DONE]

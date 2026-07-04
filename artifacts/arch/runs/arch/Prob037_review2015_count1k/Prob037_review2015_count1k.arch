@@ -1,0 +1,25 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob037_review2015_count1k_prompt.txt
+//! tags: [counter, modulo, synchronous-reset]
+//! ---
+//!
+//! Implements a 10-bit synchronous modulo-1000 counter. The counter resets to 0 on an active-high synchronous reset and otherwise advances once per positive clock edge.
+
+/// Top-level modulo-1000 counter for the VerilogEval problem interface.
+///
+/// The 10-bit output is registered state: it holds values 0 through 999, wraps to 0 after 999, and synchronously resets to 0.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port q: out pipe_reg<UInt<10>, 1> reset reset => 0;
+
+  default seq on clk rising;
+
+  seq
+    if q == 10'd999
+      q@1 <= 10'd0;
+    else
+      q@1 <= q +% 10'd1;
+    end if
+  end seq
+end module TopModule

@@ -1,0 +1,11 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob066_edgecapture/Prob066_edgecapture.ivvp runs/verilog/Prob066_edgecapture/Prob066_edgecapture.sv dataset_spec-to-rtl/Prob066_edgecapture_test.sv dataset_spec-to-rtl/Prob066_edgecapture_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob066_edgecapture/Prob066_edgecapture.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob066_edgecapture_test.sv:86: $finish called at 1330 (1ps)
+Hint: Output 'out' has 91 mismatches. First mismatch occurred at time 140.
+Hint: Total mismatched samples is 91 out of 266 samples
+
+Simulation finished at 1330 ps
+Mismatches: 91 in 266 samples
+SIM_STATUS: 0

@@ -1,6 +1,7 @@
 {
   "lane": "arch-hdl",
-  "source_repo": "/Users/shuqingzhao/github/verilog-eval-arch",
+  "upstream_repo": "https://github.com/NVlabs/verilog-eval.git",
+  "source_repo": "upstream/verilog-eval plus overlays/arch",
   "upstream_base_commit": "c498220d0a52248f8e3fdffe279075215bde2da6",
   "task": "spec-to-rtl",
   "simulator": "Icarus Verilog 12.0",
@@ -38,7 +39,8 @@
   "artifacts": {
     "report": "reports/arch/FINAL_REPORT.md",
     "first_pass_accounting": "reports/arch/first_pass_accounting_summary.json",
-    "repair_accounting": "reports/arch/repair_accounting_summary.json"
+    "repair_accounting": "reports/arch/repair_accounting_summary.json",
+    "run_tree": "artifacts/arch/runs/arch",
+    "overlay": "overlays/arch"
   }
 }
-

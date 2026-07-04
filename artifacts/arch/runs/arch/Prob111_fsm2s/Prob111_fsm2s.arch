@@ -1,0 +1,49 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob111_fsm2s_prompt.txt
+//! tags: [fsm, moore, two_state]
+//! refs: []
+//! ---
+//!
+//! Moore two-state FSM for Prob111_fsm2s. Reset is active-high synchronous to OFF, and out is derived directly from the current state.
+
+/// Top-level two-state Moore FSM with exact VerilogEval interface.
+///
+/// Port timing/types:
+/// - clk: positive-edge clock input.
+/// - reset: active-high synchronous reset input sampled on clk.
+/// - j, k: one-bit FSM inputs sampled on clk.
+/// - out: combinational/state-derived Moore output, visible from the current state with no pipe_reg latency.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// | j == 0          | OFF           | OFF        | 0      |
+/// | j == 1          | OFF           | ON         | 0      |
+/// | k == 0          | ON            | ON         | 1      |
+/// | k == 1          | ON            | OFF        | 1      |
+fsm TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port j: in Bool;
+  port k: in Bool;
+  port out: out Bool;
+
+  state [OFF, ON]
+  default state OFF;
+
+  default
+    comb
+      out = false;
+    end comb
+  end default
+
+  state OFF
+    -> ON when j;
+  end state OFF
+
+  state ON
+    comb
+      out = true;
+    end comb
+    -> OFF when k;
+  end state ON
+end fsm TopModule

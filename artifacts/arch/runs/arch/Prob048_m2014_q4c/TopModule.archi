@@ -1,0 +1,6 @@
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port d: in Bool;
+  port r: in Reset<Sync>;
+  port q: out pipe_reg<Bool, 1> reset r => false;
+end module TopModule

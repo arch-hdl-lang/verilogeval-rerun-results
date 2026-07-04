@@ -1,0 +1,19 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob022_mux2to1_prompt.txt
+//! tags: [mux, combinational, one_bit]
+//! ---
+//!
+//! Implements the requested one-bit 2-to-1 multiplexer. The output is purely
+//! combinational: sel=0 selects a, and sel=1 selects b.
+
+/// Top-level one-bit combinational 2-to-1 multiplexer.
+module TopModule
+  port a: in Bool;
+  port b: in Bool;
+  port sel: in Bool;
+  port out: out Bool;
+
+  let out = sel ? b : a;
+end module TopModule
+[DONE]

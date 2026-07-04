@@ -1,0 +1,54 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob127_lemmings1_prompt.txt
+//! tags: [fsm, lemmings, moore, async_reset]
+//! ---
+//!
+//! Two-state Moore controller for the Lemmings walking-direction problem.
+//! The asynchronous active-high reset initializes the controller to walking left.
+
+/// Top-level Lemmings direction finite-state machine.
+///
+/// Port timing/type notes:
+/// - clk: positive-edge clock for state updates.
+/// - areset: positive-edge asynchronous active-high reset to WalkLeft.
+/// - bump_left, bump_right: sampled by the FSM transition logic for the next state.
+/// - walk_left, walk_right: combinational Moore outputs derived from the current state.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// | bump_left == 1 | WalkLeft | WalkRight | walk_left=1, walk_right=0 while in WalkLeft |
+/// | bump_left == 0 | WalkLeft | WalkLeft | walk_left=1, walk_right=0 while in WalkLeft |
+/// | bump_right == 1 | WalkRight | WalkLeft | walk_left=0, walk_right=1 while in WalkRight |
+/// | bump_right == 0 | WalkRight | WalkRight | walk_left=0, walk_right=1 while in WalkRight |
+fsm TopModule
+  port clk: in Clock<SysDomain>;
+  port areset: in Reset<Async, High>;
+  port bump_left: in Bool;
+  port bump_right: in Bool;
+  port walk_left: out Bool;
+  port walk_right: out Bool;
+
+  state [WalkLeft, WalkRight]
+  default state WalkLeft;
+
+  default
+    comb
+      walk_left = false;
+      walk_right = false;
+    end comb
+  end default
+
+  state WalkLeft
+    comb
+      walk_left = true;
+    end comb
+    -> WalkRight when bump_left;
+  end state WalkLeft
+
+  state WalkRight
+    comb
+      walk_right = true;
+    end comb
+    -> WalkLeft when bump_right;
+  end state WalkRight
+end fsm TopModule

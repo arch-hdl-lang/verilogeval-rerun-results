@@ -1,0 +1,23 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob009_popcount3_prompt.txt
+//! tags: [popcount, combinational, vector-count]
+//! refs: []
+//! ---
+//!
+//! Implements the VerilogEval Prob009_popcount3 prompt as a combinational three-bit population count.
+
+/// Top-level combinational population count circuit.
+///
+/// Counts the number of asserted bits in the 3-bit input vector and returns the count as a 2-bit value.
+module TopModule
+  port in: in UInt<3>;
+  port out: out UInt<2>;
+
+  let bit0: Bool = in[0];
+  let bit1: Bool = in[1];
+  let bit2: Bool = in[2];
+  let count_lsb: Bool = bit0 ^ bit1 ^ bit2;
+  let count_msb: Bool = (bit0 and bit1) or (bit0 and bit2) or (bit1 and bit2);
+
+  let out = {count_msb, count_lsb};
+end module TopModule

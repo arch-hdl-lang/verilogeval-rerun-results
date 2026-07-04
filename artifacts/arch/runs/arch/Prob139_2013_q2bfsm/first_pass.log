@@ -1,0 +1,19 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob139_2013_q2bfsm/Prob139_2013_q2bfsm.sv
+Wrote runs/arch/Prob139_2013_q2bfsm/TopModule.archi
+
+Icarus compile:
+
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob139_2013_q2bfsm_test.sv:24: $finish called at 5011 (1ps)
+Hint: Output 'f' has no mismatches.
+Hint: Output 'g' has no mismatches.
+Hint: Total mismatched samples is 0 out of 1002 samples
+
+Simulation finished at 5011 ps
+Mismatches: 0 in 1002 samples

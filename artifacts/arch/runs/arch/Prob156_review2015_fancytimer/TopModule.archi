@@ -1,0 +1,9 @@
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync>;
+  port data: in Bool;
+  port count: out UInt<4> comb_dep_on();
+  port counting: out Bool comb_dep_on();
+  port done: out Bool comb_dep_on();
+  port ack: in Bool;
+end module TopModule

@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob121_2014_q3bfsm",
+  "samples": 1006,
+  "source": "runs/arch/Prob121_2014_q3bfsm/Prob121_2014_q3bfsm.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob121_2014_q3bfsm/Prob121_2014_q3bfsm.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob121_2014_q3bfsm/Prob121_2014_q3bfsm.sv",
+        "runs/arch/Prob121_2014_q3bfsm/Prob121_2014_q3bfsm.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob121_2014_q3bfsm/Prob121_2014_q3bfsm.ivvp",
+        "runs/arch/Prob121_2014_q3bfsm/Prob121_2014_q3bfsm.sv",
+        "dataset_spec-to-rtl/Prob121_2014_q3bfsm_test.sv",
+        "dataset_spec-to-rtl/Prob121_2014_q3bfsm_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob121_2014_q3bfsm/Prob121_2014_q3bfsm.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

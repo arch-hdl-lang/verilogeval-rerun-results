@@ -1,0 +1,58 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob138_2012_q2fsm_prompt.txt
+//! tags: [fsm, moore, synchronous-reset]
+//! refs: []
+//! ---
+//!
+//! Implements the Prob138_2012_q2fsm six-state Moore FSM. The `z` output is
+//! state-derived and high only in states E and F.
+
+/// Top-level six-state Moore FSM for Prob138_2012_q2fsm.
+///
+/// Timing: `w` is sampled on the positive edge of `clk`; `reset` is
+/// synchronous active-high and returns the FSM to A. `z` is a combinational,
+/// state-derived output.
+///
+/// | input condition | current state | next state | output z |
+/// | --- | --- | --- | --- |
+/// | w == 0 | A | A | 0 |
+/// | w == 1 | A | B | 0 |
+/// | w == 0 | B | D | 0 |
+/// | w == 1 | B | C | 0 |
+/// | w == 0 | C | D | 0 |
+/// | w == 1 | C | E | 0 |
+/// | w == 0 | D | A | 0 |
+/// | w == 1 | D | F | 0 |
+/// | w == 0 | E | D | 1 |
+/// | w == 1 | E | E | 1 |
+/// | w == 0 | F | D | 1 |
+/// | w == 1 | F | C | 1 |
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port w: in Bool;
+  port z: out Bool;
+
+  reg state_r: UInt<3> reset reset => 0;
+  wire state_next: UInt<3>;
+
+  default seq on clk rising;
+
+  comb
+    match state_r
+      3'd0 => state_next = w ? 3'd1 : 3'd0;
+      3'd1 => state_next = w ? 3'd2 : 3'd3;
+      3'd2 => state_next = w ? 3'd4 : 3'd3;
+      3'd3 => state_next = w ? 3'd5 : 3'd0;
+      3'd4 => state_next = w ? 3'd4 : 3'd3;
+      3'd5 => state_next = w ? 3'd2 : 3'd3;
+      _ => state_next = 3'd0;
+    end match
+
+    z = (state_r == 3'd4) or (state_r == 3'd5);
+  end comb
+
+  seq
+    state_r <= state_next;
+  end seq
+end module TopModule

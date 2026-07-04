@@ -1,0 +1,8 @@
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port a: in Bool;
+  port b: in Bool;
+  port out_assign: out Bool comb_dep_on(a, b);
+  port out_always_comb: out Bool comb_dep_on(a, b);
+  port out_always_ff: out pipe_reg<Bool, 1>;
+end module TopModule

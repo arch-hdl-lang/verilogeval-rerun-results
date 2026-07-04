@@ -1,0 +1,8 @@
+fsm TopModule
+  port clk: in Clock<SysDomain>;
+  port areset: in Reset<Async>;
+  port bump_left: in Bool;
+  port bump_right: in Bool;
+  port walk_left: out Bool comb_dep_on();
+  port walk_right: out Bool comb_dep_on();
+end fsm TopModule

@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob005_notgate",
+  "samples": 239,
+  "source": "runs/arch/Prob005_notgate/Prob005_notgate.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob005_notgate/Prob005_notgate.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob005_notgate/Prob005_notgate.sv",
+        "runs/arch/Prob005_notgate/Prob005_notgate.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob005_notgate/Prob005_notgate.ivvp",
+        "runs/arch/Prob005_notgate/Prob005_notgate.sv",
+        "dataset_spec-to-rtl/Prob005_notgate_test.sv",
+        "dataset_spec-to-rtl/Prob005_notgate_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob005_notgate/Prob005_notgate.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

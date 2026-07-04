@@ -1,0 +1,16 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob005_notgate_prompt.txt
+//! tags: [notgate, combinational, verilogeval]
+//! ---
+//!
+//! Implements the Prob005_notgate prompt as a one-bit combinational inverter.
+/// One-bit combinational NOT gate for the VerilogEval Prob005_notgate interface.
+module TopModule (
+  input logic in,
+  output logic out
+);
+
+  assign out = !in;
+
+endmodule
+

@@ -1,0 +1,20 @@
+//! ---
+//! tags: [combinational, gates, vector-neighbor]
+//! ---
+//!
+//! Implements the four-bit neighbor relationship logic from the Prob094_gatesv prompt.
+//! Boundary bits that have no requested neighbor are driven to zero, while the difference output wraps at the left edge.
+
+/// Four-bit combinational neighbor gate network.
+///
+/// Produces adjacent-pair AND, OR, and wraparound XOR relationship vectors for the input.
+module TopModule
+  port in: in UInt<4>;
+  port out_both: out UInt<4>;
+  port out_any: out UInt<4>;
+  port out_different: out UInt<4>;
+
+  let out_both = {1'b0, in[2] & in[3], in[1] & in[2], in[0] & in[1]};
+  let out_any = {in[3] | in[2], in[2] | in[1], in[1] | in[0], 1'b0};
+  let out_different = {in[3] ^ in[0], in[2] ^ in[3], in[1] ^ in[2], in[0] ^ in[1]};
+end module TopModule

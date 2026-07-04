@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob109_fsm1",
+  "samples": 228,
+  "source": "runs/arch/Prob109_fsm1/Prob109_fsm1.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob109_fsm1/Prob109_fsm1.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob109_fsm1/Prob109_fsm1.sv",
+        "runs/arch/Prob109_fsm1/Prob109_fsm1.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob109_fsm1/Prob109_fsm1.ivvp",
+        "runs/arch/Prob109_fsm1/Prob109_fsm1.sv",
+        "dataset_spec-to-rtl/Prob109_fsm1_test.sv",
+        "dataset_spec-to-rtl/Prob109_fsm1_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob109_fsm1/Prob109_fsm1.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

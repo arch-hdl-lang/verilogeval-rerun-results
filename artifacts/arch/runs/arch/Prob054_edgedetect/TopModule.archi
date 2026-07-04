@@ -1,0 +1,5 @@
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port in: in UInt<8>;
+  port pedge: out pipe_reg<UInt<8>, 1>;
+end module TopModule

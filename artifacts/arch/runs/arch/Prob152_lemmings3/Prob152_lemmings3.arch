@@ -1,0 +1,116 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob152_lemmings3_prompt.txt
+//! tags: [fsm, lemmings, moore, async-reset]
+//! refs: []
+//! ---
+//!
+//! Moore FSM for the Lemmings walking, falling, and digging behavior. The
+//! asynchronous active-high reset returns the machine to walking left.
+
+/// Top-level Lemmings controller preserving direction across falling and digging.
+///
+/// Port timing/type:
+/// clk: positive-edge clock input.
+/// areset: asynchronous active-high reset input; resets state to WalkLeft.
+/// bump_left, bump_right, ground, dig: sampled on clk rising while not in reset.
+/// walk_left, walk_right, aaah, digging: combinational Moore outputs derived from current state.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// | not ground | WalkLeft | FallLeft | walk_left=1 |
+/// | ground and dig | WalkLeft | DigLeft | walk_left=1 |
+/// | ground and not dig and bump_left | WalkLeft | WalkRight | walk_left=1 |
+/// | ground and not dig and not bump_left | WalkLeft | WalkLeft | walk_left=1 |
+/// | not ground | WalkRight | FallRight | walk_right=1 |
+/// | ground and dig | WalkRight | DigRight | walk_right=1 |
+/// | ground and not dig and bump_right | WalkRight | WalkLeft | walk_right=1 |
+/// | ground and not dig and not bump_right | WalkRight | WalkRight | walk_right=1 |
+/// | not ground | DigLeft | FallLeft | digging=1 |
+/// | ground | DigLeft | DigLeft | digging=1 |
+/// | not ground | DigRight | FallRight | digging=1 |
+/// | ground | DigRight | DigRight | digging=1 |
+/// | ground | FallLeft | WalkLeft | aaah=1 |
+/// | not ground | FallLeft | FallLeft | aaah=1 |
+/// | ground | FallRight | WalkRight | aaah=1 |
+/// | not ground | FallRight | FallRight | aaah=1 |
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port areset: in Reset<Async, High>;
+  port bump_left: in Bool;
+  port bump_right: in Bool;
+  port ground: in Bool;
+  port dig: in Bool;
+  port walk_left: out Bool;
+  port walk_right: out Bool;
+  port aaah: out Bool;
+  port digging: out Bool;
+
+  reg state_r: UInt<3> reset areset => 3'd0;
+
+  default seq on clk rising;
+
+  comb
+    walk_left = false;
+    walk_right = false;
+    aaah = false;
+    digging = false;
+
+    if state_r == 3'd0
+      walk_left = true;
+    elsif state_r == 3'd1
+      walk_right = true;
+    elsif state_r == 3'd2 or state_r == 3'd3
+      digging = true;
+    else
+      aaah = true;
+    end if
+  end comb
+
+  seq
+    if state_r == 3'd0
+      if not ground
+        state_r <= 3'd4;
+      elsif dig
+        state_r <= 3'd2;
+      elsif bump_left
+        state_r <= 3'd1;
+      else
+        state_r <= 3'd0;
+      end if
+    elsif state_r == 3'd1
+      if not ground
+        state_r <= 3'd5;
+      elsif dig
+        state_r <= 3'd3;
+      elsif bump_right
+        state_r <= 3'd0;
+      else
+        state_r <= 3'd1;
+      end if
+    elsif state_r == 3'd2
+      if not ground
+        state_r <= 3'd4;
+      else
+        state_r <= 3'd2;
+      end if
+    elsif state_r == 3'd3
+      if not ground
+        state_r <= 3'd5;
+      else
+        state_r <= 3'd3;
+      end if
+    elsif state_r == 3'd4
+      if ground
+        state_r <= 3'd0;
+      else
+        state_r <= 3'd4;
+      end if
+    else
+      if ground
+        state_r <= 3'd1;
+      else
+        state_r <= 3'd5;
+      end if
+    end if
+  end seq
+end module TopModule

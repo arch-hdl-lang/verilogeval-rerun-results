@@ -1,0 +1,37 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob066_edgecapture_prompt.txt
+//! tags: [edge-capture, falling-edge, register, synchronous-reset]
+//! refs: []
+//! ---
+//!
+//! Implements a 32-bit falling-edge capture register. Each output bit latches high
+//! after the corresponding input bit transitions from 1 to 0 and clears on reset.
+
+/// Top-level falling-edge capture module for the VerilogEval interface.
+///
+/// `in` is sampled on the rising edge of `clk`; `out` is the sticky capture
+/// register cleared by active-high synchronous reset, and reset also clears the
+/// previous input sample so post-reset captures start from a known zero history.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port in: in UInt<32>;
+  port out: out pipe_reg<UInt<32>, 1> init 0 reset none;
+
+  reg prev_in: UInt<32> init 0 reset none;
+
+  let falling_edges: UInt<32> = prev_in & ~in;
+  let held_capture: UInt<32> = out@0 | falling_edges;
+
+  default seq on clk rising;
+
+  seq
+    if reset
+      prev_in <= 0;
+      out@1 <= 0;
+    else
+      prev_in <= in;
+      out@1 <= held_capture;
+    end if
+  end seq
+end module TopModule

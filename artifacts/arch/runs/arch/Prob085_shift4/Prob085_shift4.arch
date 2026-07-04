@@ -1,0 +1,35 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob085_shift4_prompt.txt
+//! tags: [shift-register, sequential, async-reset, load-enable]
+//! refs: []
+//! ---
+//!
+//! Implements the VerilogEval Prob085_shift4 prompt as a four-bit right shift
+//! register with asynchronous active-high reset and synchronous load/enable
+//! control.
+
+/// Four-bit right shift register with load priority.
+///
+/// `q` is a registered output reset asynchronously by `areset`. On each
+/// positive clock edge, `load` captures `data`; otherwise `ena` shifts the
+/// contents right with zero fill at bit 3.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port areset: in Reset<Async, High>;
+  port load: in Bool;
+  port ena: in Bool;
+  port data: in UInt<4>;
+  port q: out pipe_reg<UInt<4>, 1> reset areset => 0;
+
+  let q_now: UInt<4> = q@0;
+
+  default seq on clk rising;
+
+  seq
+    if load
+      q@1 <= data;
+    elsif ena
+      q@1 <= {1'b0, q_now[3:1]};
+    end if
+  end seq
+end module TopModule

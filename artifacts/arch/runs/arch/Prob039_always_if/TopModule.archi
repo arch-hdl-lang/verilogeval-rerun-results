@@ -1,0 +1,8 @@
+module TopModule
+  port a: in Bool;
+  port b: in Bool;
+  port sel_b1: in Bool;
+  port sel_b2: in Bool;
+  port out_assign: out Bool comb_dep_on(a, b, sel_b1, sel_b2);
+  port out_always: out Bool comb_dep_on(a, b, sel_b1, sel_b2);
+end module TopModule

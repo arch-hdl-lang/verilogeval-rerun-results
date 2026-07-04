@@ -1,0 +1,31 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob087_gates_prompt.txt
+//! tags: [combinational, gates, boolean]
+//! refs: []
+//! ---
+//!
+//! Implements the Prob087_gates prompt as a two-input combinational gate block.
+//! All ports are one-bit Bool signals, and each output directly reflects the named Boolean operation on a and b.
+
+/// Top-level combinational gate module for Prob087_gates.
+///
+/// Produces AND, OR, XOR, NAND, NOR, XNOR, and A-and-not-B outputs from one-bit inputs a and b.
+module TopModule
+  port a: in Bool;
+  port b: in Bool;
+  port out_and: out Bool;
+  port out_or: out Bool;
+  port out_xor: out Bool;
+  port out_nand: out Bool;
+  port out_nor: out Bool;
+  port out_xnor: out Bool;
+  port out_anotb: out Bool;
+
+  let out_and = a and b;
+  let out_or = a or b;
+  let out_xor = a ^ b;
+  let out_nand = not (a and b);
+  let out_nor = not (a or b);
+  let out_xnor = not (a ^ b);
+  let out_anotb = a and not b;
+end module TopModule

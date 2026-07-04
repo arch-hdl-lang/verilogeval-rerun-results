@@ -1,0 +1,22 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob106_always_nolatches_prompt.txt
+//! tags: [keyboard, scancode, decoder]
+//! ---
+//!
+//! Combinational PS/2 arrow-key decoder. The 16-bit scancode input is compared
+//! against the four extended arrow-key make codes and drives one one-bit output
+//! per recognized direction.
+
+/// Top-level combinational decoder for PS/2 arrow-key scancodes.
+module TopModule
+  port scancode: in UInt<16>;
+  port left: out Bool;
+  port down: out Bool;
+  port right: out Bool;
+  port up: out Bool;
+
+  let left = scancode == 16'hE06B;
+  let down = scancode == 16'hE072;
+  let right = scancode == 16'hE074;
+  let up = scancode == 16'hE075;
+end module TopModule

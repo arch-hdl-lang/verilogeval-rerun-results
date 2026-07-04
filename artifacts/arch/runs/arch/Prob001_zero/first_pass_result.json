@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob001_zero",
+  "samples": 20,
+  "source": "runs/arch/Prob001_zero/Prob001_zero.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob001_zero/Prob001_zero.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob001_zero/Prob001_zero.sv",
+        "runs/arch/Prob001_zero/Prob001_zero.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob001_zero/Prob001_zero.ivvp",
+        "runs/arch/Prob001_zero/Prob001_zero.sv",
+        "dataset_spec-to-rtl/Prob001_zero_test.sv",
+        "dataset_spec-to-rtl/Prob001_zero_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob001_zero/Prob001_zero.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

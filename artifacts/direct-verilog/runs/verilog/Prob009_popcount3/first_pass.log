@@ -1,0 +1,5 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob009_popcount3/Prob009_popcount3.ivvp runs/verilog/Prob009_popcount3/Prob009_popcount3.sv dataset_spec-to-rtl/Prob009_popcount3_test.sv dataset_spec-to-rtl/Prob009_popcount3_ref.sv
+runs/verilog/Prob009_popcount3/Prob009_popcount3.sv:2: warning: macro verilog undefined (and assumed null) at this point.
+runs/verilog/Prob009_popcount3/Prob009_popcount3.sv:2: syntax error
+I give up.
+COMPILE_STATUS: 2

@@ -1,0 +1,24 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob055_conditional_prompt.txt
+//! tags: [conditional, comparator, minimum, combinational]
+//! refs: []
+//! ---
+//!
+//! Implements the VerilogEval Prob055_conditional prompt as a combinational
+//! unsigned minimum selector over four 8-bit inputs.
+
+/// Top-level combinational datapath for selecting the minimum of four unsigned
+/// 8-bit inputs while preserving the requested VerilogEval interface.
+module TopModule
+  port a: in UInt<8>;
+  port b: in UInt<8>;
+  port c: in UInt<8>;
+  port d: in UInt<8>;
+  port min: out UInt<8>;
+
+  let ab_min: UInt<8> = (a < b) ? a : b;
+  let cd_min: UInt<8> = (c < d) ? c : d;
+  let min = (ab_min < cd_min) ? ab_min : cd_min;
+end module TopModule
+[DONE]

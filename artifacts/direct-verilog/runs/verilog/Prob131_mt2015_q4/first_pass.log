@@ -1,0 +1,7 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob131_mt2015_q4/Prob131_mt2015_q4.ivvp runs/verilog/Prob131_mt2015_q4/Prob131_mt2015_q4.sv dataset_spec-to-rtl/Prob131_mt2015_q4_test.sv dataset_spec-to-rtl/Prob131_mt2015_q4_ref.sv
+dataset_spec-to-rtl/Prob131_mt2015_q4_test.sv:68: error: Unknown module type: TopModule
+2 error(s) during elaboration.
+*** These modules were missing:
+        TopModule referenced 1 times.
+***
+COMPILE_STATUS: 2

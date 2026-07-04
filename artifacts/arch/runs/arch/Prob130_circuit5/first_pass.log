@@ -1,0 +1,18 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob130_circuit5/Prob130_circuit5.sv
+Wrote runs/arch/Prob130_circuit5/TopModule.archi
+
+Icarus compile:
+runs/arch/Prob130_circuit5/Prob130_circuit5.sv:24: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob130_circuit5_test.sv:42: $finish called at 705 (1ps)
+Hint: Output 'q' has no mismatches.
+Hint: Total mismatched samples is 0 out of 141 samples
+
+Simulation finished at 705 ps
+Mismatches: 0 in 141 samples

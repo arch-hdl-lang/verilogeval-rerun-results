@@ -1,0 +1,14 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob106_always_nolatches/Prob106_always_nolatches.ivvp runs/verilog/Prob106_always_nolatches/Prob106_always_nolatches.sv dataset_spec-to-rtl/Prob106_always_nolatches_test.sv dataset_spec-to-rtl/Prob106_always_nolatches_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob106_always_nolatches/Prob106_always_nolatches.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob106_always_nolatches_test.sv:43: $finish called at 150100 (1ps)
+Hint: Output 'left' has no mismatches.
+Hint: Output 'down' has no mismatches.
+Hint: Output 'right' has no mismatches.
+Hint: Output 'up' has no mismatches.
+Hint: Total mismatched samples is 0 out of 30020 samples
+
+Simulation finished at 150100 ps
+Mismatches: 0 in 30020 samples
+SIM_STATUS: 0

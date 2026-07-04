@@ -1,0 +1,56 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob129_ece241_2013_q8_prompt.txt
+//! tags: [fsm, mealy, sequence_detector, overlapping, async_reset]
+//! refs: []
+//! ---
+//!
+//! Three-state Mealy sequence detector for overlapping occurrences of the input pattern 101.
+//! State updates occur on the positive edge of clk, and aresetn is an active-low asynchronous reset.
+
+/// Top-level three-state Mealy sequence detector for overlapping 101 sequences.
+///
+/// Port timing/type notes: clk is the positive-edge sampling clock; aresetn is a negative-edge active-low asynchronous reset; x is sampled by the state transition logic on clk rising and also drives the same-cycle Mealy output; z is a combinational output.
+/// Transition table:
+/// input condition | current state | next state | output z
+/// x == 0 | S0 | S0 | 0
+/// x == 1 | S0 | S1 | 0
+/// x == 0 | S1 | S10 | 0
+/// x == 1 | S1 | S1 | 0
+/// x == 0 | S10 | S0 | 0
+/// x == 1 | S10 | S1 | 1
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port aresetn: in Reset<Async, Low>;
+  port x: in Bool;
+  port z: out Bool;
+
+  reg prefix: UInt<2> reset aresetn => 0;
+
+  let z = (prefix == 2'd2) and x;
+
+  default seq on clk rising;
+
+  seq
+    if prefix == 2'd0
+      if x
+        prefix <= 2'd1;
+      else
+        prefix <= 2'd0;
+      end if
+    elsif prefix == 2'd1
+      if x
+        prefix <= 2'd1;
+      else
+        prefix <= 2'd2;
+      end if
+    else
+      if x
+        prefix <= 2'd1;
+      else
+        prefix <= 2'd0;
+      end if
+    end if
+  end seq
+end module TopModule
+[DONE]

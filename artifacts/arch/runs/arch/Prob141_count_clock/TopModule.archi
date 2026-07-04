@@ -1,0 +1,9 @@
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync>;
+  port ena: in Bool;
+  port pm: out Bool comb_dep_on();
+  port hh: out UInt<8> comb_dep_on();
+  port mm: out UInt<8> comb_dep_on();
+  port ss: out UInt<8> comb_dep_on();
+end module TopModule

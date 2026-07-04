@@ -1,0 +1,26 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob098_circuit7_prompt.txt
+//! tags: [sequential, waveform, register]
+//! ---
+//!
+//! Implements the waveform-derived sequential circuit for Prob098_circuit7.
+//! The output is the inverse of input `a` captured on the previous positive
+//! edge of `clk`, with no reset so the initial value remains unspecified.
+
+/// Top-level sequential waveform circuit.
+///
+/// Input `a` is sampled on the positive edge of `clk`; output `q` is a
+/// one-cycle registered inverse of the sampled input.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port a: in Bool;
+  port q: out pipe_reg<Bool, 1>;
+
+  default seq on clk rising;
+
+  seq
+    q@1 <= ~a;
+  end seq
+end module TopModule
+[DONE]

@@ -1,0 +1,93 @@
+[BEGIN]
+module TopModule (
+    input  logic clk,
+    input  logic resetn,
+    input  logic x,
+    input  logic y,
+    output logic f,
+    output logic g
+);
+
+    typedef enum logic [2:0] {
+        A,
+        F_ON,
+        WAIT_1,
+        GOT_1,
+        GOT_10,
+        G_CHECK_1,
+        G_CHECK_2,
+        G_ON,
+        G_OFF
+    } state_t;
+
+    state_t state, next_state;
+
+    always @(*) begin
+        next_state = state;
+
+        case (state)
+            A: begin
+                next_state = F_ON;
+            end
+
+            F_ON: begin
+                next_state = WAIT_1;
+            end
+
+            WAIT_1: begin
+                if (x)
+                    next_state = GOT_1;
+            end
+
+            GOT_1: begin
+                if (!x)
+                    next_state = GOT_10;
+            end
+
+            GOT_10: begin
+                if (x)
+                    next_state = G_CHECK_1;
+                else
+                    next_state = WAIT_1;
+            end
+
+            G_CHECK_1: begin
+                if (y)
+                    next_state = G_ON;
+                else
+                    next_state = G_CHECK_2;
+            end
+
+            G_CHECK_2: begin
+                if (y)
+                    next_state = G_ON;
+                else
+                    next_state = G_OFF;
+            end
+
+            G_ON: begin
+                next_state = G_ON;
+            end
+
+            G_OFF: begin
+                next_state = G_OFF;
+            end
+
+            default: begin
+                next_state = A;
+            end
+        endcase
+    end
+
+    always @(posedge clk) begin
+        if (!resetn)
+            state <= A;
+        else
+            state <= next_state;
+    end
+
+    assign f = (state == F_ON);
+    assign g = (state == G_CHECK_1) || (state == G_CHECK_2) || (state == G_ON);
+
+endmodule
+[DONE]

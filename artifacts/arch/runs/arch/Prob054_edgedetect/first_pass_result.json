@@ -1,0 +1,9 @@
+{
+  "problem": "Prob054_edgedetect",
+  "status": "pass",
+  "mismatches": 0,
+  "samples": 227,
+  "arch_check": "pass",
+  "arch_build": "pass",
+  "icarus": "pass"
+}

@@ -1,0 +1,13 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob140_fsm_hdlc/Prob140_fsm_hdlc.ivvp runs/verilog/Prob140_fsm_hdlc/Prob140_fsm_hdlc.sv dataset_spec-to-rtl/Prob140_fsm_hdlc_test.sv dataset_spec-to-rtl/Prob140_fsm_hdlc_ref.sv
+runs/verilog/Prob140_fsm_hdlc/Prob140_fsm_hdlc.sv:29: error: This assignment requires an explicit cast.
+runs/verilog/Prob140_fsm_hdlc/Prob140_fsm_hdlc.sv:30: error: This assignment requires an explicit cast.
+runs/verilog/Prob140_fsm_hdlc/Prob140_fsm_hdlc.sv:31: error: This assignment requires an explicit cast.
+runs/verilog/Prob140_fsm_hdlc/Prob140_fsm_hdlc.sv:32: error: This assignment requires an explicit cast.
+runs/verilog/Prob140_fsm_hdlc/Prob140_fsm_hdlc.sv:33: error: This assignment requires an explicit cast.
+runs/verilog/Prob140_fsm_hdlc/Prob140_fsm_hdlc.sv:34: error: This assignment requires an explicit cast.
+runs/verilog/Prob140_fsm_hdlc/Prob140_fsm_hdlc.sv:35: error: This assignment requires an explicit cast.
+runs/verilog/Prob140_fsm_hdlc/Prob140_fsm_hdlc.sv:36: error: This assignment requires an explicit cast.
+runs/verilog/Prob140_fsm_hdlc/Prob140_fsm_hdlc.sv:37: error: This assignment requires an explicit cast.
+runs/verilog/Prob140_fsm_hdlc/Prob140_fsm_hdlc.sv:38: error: This assignment requires an explicit cast.
+10 error(s) during elaboration.
+COMPILE_STATUS: 10

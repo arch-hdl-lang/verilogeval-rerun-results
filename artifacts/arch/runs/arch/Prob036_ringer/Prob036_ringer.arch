@@ -1,0 +1,23 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob036_ringer_prompt.txt
+//! tags: [ringer, vibration, cellphone, combinational]
+//! refs: []
+//! ---
+//!
+//! Cellphone alert selector for an incoming call. When ring is asserted,
+//! vibrate_mode selects the vibration motor; otherwise the audible ringer is
+//! selected, and both outputs are never asserted together.
+
+/// Top-level combinational cellphone ringer/vibration controller.
+///
+/// The module preserves the requested VerilogEval interface exactly with
+/// one-bit logical inputs and outputs.
+module TopModule
+  port ring: in Bool;
+  port vibrate_mode: in Bool;
+  port ringer: out Bool;
+  port motor: out Bool;
+
+  let motor = ring and vibrate_mode;
+  let ringer = ring and not vibrate_mode;
+end module TopModule

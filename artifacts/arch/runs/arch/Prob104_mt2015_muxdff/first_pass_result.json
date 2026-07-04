@@ -1,0 +1,56 @@
+{
+  "mismatches": 1,
+  "problem": "Prob104_mt2015_muxdff",
+  "samples": 199,
+  "source": "runs/arch/Prob104_mt2015_muxdff/Prob104_mt2015_muxdff.arch",
+  "status": "fail",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob104_mt2015_muxdff/Prob104_mt2015_muxdff.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob104_mt2015_muxdff/Prob104_mt2015_muxdff.sv",
+        "runs/arch/Prob104_mt2015_muxdff/Prob104_mt2015_muxdff.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob104_mt2015_muxdff/Prob104_mt2015_muxdff.ivvp",
+        "runs/arch/Prob104_mt2015_muxdff/Prob104_mt2015_muxdff.sv",
+        "dataset_spec-to-rtl/Prob104_mt2015_muxdff_test.sv",
+        "dataset_spec-to-rtl/Prob104_mt2015_muxdff_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob104_mt2015_muxdff/Prob104_mt2015_muxdff.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

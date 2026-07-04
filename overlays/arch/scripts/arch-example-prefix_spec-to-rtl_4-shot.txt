@@ -1,0 +1,153 @@
+Question:
+Translate the following RTL specification into ARCH HDL.
+
+Implement a hardware module named TopModule with the following interface.
+All input and output ports are one bit unless otherwise specified.
+
+ - input  in0
+ - input  in1
+ - output out
+
+The module should implement an XOR gate.
+
+Enclose your code with [BEGIN] and [DONE]. Only output the ARCH code snippet
+and do NOT output anything else.
+
+Answer:
+[BEGIN]
+//! Simple combinational XOR gate.
+/// XOR gate with two one-bit inputs and one one-bit output.
+module TopModule
+  port in0: in Bool;
+  port in1: in Bool;
+  port out: out Bool;
+
+  let out = in0 ^ in1;
+end module TopModule
+[DONE]
+
+Question:
+Translate the following RTL specification into ARCH HDL.
+
+Implement a hardware module named TopModule with the following interface.
+All input and output ports are one bit unless otherwise specified.
+
+ - input  clk
+ - input  reset
+ - input  in_ (8 bits)
+ - output out (8 bits)
+
+The module should implement an 8-bit registered incrementer. The 8-bit
+input is first registered and then incremented by one on the next cycle.
+Assume all sequential logic is triggered on the positive edge of the
+clock. The reset input is active high synchronous and should reset the
+output to zero.
+
+Enclose your code with [BEGIN] and [DONE]. Only output the ARCH code snippet
+and do NOT output anything else.
+
+Answer:
+[BEGIN]
+//! Registered incrementer with active-high synchronous reset.
+/// Samples the input and exposes the incremented value one cycle later.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port in_: in UInt<8>;
+  port out: out pipe_reg<UInt<8>, 1> reset reset => 0;
+
+  default seq on clk rising;
+  seq
+    out <= in_ +% 1;
+  end seq
+end module TopModule
+[DONE]
+
+Question:
+Translate the following RTL specification into ARCH HDL.
+
+Implement a hardware module named TopModule with the following interface.
+All input and output ports are one bit unless otherwise specified.
+
+ - input  clk
+ - input  reset
+ - input  in_
+ - output out
+
+The module should implement a finite-state machine that takes as input a
+serial bit stream and outputs one whenever the bit stream contains two
+consecutive ones. The output is one on the cycle after there are two
+consecutive ones. The reset input is active high synchronous.
+
+Enclose your code with [BEGIN] and [DONE]. Only output the ARCH code snippet
+and do NOT output anything else.
+
+Answer:
+[BEGIN]
+//! Serial detector for two consecutive one bits.
+/// FSM that tracks whether the previous input bit was one and asserts after a run of two ones.
+fsm TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port in_: in Bool;
+  port out: out Bool;
+
+  state [Zero, One, Two]
+  default state Zero;
+
+  default
+    comb
+      out = false;
+    end comb
+  end default
+
+  state Zero
+    -> One when in_;
+  end state Zero
+
+  state One
+    -> Two when in_;
+    -> Zero when not in_;
+  end state One
+
+  state Two
+    comb
+      out = true;
+    end comb
+    -> Two when in_;
+    -> Zero when not in_;
+  end state Two
+end fsm TopModule
+[DONE]
+
+Question:
+Translate the following RTL specification into ARCH HDL.
+
+Implement a hardware module named TopModule with the following interface.
+All input and output ports are one bit unless otherwise specified.
+
+ - input  sel
+ - input  a (8 bits)
+ - input  b (8 bits)
+ - output out (8 bits)
+
+The module should implement a two-input mux. When sel is one, output b;
+otherwise output a.
+
+Enclose your code with [BEGIN] and [DONE]. Only output the ARCH code snippet
+and do NOT output anything else.
+
+Answer:
+[BEGIN]
+//! Combinational two-input mux.
+/// Selects one of two 8-bit inputs using a one-bit selector.
+module TopModule
+  port sel: in Bool;
+  port a: in UInt<8>;
+  port b: in UInt<8>;
+  port out: out UInt<8>;
+
+  let out = sel ? b : a;
+end module TopModule
+[DONE]
+

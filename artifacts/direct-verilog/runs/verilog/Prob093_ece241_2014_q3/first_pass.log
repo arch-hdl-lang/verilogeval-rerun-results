@@ -1,0 +1,11 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob093_ece241_2014_q3/Prob093_ece241_2014_q3.ivvp runs/verilog/Prob093_ece241_2014_q3/Prob093_ece241_2014_q3.sv dataset_spec-to-rtl/Prob093_ece241_2014_q3_test.sv dataset_spec-to-rtl/Prob093_ece241_2014_q3_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob093_ece241_2014_q3/Prob093_ece241_2014_q3.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob093_ece241_2014_q3_test.sv:38: $finish called at 300 (1ps)
+Hint: Output 'mux_in' has 11 mismatches. First mismatch occurred at time 50.
+Hint: Total mismatched samples is 11 out of 60 samples
+
+Simulation finished at 300 ps
+Mismatches: 11 in 60 samples
+SIM_STATUS: 0

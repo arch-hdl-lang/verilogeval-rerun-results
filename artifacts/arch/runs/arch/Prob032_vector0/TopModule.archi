@@ -1,0 +1,7 @@
+module TopModule
+  port vec: in UInt<3>;
+  port outv: out UInt<3> comb_dep_on(vec);
+  port o2: out Bool comb_dep_on(vec);
+  port o1: out Bool comb_dep_on(vec);
+  port o0: out Bool comb_dep_on(vec);
+end module TopModule

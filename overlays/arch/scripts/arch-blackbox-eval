@@ -1,0 +1,137 @@
+#!/usr/bin/env python3
+"""Run released ARCH build and black-box Icarus evaluation for one problem."""
+
+import argparse
+import json
+import os
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+
+def run_cmd(argv, cwd):
+    proc = subprocess.run(
+        argv,
+        cwd=cwd,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+    return {
+        "argv": argv,
+        "returncode": proc.returncode,
+        "output": proc.stdout,
+    }
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("problem")
+    parser.add_argument("--source", help="ARCH source path")
+    parser.add_argument("--run-dir", help="Run directory")
+    parser.add_argument("--log", help="Combined visible-output log path")
+    parser.add_argument("--json", help="Accounting JSON output path")
+    args = parser.parse_args()
+
+    repo = Path.cwd()
+    run_dir = Path(args.run_dir or f"runs/arch/{args.problem}")
+    source = Path(args.source or run_dir / f"{args.problem}.arch")
+    artifact_stem = source.stem if args.source else args.problem
+    sv = run_dir / f"{artifact_stem}.sv"
+    ivvp = run_dir / f"{artifact_stem}.ivvp"
+    log_path = Path(args.log or run_dir / "first_pass.log")
+    json_path = Path(args.json or run_dir / "first_pass_result.json")
+    test_sv = Path(f"dataset_spec-to-rtl/{args.problem}_test.sv")
+    ref_sv = Path(f"dataset_spec-to-rtl/{args.problem}_ref.sv")
+
+    arch_bin = os.environ.get(
+        "ARCH_BIN",
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+    )
+
+    run_dir.mkdir(parents=True, exist_ok=True)
+    steps = []
+
+    steps.append(("ARCH check", run_cmd([arch_bin, "check", str(source)], repo)))
+    if steps[-1][1]["returncode"] == 0:
+        steps.append(
+            (
+                "ARCH build",
+                run_cmd([arch_bin, "build", "-o", str(sv), str(source)], repo),
+            )
+        )
+    if steps[-1][1]["returncode"] == 0:
+        steps.append(
+            (
+                "Icarus compile",
+                run_cmd(
+                    [
+                        "iverilog",
+                        "-Wall",
+                        "-Winfloop",
+                        "-Wno-timescale",
+                        "-g2012",
+                        "-gsupported-assertions",
+                        "-s",
+                        "tb",
+                        "-o",
+                        str(ivvp),
+                        str(sv),
+                        str(test_sv),
+                        str(ref_sv),
+                    ],
+                    repo,
+                ),
+            )
+        )
+    if steps[-1][1]["returncode"] == 0:
+        steps.append(("Icarus run", run_cmd(["vvp", str(ivvp)], repo)))
+
+    wave = repo / "wave.vcd"
+    if wave.exists():
+        wave.unlink()
+
+    status = "pass"
+    if any(step["returncode"] != 0 for _, step in steps):
+        status = "fail"
+
+    combined = []
+    for label, step in steps:
+        combined.append(f"{label}:")
+        combined.append(step["output"].rstrip())
+        combined.append("")
+    log_path.write_text("\n".join(combined).rstrip() + "\n")
+
+    mismatch_count = None
+    sample_count = None
+    last_output = steps[-1][1]["output"] if steps else ""
+    match = re.search(r"Mismatches:\s+(\d+)\s+in\s+(\d+)\s+samples", last_output)
+    if match:
+        mismatch_count = int(match.group(1))
+        sample_count = int(match.group(2))
+        if mismatch_count != 0:
+            status = "fail"
+
+    result = {
+        "problem": args.problem,
+        "source": str(source),
+        "status": status,
+        "mismatches": mismatch_count,
+        "samples": sample_count,
+        "steps": [
+            {
+                "name": label,
+                "returncode": step["returncode"],
+                "argv": step["argv"],
+            }
+            for label, step in steps
+        ],
+    }
+    json_path.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+    return 0 if status == "pass" else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

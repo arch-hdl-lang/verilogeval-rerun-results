@@ -1,0 +1,12 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob070_ece241_2013_q2/Prob070_ece241_2013_q2.ivvp runs/verilog/Prob070_ece241_2013_q2/Prob070_ece241_2013_q2.sv dataset_spec-to-rtl/Prob070_ece241_2013_q2_test.sv dataset_spec-to-rtl/Prob070_ece241_2013_q2_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob070_ece241_2013_q2/Prob070_ece241_2013_q2.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob070_ece241_2013_q2_test.sv:63: $finish called at 535 (1ps)
+Hint: Output 'out_sop' has 3 mismatches. First mismatch occurred at time 250.
+Hint: Output 'out_pos' has 14 mismatches. First mismatch occurred at time 60.
+Hint: Total mismatched samples is 17 out of 107 samples
+
+Simulation finished at 535 ps
+Mismatches: 17 in 107 samples
+SIM_STATUS: 0

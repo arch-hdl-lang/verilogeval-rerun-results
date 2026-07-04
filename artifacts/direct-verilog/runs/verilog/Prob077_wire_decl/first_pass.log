@@ -1,0 +1,12 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob077_wire_decl/Prob077_wire_decl.ivvp runs/verilog/Prob077_wire_decl/Prob077_wire_decl.sv dataset_spec-to-rtl/Prob077_wire_decl_test.sv dataset_spec-to-rtl/Prob077_wire_decl_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob077_wire_decl/Prob077_wire_decl.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob077_wire_decl_test.sv:39: $finish called at 611 (1ps)
+Hint: Output 'out' has no mismatches.
+Hint: Output 'out_n' has no mismatches.
+Hint: Total mismatched samples is 0 out of 122 samples
+
+Simulation finished at 611 ps
+Mismatches: 0 in 122 samples
+SIM_STATUS: 0

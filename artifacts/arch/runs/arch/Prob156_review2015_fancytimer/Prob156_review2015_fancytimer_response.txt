@@ -1,0 +1,126 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob156_review2015_fancytimer_prompt.txt
+//! tags: [serial, timer, fsm, counter]
+//! ---
+//!
+//! Serial pattern-triggered timer. The design detects 1101, captures a 4-bit
+//! delay value MSB-first, counts exactly (delay + 1) thousand clock cycles,
+//! then asserts done until acknowledged.
+
+/// Top-level serial timer implemented as an explicit phase machine.
+///
+/// Input timing/type:
+/// - clk: positive-edge clock.
+/// - reset: active-high synchronous reset to Search0.
+/// - data: sampled on the rising edge while searching and reading delay bits.
+/// - ack: sampled on the rising edge in Done.
+///
+/// Output timing/type:
+/// - count: combinational/state-derived remaining thousand-count bucket.
+/// - counting: combinational/state-derived, asserted only in Count.
+/// - done: combinational/state-derived, asserted only in Done.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// | data == 1 | Search0 | Search1 | counting=0, done=0, count=don't-care |
+/// | data == 0 | Search0 | Search0 | counting=0, done=0, count=don't-care |
+/// | data == 1 | Search1 | Search2 | counting=0, done=0, count=don't-care |
+/// | data == 0 | Search1 | Search0 | counting=0, done=0, count=don't-care |
+/// | data == 0 | Search2 | Search3 | counting=0, done=0, count=don't-care |
+/// | data == 1 | Search2 | Search2 | counting=0, done=0, count=don't-care |
+/// | data == 1 | Search3 | Read3 | counting=0, done=0, count=don't-care |
+/// | data == 0 | Search3 | Search0 | counting=0, done=0, count=don't-care |
+/// | any data | Read3 | Read2 | captures delay[3], counting=0, done=0 |
+/// | any data | Read2 | Read1 | captures delay[2], counting=0, done=0 |
+/// | any data | Read1 | Read0 | captures delay[1], counting=0, done=0 |
+/// | any data | Read0 | Count | captures delay[0], loads 999-cycle bucket, counting visible next cycle |
+/// | bucket not expired | Count | Count | counting=1, done=0, count=remaining delay bucket |
+/// | bucket expired and count != 0 | Count | Count | decrements visible count bucket, reloads 999 cycles |
+/// | bucket expired and count == 0 | Count | Done | final zero bucket complete; done visible next cycle |
+/// | ack == 0 | Done | Done | counting=0, done=1, count=don't-care |
+/// | ack == 1 | Done | Search0 | counting=0, done=1 until next clock edge |
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port data: in Bool;
+  port count: out UInt<4>;
+  port counting: out Bool;
+  port done: out Bool;
+  port ack: in Bool;
+
+  reg phase_r: UInt<4> reset reset => 0;
+  reg remaining_r: UInt<4> reset reset => 0;
+  reg tick_r: UInt<10> reset reset => 0;
+
+  let count = remaining_r;
+  let counting = (phase_r == 8);
+  let done = (phase_r == 9);
+
+  seq on clk rising
+    if phase_r == 0
+      remaining_r <= 0;
+      tick_r <= 0;
+      if data
+        phase_r <= 1;
+      else
+        phase_r <= 0;
+      end if
+    elsif phase_r == 1
+      if data
+        phase_r <= 2;
+      else
+        phase_r <= 0;
+      end if
+    elsif phase_r == 2
+      if data
+        phase_r <= 2;
+      else
+        phase_r <= 3;
+      end if
+    elsif phase_r == 3
+      if data
+        phase_r <= 4;
+      else
+        phase_r <= 0;
+      end if
+    elsif phase_r == 4
+      remaining_r <= {data, 3'b000};
+      phase_r <= 5;
+    elsif phase_r == 5
+      remaining_r <= {remaining_r[3], data, 2'b00};
+      phase_r <= 6;
+    elsif phase_r == 6
+      remaining_r <= {remaining_r[3:2], data, 1'b0};
+      phase_r <= 7;
+    elsif phase_r == 7
+      remaining_r <= {remaining_r[3:1], data};
+      tick_r <= 10'd999;
+      phase_r <= 8;
+    elsif phase_r == 8
+      if tick_r == 0
+        if remaining_r == 0
+          phase_r <= 9;
+        else
+          remaining_r <= remaining_r -% 1;
+          tick_r <= 10'd999;
+        end if
+      else
+        tick_r <= tick_r -% 1;
+      end if
+    elsif phase_r == 9
+      tick_r <= 0;
+      remaining_r <= 0;
+      if ack
+        phase_r <= 0;
+      else
+        phase_r <= 9;
+      end if
+    else
+      phase_r <= 0;
+      tick_r <= 0;
+      remaining_r <= 0;
+    end if
+  end seq
+end module TopModule
+[DONE]

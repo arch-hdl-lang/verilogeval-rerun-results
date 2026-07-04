@@ -1,0 +1,7 @@
+module TopModule
+  port a: in Bool;
+  port b: in Bool;
+  port cin: in Bool;
+  port cout: out Bool comb_dep_on(a, b, cin);
+  port sum: out Bool comb_dep_on(a, b, cin);
+end module TopModule

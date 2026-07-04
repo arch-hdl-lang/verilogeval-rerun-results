@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob036_ringer",
+  "samples": 19,
+  "source": "runs/arch/Prob036_ringer/Prob036_ringer.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob036_ringer/Prob036_ringer.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob036_ringer/Prob036_ringer.sv",
+        "runs/arch/Prob036_ringer/Prob036_ringer.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob036_ringer/Prob036_ringer.ivvp",
+        "runs/arch/Prob036_ringer/Prob036_ringer.sv",
+        "dataset_spec-to-rtl/Prob036_ringer_test.sv",
+        "dataset_spec-to-rtl/Prob036_ringer_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob036_ringer/Prob036_ringer.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

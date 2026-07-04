@@ -1,0 +1,6 @@
+module TopModule
+  port sel: in Bool;
+  port a: in UInt<8>;
+  port b: in UInt<8>;
+  port out: out UInt<8> comb_dep_on(a, b, sel);
+end module TopModule

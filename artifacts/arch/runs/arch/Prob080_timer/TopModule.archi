@@ -1,0 +1,6 @@
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port load: in Bool;
+  port data: in UInt<10>;
+  port tc: out Bool comb_dep_on();
+end module TopModule

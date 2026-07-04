@@ -1,0 +1,11 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob080_timer/Prob080_timer.ivvp runs/verilog/Prob080_timer/Prob080_timer.sv dataset_spec-to-rtl/Prob080_timer_test.sv dataset_spec-to-rtl/Prob080_timer_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob080_timer/Prob080_timer.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob080_timer_test.sv:55: $finish called at 35636 (1ps)
+Hint: Output 'tc' has no mismatches.
+Hint: Total mismatched samples is 0 out of 7127 samples
+
+Simulation finished at 35636 ps
+Mismatches: 0 in 7127 samples
+SIM_STATUS: 0

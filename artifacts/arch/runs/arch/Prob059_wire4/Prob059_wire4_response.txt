@@ -1,0 +1,27 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob059_wire4_prompt.txt
+//! tags: [wires, combinational, routing]
+//! refs: []
+//! ---
+//!
+//! Implements the requested one-bit wire routing for TopModule.
+
+/// Top-level combinational wire routing module.
+///
+/// Connects a to w, b to x and y, and c to z with no storage or timing latency.
+module TopModule
+  port a: in Bool;
+  port b: in Bool;
+  port c: in Bool;
+  port w: out Bool;
+  port x: out Bool;
+  port y: out Bool;
+  port z: out Bool;
+
+  let w = a;
+  let x = b;
+  let y = b;
+  let z = c;
+end module TopModule
+[DONE]

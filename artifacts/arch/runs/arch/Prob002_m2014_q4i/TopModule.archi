@@ -1,0 +1,3 @@
+module TopModule
+  port out: out Bool comb_dep_on();
+end module TopModule

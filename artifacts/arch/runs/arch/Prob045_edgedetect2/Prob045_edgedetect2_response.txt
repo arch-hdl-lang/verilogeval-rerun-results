@@ -1,0 +1,29 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob045_edgedetect2_prompt.txt
+//! tags: [edge-detect, vector, registered, sequential]
+//! refs: []
+//! ---
+//!
+//! Eight-bit any-edge detector. The design samples the input on each rising
+//! clock edge and reports which bits changed compared with the previous sample.
+
+/// Top-level eight-bit any-edge detector.
+///
+/// For each bit, anyedge is asserted one cycle after the sampled input differs
+/// from the previous sampled value.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port in: in UInt<8>;
+  port anyedge: out pipe_reg<UInt<8>, 1> reset none;
+
+  reg prev_in: UInt<8> reset none;
+
+  default seq on clk rising;
+
+  seq
+    anyedge@1 <= in ^ prev_in;
+    prev_in <= in;
+  end seq
+end module TopModule
+[DONE]

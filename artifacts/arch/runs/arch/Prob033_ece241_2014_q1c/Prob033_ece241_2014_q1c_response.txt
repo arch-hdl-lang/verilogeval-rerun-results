@@ -1,0 +1,28 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob033_ece241_2014_q1c_prompt.txt
+//! tags: [addition, signed-overflow, combinational]
+//! refs: []
+//! ---
+//!
+//! Implements the VerilogEval Prob033_ece241_2014_q1c combinational 8-bit
+//! two's complement adder and signed-overflow detector.
+
+/// Top-level 8-bit two's complement adder.
+///
+/// Produces the low 8 bits of a plus b and asserts overflow when the operands
+/// have the same sign but the result sign differs.
+module TopModule
+  port a: in UInt<8>;
+  port b: in UInt<8>;
+  port s: out UInt<8>;
+  port overflow: out Bool;
+
+  let sum: UInt<8> = a +% b;
+  let same_sign: Bool = a[7] == b[7];
+  let sign_changed: Bool = sum[7] != a[7];
+
+  let s = sum;
+  let overflow = same_sign and sign_changed;
+end module TopModule
+[DONE]

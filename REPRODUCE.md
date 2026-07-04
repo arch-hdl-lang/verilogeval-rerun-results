@@ -2,23 +2,40 @@
 
 This document describes the environment and protocol used for the rerun.
 
-## Repositories
+## Repository Layout
 
-The result summary in this repo refers to two lane workspaces:
+Clone with submodules:
 
-- Direct Verilog lane: `/Users/shuqingzhao/github/verilog-eval-verilog`
-- ARCH lane: `/Users/shuqingzhao/github/verilog-eval-arch`
+```sh
+git clone --recurse-submodules <this-repo-url>
+cd verilogeval-rerun-results
+```
 
-Both were based on upstream VerilogEval commit:
+The pinned upstream source is:
+
+```text
+upstream/verilog-eval
+```
+
+It is pinned to:
 
 ```text
 c498220d0a52248f8e3fdffe279075215bde2da6
 ```
 
-For an external release, publish these lane workspaces as separate repos or add
-them as pinned submodules. The lane workspaces currently include local benchmark
-scripts, prompts, generated run directories, and reports that are not all
-represented by the base upstream commit alone.
+The lane-specific files are stored as overlays:
+
+```text
+overlays/direct-verilog
+overlays/arch
+```
+
+The archived outputs from the completed reruns are stored under:
+
+```text
+artifacts/direct-verilog/runs/verilog
+artifacts/arch/runs/arch
+```
 
 ## Tool Versions
 
@@ -52,10 +69,12 @@ CODEX_HOME="$CLEAN_CODEX_HOME" codex mcp add \
 
 ## Direct Verilog Lane
 
-Run from:
+Create a lane worktree from the pinned upstream source and apply the overlay:
 
 ```sh
-cd /Users/shuqingzhao/github/verilog-eval-verilog
+cp -R upstream/verilog-eval work/direct-verilog
+cp -R overlays/direct-verilog/. work/direct-verilog/
+cd work/direct-verilog
 ```
 
 Expected summary artifacts:
@@ -68,10 +87,12 @@ Use a max repair budget of 4 attempts per failed problem.
 
 ## ARCH Lane
 
-Run from:
+Create a lane worktree from the pinned upstream source and apply the overlay:
 
 ```sh
-cd /Users/shuqingzhao/github/verilog-eval-arch
+cp -R upstream/verilog-eval work/arch
+cp -R overlays/arch/. work/arch/
+cd work/arch
 source .benchmark-env.sh
 ```
 
@@ -95,3 +116,10 @@ During generation and repair:
 - Icarus may receive `*_test.sv` and `*_ref.sv` only as black-box simulator
   inputs.
 
+## Verify Archived Artifacts
+
+From this repo root:
+
+```sh
+./scripts/check-archive.sh
+```

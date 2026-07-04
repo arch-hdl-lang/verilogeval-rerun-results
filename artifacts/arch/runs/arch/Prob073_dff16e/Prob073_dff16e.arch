@@ -1,0 +1,38 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob073_dff16e_prompt.txt
+//! tags: [dff, byte-enable, synchronous-reset, register]
+//! refs: []
+//! ---
+//!
+//! Implements a 16-bit positive-edge register bank with byte enables.
+//! The synchronous active-low reset clears all flip-flops, and disabled bytes retain their current values.
+
+/// Byte-enabled 16-bit D flip-flop bank.
+///
+/// `q` reflects a register updated on the rising edge of `clk`; `byteena[1]`
+/// controls the upper byte and `byteena[0]` controls the lower byte.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port resetn: in Reset<Sync, Low>;
+  port byteena: in UInt<2>;
+  port d: in UInt<16>;
+  port q: out UInt<16>;
+
+  reg stored_q: UInt<16> reset resetn => 0;
+
+  let q = stored_q;
+
+  default seq on clk rising;
+
+  seq
+    if byteena[1] and byteena[0]
+      stored_q <= d;
+    elsif byteena[1]
+      stored_q <= {d[15:8], stored_q[7:0]};
+    elsif byteena[0]
+      stored_q <= {stored_q[15:8], d[7:0]};
+    else
+      stored_q <= stored_q;
+    end if
+  end seq
+end module TopModule

@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob086_lfsr5",
+  "samples": 4443,
+  "source": "runs/arch/Prob086_lfsr5/Prob086_lfsr5.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob086_lfsr5/Prob086_lfsr5.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob086_lfsr5/Prob086_lfsr5.sv",
+        "runs/arch/Prob086_lfsr5/Prob086_lfsr5.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob086_lfsr5/Prob086_lfsr5.ivvp",
+        "runs/arch/Prob086_lfsr5/Prob086_lfsr5.sv",
+        "dataset_spec-to-rtl/Prob086_lfsr5_test.sv",
+        "dataset_spec-to-rtl/Prob086_lfsr5_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob086_lfsr5/Prob086_lfsr5.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

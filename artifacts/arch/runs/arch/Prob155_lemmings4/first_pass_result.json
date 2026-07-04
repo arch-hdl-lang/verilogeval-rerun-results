@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob155_lemmings4",
+  "samples": 1003,
+  "source": "runs/arch/Prob155_lemmings4/Prob155_lemmings4.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob155_lemmings4/Prob155_lemmings4.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob155_lemmings4/Prob155_lemmings4.sv",
+        "runs/arch/Prob155_lemmings4/Prob155_lemmings4.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob155_lemmings4/Prob155_lemmings4.ivvp",
+        "runs/arch/Prob155_lemmings4/Prob155_lemmings4.sv",
+        "dataset_spec-to-rtl/Prob155_lemmings4_test.sv",
+        "dataset_spec-to-rtl/Prob155_lemmings4_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob155_lemmings4/Prob155_lemmings4.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

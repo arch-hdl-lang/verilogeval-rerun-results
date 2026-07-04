@@ -1,0 +1,12 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob036_ringer/Prob036_ringer.ivvp runs/verilog/Prob036_ringer/Prob036_ringer.sv dataset_spec-to-rtl/Prob036_ringer_test.sv dataset_spec-to-rtl/Prob036_ringer_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob036_ringer/Prob036_ringer.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob036_ringer_test.sv:35: $finish called at 97 (1ps)
+Hint: Output 'ringer' has no mismatches.
+Hint: Output 'motor' has no mismatches.
+Hint: Total mismatched samples is 0 out of 19 samples
+
+Simulation finished at 97 ps
+Mismatches: 0 in 19 samples
+SIM_STATUS: 0

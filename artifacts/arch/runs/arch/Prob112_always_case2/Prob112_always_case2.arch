@@ -1,0 +1,28 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob112_always_case2_prompt.txt
+//! tags: [priority-encoder, combinational, case-logic]
+//! refs: []
+//! ---
+//!
+//! Four-bit combinational priority encoder for the VerilogEval Prob112_always_case2 prompt.
+//! The encoder reports the lowest-index asserted bit and returns zero when the input is zero.
+
+/// Top-level four-bit priority encoder preserving the requested VerilogEval interface.
+module TopModule
+  port in: in UInt<4>;
+  port pos: out UInt<2>;
+
+  comb
+    if in[0]
+      pos = 2'd0;
+    elsif in[1]
+      pos = 2'd1;
+    elsif in[2]
+      pos = 2'd2;
+    elsif in[3]
+      pos = 2'd3;
+    else
+      pos = 2'd0;
+    end if
+  end comb
+end module TopModule

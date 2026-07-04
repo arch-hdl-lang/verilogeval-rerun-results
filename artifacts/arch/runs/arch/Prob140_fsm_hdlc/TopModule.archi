@@ -1,0 +1,8 @@
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync>;
+  port in: in Bool;
+  port disc: out Bool comb_dep_on();
+  port flag: out Bool comb_dep_on();
+  port err: out Bool comb_dep_on();
+end module TopModule

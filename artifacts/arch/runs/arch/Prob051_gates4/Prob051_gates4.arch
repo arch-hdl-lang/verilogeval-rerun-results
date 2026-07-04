@@ -1,0 +1,20 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob051_gates4_prompt.txt
+//! tags: [gates, combinational, reduction]
+//! ---
+//!
+//! Implements the Prob051_gates4 combinational reductions over a 4-bit input.
+
+/// Top-level four-input gate reduction module.
+///
+/// Produces AND, OR, and XOR reductions of in[3:0] with same-cycle combinational outputs.
+module TopModule
+  port in: in UInt<4>;
+  port out_and: out Bool;
+  port out_or: out Bool;
+  port out_xor: out Bool;
+
+  let out_and = in[3] & in[2] & in[1] & in[0];
+  let out_or  = in[3] | in[2] | in[1] | in[0];
+  let out_xor = in[3] ^ in[2] ^ in[1] ^ in[0];
+end module TopModule

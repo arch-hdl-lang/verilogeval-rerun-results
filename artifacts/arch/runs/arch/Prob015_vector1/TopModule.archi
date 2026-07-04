@@ -1,0 +1,5 @@
+module TopModule
+  port in: in UInt<16>;
+  port out_hi: out UInt<8> comb_dep_on(in);
+  port out_lo: out UInt<8> comb_dep_on(in);
+end module TopModule

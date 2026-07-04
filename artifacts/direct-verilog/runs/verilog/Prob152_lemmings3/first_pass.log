@@ -1,0 +1,14 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob152_lemmings3/Prob152_lemmings3.ivvp runs/verilog/Prob152_lemmings3/Prob152_lemmings3.sv dataset_spec-to-rtl/Prob152_lemmings3_test.sv dataset_spec-to-rtl/Prob152_lemmings3_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob152_lemmings3/Prob152_lemmings3.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob152_lemmings3_test.sv:94: $finish called at 2216 (1ps)
+Hint: Output 'walk_left' has no mismatches.
+Hint: Output 'walk_right' has no mismatches.
+Hint: Output 'aaah' has no mismatches.
+Hint: Output 'digging' has no mismatches.
+Hint: Total mismatched samples is 0 out of 443 samples
+
+Simulation finished at 2216 ps
+Mismatches: 0 in 443 samples
+SIM_STATUS: 0

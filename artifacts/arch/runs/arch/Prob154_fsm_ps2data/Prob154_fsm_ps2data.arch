@@ -1,0 +1,58 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob154_fsm_ps2data_prompt.txt
+//! tags: [fsm, byte-stream, packet-parser, ps2data]
+//! refs: []
+//! ---
+//!
+//! Implements the requested byte-stream boundary detector. Bytes are ignored
+//! until bit 3 of an input byte is set; that byte and the next two bytes form a
+//! 24-bit packet reported by registered outputs on the following clock.
+
+/// Top-level byte-stream finite state machine for Prob154_fsm_ps2data.
+///
+/// Port timing/type notes:
+/// input clk: positive-edge sampling clock.
+/// input reset: active-high synchronous reset.
+/// input in: UInt<8>, sampled on each rising edge when reset is low.
+/// output done: pipe_reg<Bool, 1>, asserted one cycle after byte 3 is sampled.
+/// output out_bytes: pipe_reg<UInt<24>, 1>, valid whenever done is asserted.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// | reset asserted | any | Search | done@1 = 0, out_bytes@1 = 0 by reset |
+/// | in[3] == 0 | Search | Search | done@1 = 0 |
+/// | in[3] == 1 | Search | GotFirst | done@1 = 0; capture byte 1 = in |
+/// | any byte | GotFirst | GotSecond | done@1 = 0; capture byte 2 = in |
+/// | any byte | GotSecond | Search | done@1 = 1 next cycle; out_bytes@1 = {byte1, byte2, in} next cycle |
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port in: in UInt<8>;
+  port out_bytes: out pipe_reg<UInt<24>, 1> reset reset => 0;
+  port done: out pipe_reg<Bool, 1> reset reset => false;
+
+  reg parse_state: UInt<2> reset reset => 0;
+  reg first_byte: UInt<8> reset reset => 0;
+  reg second_byte: UInt<8> reset reset => 0;
+
+  seq on clk rising
+    if parse_state == 2'd0
+      done@1 <= false;
+      if in[3]
+        first_byte <= in;
+        parse_state <= 2'd1;
+      end if
+    elsif parse_state == 2'd1
+      done@1 <= false;
+      second_byte <= in;
+      parse_state <= 2'd2;
+    elsif parse_state == 2'd2
+      done@1 <= true;
+      out_bytes@1 <= {first_byte, second_byte, in};
+      parse_state <= 2'd0;
+    else
+      done@1 <= false;
+      parse_state <= 2'd0;
+    end if
+  end seq
+end module TopModule

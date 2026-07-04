@@ -1,0 +1,51 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob088_ece241_2014_q5b_prompt.txt
+//! tags: [fsm, mealy, twos-complementer, async-reset, one-hot]
+//! refs: []
+//! ---
+//!
+//! Two-state Mealy 2's complementer from the VerilogEval prompt. The requested machine resets asynchronously active-high into state A and uses the conceptual one-hot state set A/B.
+
+/// TopModule implements the requested Mealy finite-state machine.
+///
+/// Port timing/type notes:
+/// - clk: positive-edge clock for sequential state updates.
+/// - areset: asynchronous active-high reset; state resets to A.
+/// - x: one-bit FSM input sampled by combinational Mealy output and next-state logic.
+/// - z: one-bit combinational Mealy output, visible in the same cycle from current state and x.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// | x = 0 | A | A | z = 0 |
+/// | x = 1 | A | B | z = 1 |
+/// | x = 0 | B | B | z = 1 |
+/// | x = 1 | B | B | z = 0 |
+fsm TopModule
+  port clk: in Clock<SysDomain>;
+  port areset: in Reset<Async, High>;
+  port x: in Bool;
+  port z: out Bool;
+
+  state [A, B]
+  default state A;
+
+  default
+    comb
+      z = false;
+    end comb
+  end default
+
+  state A
+    comb
+      z = x;
+    end comb
+    -> B when x;
+  end state A
+
+  state B
+    comb
+      z = not x;
+    end comb
+    -> B when x;
+  end state B
+end fsm TopModule

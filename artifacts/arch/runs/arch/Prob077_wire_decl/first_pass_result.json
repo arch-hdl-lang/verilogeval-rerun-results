@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob077_wire_decl",
+  "samples": 122,
+  "source": "runs/arch/Prob077_wire_decl/Prob077_wire_decl.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob077_wire_decl/Prob077_wire_decl.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob077_wire_decl/Prob077_wire_decl.sv",
+        "runs/arch/Prob077_wire_decl/Prob077_wire_decl.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob077_wire_decl/Prob077_wire_decl.ivvp",
+        "runs/arch/Prob077_wire_decl/Prob077_wire_decl.sv",
+        "dataset_spec-to-rtl/Prob077_wire_decl_test.sv",
+        "dataset_spec-to-rtl/Prob077_wire_decl_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob077_wire_decl/Prob077_wire_decl.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

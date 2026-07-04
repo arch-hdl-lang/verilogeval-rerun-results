@@ -1,0 +1,7 @@
+module TopModule
+  port in: in Bool;
+  port state: in UInt<10>;
+  port next_state: out UInt<10> comb_dep_on(in, state);
+  port out1: out Bool comb_dep_on(state);
+  port out2: out Bool comb_dep_on(state);
+end module TopModule

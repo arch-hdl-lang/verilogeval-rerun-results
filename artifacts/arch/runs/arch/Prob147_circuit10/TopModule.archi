@@ -1,0 +1,7 @@
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port a: in Bool;
+  port b: in Bool;
+  port q: out Bool comb_dep_on(a, b);
+  port state: out Bool comb_dep_on();
+end module TopModule

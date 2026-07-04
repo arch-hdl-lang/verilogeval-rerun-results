@@ -1,0 +1,2 @@
+BROKEN_BENCHMARK_NOTE
+Problem Prob099_m2014_q6c has contradictory prompt/harness port naming. First source with prompt-listed Y1/Y3 fails because test connects Y2/Y4 to both DUT and reference. Repair source with Y2/Y4 fixes DUT-side elaboration but reference/good instance still lacks Y2/Y4. No hidden test/ref contents were opened; this note is based only on filtered Icarus compile diagnostics.

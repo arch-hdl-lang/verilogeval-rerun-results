@@ -1,0 +1,6 @@
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync>;
+  port ena: out UInt<3> comb_dep_on();
+  port q: out pipe_reg<UInt<16>, 1> reset reset => 0;
+end module TopModule

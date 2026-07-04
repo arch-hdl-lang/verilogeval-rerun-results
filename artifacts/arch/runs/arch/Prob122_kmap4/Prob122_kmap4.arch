@@ -1,0 +1,20 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob122_kmap4_prompt.txt
+//! tags: [kmap, combinational, boolean, parity]
+//! refs: []
+//! ---
+//!
+//! Implements the requested four-input Karnaugh map as a same-cycle combinational output.
+
+/// Top-level combinational implementation of the requested K-map.
+///
+/// The map is true for odd parity across a, b, c, and d.
+module TopModule
+  port a: in Bool;
+  port b: in Bool;
+  port c: in Bool;
+  port d: in Bool;
+  port out: out Bool;
+
+  let out = a ^ b ^ c ^ d;
+end module TopModule

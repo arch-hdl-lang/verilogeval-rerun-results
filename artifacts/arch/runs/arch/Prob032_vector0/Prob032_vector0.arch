@@ -1,0 +1,20 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob032_vector0_prompt.txt
+//! tags: [vector, combinational, bit_split]
+//! ---
+//!
+//! Implements Prob032_vector0 as a pure combinational vector passthrough and bit splitter.
+
+/// Mirrors the 3-bit input vector and exposes each bit on a separate one-bit output.
+module TopModule
+  port vec: in UInt<3>;
+  port outv: out UInt<3>;
+  port o2: out Bool;
+  port o1: out Bool;
+  port o0: out Bool;
+
+  let outv = vec;
+  let o2 = vec[2];
+  let o1 = vec[1];
+  let o0 = vec[0];
+end module TopModule

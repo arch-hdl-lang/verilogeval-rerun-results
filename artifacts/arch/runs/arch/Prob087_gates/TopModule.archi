@@ -1,0 +1,11 @@
+module TopModule
+  port a: in Bool;
+  port b: in Bool;
+  port out_and: out Bool comb_dep_on(a, b);
+  port out_or: out Bool comb_dep_on(a, b);
+  port out_xor: out Bool comb_dep_on(a, b);
+  port out_nand: out Bool comb_dep_on(a, b);
+  port out_nor: out Bool comb_dep_on(a, b);
+  port out_xnor: out Bool comb_dep_on(a, b);
+  port out_anotb: out Bool comb_dep_on(a, b);
+end module TopModule

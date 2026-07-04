@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob079_fsm3onehot",
+  "samples": 200,
+  "source": "runs/arch/Prob079_fsm3onehot/Prob079_fsm3onehot.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob079_fsm3onehot/Prob079_fsm3onehot.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob079_fsm3onehot/Prob079_fsm3onehot.sv",
+        "runs/arch/Prob079_fsm3onehot/Prob079_fsm3onehot.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob079_fsm3onehot/Prob079_fsm3onehot.ivvp",
+        "runs/arch/Prob079_fsm3onehot/Prob079_fsm3onehot.sv",
+        "dataset_spec-to-rtl/Prob079_fsm3onehot_test.sv",
+        "dataset_spec-to-rtl/Prob079_fsm3onehot_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob079_fsm3onehot/Prob079_fsm3onehot.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

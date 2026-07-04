@@ -1,0 +1,65 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob141_count_clock_prompt.txt
+//! tags: [clock, bcd, counter]
+//! ---
+//!
+//! Implements a synchronous 12-hour BCD clock with AM/PM indication. The
+//! clock advances by one second on each enabled cycle and resets to 12:00:00 AM.
+
+/// Top-level 12-hour BCD clock.
+///
+/// Maintains seconds, minutes, hours, and AM/PM state with synchronous
+/// active-high reset and enable-gated one-second increments.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port ena: in Bool;
+  port pm: out Bool;
+  port hh: out UInt<8>;
+  port mm: out UInt<8>;
+  port ss: out UInt<8>;
+
+  reg pm_r: Bool reset reset => false;
+  reg hh_r: UInt<8> reset reset => 8'h12;
+  reg mm_r: UInt<8> reset reset => 8'h00;
+  reg ss_r: UInt<8> reset reset => 8'h00;
+
+  let pm = pm_r;
+  let hh = hh_r;
+  let mm = mm_r;
+  let ss = ss_r;
+
+  default seq on clk rising;
+
+  seq
+    if ena
+      if ss_r == 8'h59
+        ss_r <= 8'h00;
+        if mm_r == 8'h59
+          mm_r <= 8'h00;
+
+          if hh_r == 8'h11
+            hh_r <= 8'h12;
+            pm_r <= not pm_r;
+          elsif hh_r == 8'h12
+            hh_r <= 8'h01;
+          elsif hh_r[3:0] == 4'h9
+            hh_r <= {hh_r[7:4] +% 4'h1, 4'h0};
+          else
+            hh_r <= hh_r +% 8'h01;
+          end if
+        elsif mm_r[3:0] == 4'h9
+          mm_r <= {mm_r[7:4] +% 4'h1, 4'h0};
+        else
+          mm_r <= mm_r +% 8'h01;
+        end if
+      elsif ss_r[3:0] == 4'h9
+        ss_r <= {ss_r[7:4] +% 4'h1, 4'h0};
+      else
+        ss_r <= ss_r +% 8'h01;
+      end if
+    end if
+  end seq
+end module TopModule
+[DONE]

@@ -1,0 +1,35 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob105_rotate100_prompt.txt
+//! tags: [rotator, shift-register, synchronous-load, sequential]
+//! ---
+//!
+//! Implements the VerilogEval Prob105_rotate100 prompt as a 100-bit synchronous
+//! left/right rotator with load priority and hold behavior for disabled modes.
+
+/// Top-level 100-bit rotator preserving the requested TopModule interface.
+///
+/// On each rising clock edge, load takes priority over rotation; ena selects
+/// rotate-right, rotate-left, or hold.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port load: in Bool;
+  port ena: in UInt<2>;
+  port data: in UInt<100>;
+  port q: out UInt<100>;
+
+  reg rot: UInt<100> reset none;
+
+  let q = rot;
+
+  default seq on clk rising;
+
+  seq
+    if load
+      rot <= data;
+    elsif ena == 2'b01
+      rot <= {rot[0], rot[99:1]};
+    elsif ena == 2'b10
+      rot <= {rot[98:0], rot[99]};
+    end if
+  end seq
+end module TopModule

@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob010_mt2015_q4a",
+  "samples": 202,
+  "source": "runs/arch/Prob010_mt2015_q4a/Prob010_mt2015_q4a.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob010_mt2015_q4a/Prob010_mt2015_q4a.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob010_mt2015_q4a/Prob010_mt2015_q4a.sv",
+        "runs/arch/Prob010_mt2015_q4a/Prob010_mt2015_q4a.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob010_mt2015_q4a/Prob010_mt2015_q4a.ivvp",
+        "runs/arch/Prob010_mt2015_q4a/Prob010_mt2015_q4a.sv",
+        "dataset_spec-to-rtl/Prob010_mt2015_q4a_test.sv",
+        "dataset_spec-to-rtl/Prob010_mt2015_q4a_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob010_mt2015_q4a/Prob010_mt2015_q4a.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

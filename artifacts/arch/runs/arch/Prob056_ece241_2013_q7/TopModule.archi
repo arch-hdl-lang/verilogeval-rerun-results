@@ -1,0 +1,6 @@
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port j: in Bool;
+  port k: in Bool;
+  port Q: out pipe_reg<Bool, 1>;
+end module TopModule

@@ -1,0 +1,139 @@
+Question:
+Translate the following RTL specification into ARCH HDL.
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  areset
+
+ - input  predict_valid,
+ - input  predict_pc (7 bits)
+ - output predict_taken
+ - output predict_history (7 bits)
+
+ - input  train_valid
+ - input  train_taken
+ - input  train_mispredicted
+ - input  train_history (7 bits)
+ - input  train_pc (7 bits)
+
+The module should implement a gshare branch predictor with 7-bit pc and
+7-bit global history, hashed (using xor) into a 7-bit index. This index
+accesses a 128-entry table of two-bit saturating counters. The branch
+predictor should contain a 7-bit global branch history register. The
+branch predictor has two sets of interfaces: One for doing predictions
+and one for doing training. The prediction interface is used in the
+processor's Fetch stage to ask the branch predictor for branch direction
+predictions for the instructions being fetched. Once these branches
+proceed down the pipeline and are executed, the true outcomes of the
+branches become known. The branch predictor is then trained using the
+actual branch direction outcomes.
+
+When a branch prediction is requested (predict_valid = 1) for a given pc,
+the branch predictor produces the predicted branch direction and state of
+the branch history register used to make the prediction. The branch
+history register is then updated (at the next positive clock edge) for
+the predicted branch.
+
+When training for a branch is requested (train_valid = 1), the branch
+predictor is told the pc and branch history register value for the branch
+that is being trained, as well as the actual branch outcome and whether
+the branch was a misprediction (needing a pipeline flush). Update the
+pattern history table (PHT) to train the branch predictor to predict this
+branch more accurately next time. In addition, if the branch being
+trained is mispredicted, also recover the branch history register to the
+state immediately after the mispredicting branch completes execution.
+
+If training for a misprediction and a prediction (for a different,
+younger instruction) occurs in the same cycle, both operations will want
+to modify the branch history register. When this happens, training takes
+precedence, because the branch being predicted will be discarded anyway.
+If training and prediction of the same PHT entry happen at the same time,
+the prediction sees the PHT state before training because training only
+modifies the PHT at the next positive clock edge. The following timing
+diagram shows the timing when training and predicting PHT entry 0 at the
+same time. The training request at cycle 4 changes the PHT entry state in
+cycle 5, but the prediction request in cycle 4 outputs the PHT state at
+cycle 4, without considering the effect of the training request in cycle
+4. Reset is asynchronous active-high.
+
+Assume all sequential logic is triggered on the positive edge of the
+clock.
+
+Benchmark integrity rules:
+
+ - Solve this problem only from the text in this prompt plus the fixed ARCH
+   guidance/examples included here.
+
+ - Do not inspect or rely on VerilogEval `_test.sv` files, `_ref.sv` files,
+   expected-output traces, simulator mismatch hints, or any other hidden
+   evaluation artifact while writing the RTL.
+
+ - Treat this problem as independent from every other VerilogEval problem.
+   Do not rely on solutions, failures, logs, or debugging notes from previous
+   problems. If problems are solved serially, use a fresh model context for
+   each problem before generation.
+
+ - If a later experiment intentionally allows compile/test feedback or repair,
+   that must be logged as a separate repair-mode attempt, not as first-pass
+   generation.
+
+Here are additional ARCH HDL rules and coding conventions.
+
+ - Implement the requested top-level design as a construct named TopModule.
+
+ - Use `module TopModule` for combinational or ordinary registered logic.
+   Use `fsm TopModule` when the behavior is naturally a finite-state machine.
+
+ - For every FSM problem, first derive a standard state transition table with
+   exactly these columns: input condition, current state, next state, output.
+   Also call out each input/output port's timing/type: input sampling edge,
+   combinational/state-derived output, registered output, or `pipe_reg`
+   latency. If you are writing files in a workspace, save this as
+   `transition_table.md` beside the generated RTL. If the response must be
+   code-only, embed the table as `///` ARCH doc comments above `fsm TopModule`.
+   For serial protocols, the table must have a distinct row/state for every
+   sampled protocol symbol boundary such as start, each data bit, stop/parity,
+   done, and error/recovery.
+
+ - In a state transition table, interpret the output column together with each
+   port's timing/type note. For a combinational or state-derived output, the
+   table entry is the value visible in the current state. For a registered or
+   `pipe_reg` output, the table entry is the value assigned by that state's
+   sequential action and must state when it becomes externally visible. Do not
+   invent extra `done`/`valid` ports or extra states because of this rule.
+   Choose combinational vs registered timing from the prompt/waveform; add a
+   completion/valid state only when the protocol timing requires one.
+
+ - Declare ports with ARCH syntax: `port name: in Type;` or
+   `port name: out Type;`. Use `Bool` for one-bit logical signals and
+   `UInt<N>` for N-bit vectors unless signed behavior is explicitly required.
+
+ - Map clocks and resets to typed ports. For example, use
+   `Clock<SysDomain>` for a positive-edge clock and
+   `Reset<Sync, High>` or `Reset<Async, High>` according to the prompt.
+
+ - Choose output timing from the prompt, waveform, and transition table. Use
+   plain `port out: out T;` driven by `let` or `comb` for combinational,
+   state-derived, or same-cycle FSM outputs. Use
+   `port out: out pipe_reg<T, N> reset reset => 0;` only when a registered
+   output and its latency are intended. Do not add a redundant `if reset`
+   branch when the port or register already has a reset clause.
+
+ - Use wrapping arithmetic (`+%`, `-%`, `*%`) when the intended result should
+   stay at the destination width.
+
+ - Use `let out = expr;` to drive a combinational output directly. Use
+   `comb ... end comb` only when conditional assignment is needed.
+
+ - Use ARCH block endings exactly: `end module TopModule`,
+   `end fsm TopModule`, `end state Name`, `end seq`, and `end comb`.
+
+ - Do not output markdown fences. Do not output SystemVerilog.
+
+Enclose your code with [BEGIN] and [DONE]. Only output the ARCH code snippet
+and do NOT output anything else.
+
+Answer:

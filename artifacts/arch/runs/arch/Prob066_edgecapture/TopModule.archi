@@ -1,0 +1,6 @@
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync>;
+  port in: in UInt<32>;
+  port out: out pipe_reg<UInt<32>, 1>;
+end module TopModule

@@ -1,0 +1,648 @@
+{
+  "Prob009_popcount3": {
+    "first_pass": {
+      "problem": "Prob009_popcount3",
+      "status": "compile_fail",
+      "compile_status": "2",
+      "sim_status": "",
+      "mismatches": "",
+      "samples": "",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 220,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob034_dff8": {
+    "first_pass": {
+      "problem": "Prob034_dff8",
+      "status": "mismatch",
+      "compile_status": "0",
+      "sim_status": "0",
+      "mismatches": "1",
+      "samples": "41",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 41,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob053_m2014_q4d": {
+    "first_pass": {
+      "problem": "Prob053_m2014_q4d",
+      "status": "mismatch",
+      "compile_status": "0",
+      "sim_status": "0",
+      "mismatches": "1",
+      "samples": "100",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 100,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob062_bugs_mux2": {
+    "first_pass": {
+      "problem": "Prob062_bugs_mux2",
+      "status": "mismatch",
+      "compile_status": "0",
+      "sim_status": "0",
+      "mismatches": "111",
+      "samples": "114",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 114,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob066_edgecapture": {
+    "first_pass": {
+      "problem": "Prob066_edgecapture",
+      "status": "mismatch",
+      "compile_status": "0",
+      "sim_status": "0",
+      "mismatches": "91",
+      "samples": "266",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 266,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob070_ece241_2013_q2": {
+    "first_pass": {
+      "problem": "Prob070_ece241_2013_q2",
+      "status": "mismatch",
+      "compile_status": "0",
+      "sim_status": "0",
+      "mismatches": "17",
+      "samples": "107",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 107,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob082_lfsr32": {
+    "first_pass": {
+      "problem": "Prob082_lfsr32",
+      "status": "timeout",
+      "compile_status": "0",
+      "sim_status": "0",
+      "mismatches": "0",
+      "samples": "200000",
+      "timeout": "True"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 200000,
+        "timeout": true,
+        "status": "timeout"
+      }
+    ],
+    "repair_status": "timeout"
+  },
+  "Prob093_ece241_2014_q3": {
+    "first_pass": {
+      "problem": "Prob093_ece241_2014_q3",
+      "status": "mismatch",
+      "compile_status": "0",
+      "sim_status": "0",
+      "mismatches": "11",
+      "samples": "60",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": null,
+        "sim_status": null,
+        "mismatches": 38,
+        "samples": 60,
+        "timeout": false,
+        "status": "mismatch"
+      },
+      {
+        "attempt": 2,
+        "compile_status": null,
+        "sim_status": null,
+        "mismatches": 49,
+        "samples": 60,
+        "timeout": false,
+        "status": "mismatch"
+      },
+      {
+        "attempt": 3,
+        "compile_status": null,
+        "sim_status": null,
+        "mismatches": 11,
+        "samples": 60,
+        "timeout": false,
+        "status": "mismatch"
+      },
+      {
+        "attempt": 4,
+        "compile_status": null,
+        "sim_status": null,
+        "mismatches": 0,
+        "samples": 60,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob099_m2014_q6c": {
+    "first_pass": {
+      "problem": "Prob099_m2014_q6c",
+      "status": "compile_fail",
+      "compile_status": "4",
+      "sim_status": "",
+      "mismatches": "",
+      "samples": "",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 2,
+        "sim_status": null,
+        "mismatches": null,
+        "samples": null,
+        "timeout": false,
+        "status": "compile_fail"
+      },
+      {
+        "attempt": 2,
+        "compile_status": 4,
+        "sim_status": null,
+        "mismatches": null,
+        "samples": null,
+        "timeout": false,
+        "status": "compile_fail"
+      },
+      {
+        "attempt": 3,
+        "compile_status": 4,
+        "sim_status": null,
+        "mismatches": null,
+        "samples": null,
+        "timeout": false,
+        "status": "compile_fail"
+      },
+      {
+        "attempt": 4,
+        "compile_status": 2,
+        "sim_status": null,
+        "mismatches": null,
+        "samples": null,
+        "timeout": false,
+        "status": "compile_fail"
+      }
+    ],
+    "repair_status": "compile_fail"
+  },
+  "Prob104_mt2015_muxdff": {
+    "first_pass": {
+      "problem": "Prob104_mt2015_muxdff",
+      "status": "mismatch",
+      "compile_status": "0",
+      "sim_status": "0",
+      "mismatches": "1",
+      "samples": "199",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 199,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob131_mt2015_q4": {
+    "first_pass": {
+      "problem": "Prob131_mt2015_q4",
+      "status": "compile_fail",
+      "compile_status": "2",
+      "sim_status": "",
+      "mismatches": "",
+      "samples": "",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 200,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob133_2014_q3fsm": {
+    "first_pass": {
+      "problem": "Prob133_2014_q3fsm",
+      "status": "compile_fail",
+      "compile_status": "2",
+      "sim_status": "",
+      "mismatches": "",
+      "samples": "",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 1414,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob136_m2014_q6": {
+    "first_pass": {
+      "problem": "Prob136_m2014_q6",
+      "status": "compile_fail",
+      "compile_status": "6",
+      "sim_status": "",
+      "mismatches": "",
+      "samples": "",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 200,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob139_2013_q2bfsm": {
+    "first_pass": {
+      "problem": "Prob139_2013_q2bfsm",
+      "status": "compile_fail",
+      "compile_status": "3",
+      "sim_status": "",
+      "mismatches": "",
+      "samples": "",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 1002,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob140_fsm_hdlc": {
+    "first_pass": {
+      "problem": "Prob140_fsm_hdlc",
+      "status": "compile_fail",
+      "compile_status": "10",
+      "sim_status": "",
+      "mismatches": "",
+      "samples": "",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 801,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob141_count_clock": {
+    "first_pass": {
+      "problem": "Prob141_count_clock",
+      "status": "timeout",
+      "compile_status": "0",
+      "sim_status": "0",
+      "mismatches": "0",
+      "samples": "200000",
+      "timeout": "True"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": null,
+        "sim_status": null,
+        "mismatches": 194033,
+        "samples": 200000,
+        "timeout": true,
+        "status": "timeout"
+      },
+      {
+        "attempt": 2,
+        "compile_status": null,
+        "sim_status": null,
+        "mismatches": 0,
+        "samples": 200000,
+        "timeout": true,
+        "status": "timeout"
+      },
+      {
+        "attempt": 3,
+        "compile_status": null,
+        "sim_status": null,
+        "mismatches": 0,
+        "samples": 200000,
+        "timeout": true,
+        "status": "timeout"
+      },
+      {
+        "attempt": 4,
+        "compile_status": null,
+        "sim_status": null,
+        "mismatches": 0,
+        "samples": 200000,
+        "timeout": true,
+        "status": "timeout"
+      }
+    ],
+    "repair_status": "timeout"
+  },
+  "Prob146_fsm_serialdata": {
+    "first_pass": {
+      "problem": "Prob146_fsm_serialdata",
+      "status": "mismatch",
+      "compile_status": "0",
+      "sim_status": "0",
+      "mismatches": "72",
+      "samples": "905",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 905,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob147_circuit10": {
+    "first_pass": {
+      "problem": "Prob147_circuit10",
+      "status": "mismatch",
+      "compile_status": "0",
+      "sim_status": "0",
+      "mismatches": "22",
+      "samples": "232",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 232,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob149_ece241_2013_q4": {
+    "first_pass": {
+      "problem": "Prob149_ece241_2013_q4",
+      "status": "compile_fail",
+      "compile_status": "2",
+      "sim_status": "",
+      "mismatches": "",
+      "samples": "",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 2031,
+        "samples": 2040,
+        "timeout": false,
+        "status": "mismatch"
+      },
+      {
+        "attempt": 2,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 2040,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob151_review2015_fsm": {
+    "first_pass": {
+      "problem": "Prob151_review2015_fsm",
+      "status": "compile_fail",
+      "compile_status": "6",
+      "sim_status": "",
+      "mismatches": "",
+      "samples": "",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 5069,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob154_fsm_ps2data": {
+    "first_pass": {
+      "problem": "Prob154_fsm_ps2data",
+      "status": "mismatch",
+      "compile_status": "0",
+      "sim_status": "0",
+      "mismatches": "488",
+      "samples": "1619",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 978,
+        "samples": 1619,
+        "timeout": false,
+        "status": "mismatch"
+      },
+      {
+        "attempt": 2,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 1619,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob155_lemmings4": {
+    "first_pass": {
+      "problem": "Prob155_lemmings4",
+      "status": "compile_fail",
+      "compile_status": "2",
+      "sim_status": "",
+      "mismatches": "",
+      "samples": "",
+      "timeout": "False"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 1003,
+        "timeout": false,
+        "status": "pass"
+      }
+    ],
+    "repair_status": "pass"
+  },
+  "Prob156_review2015_fancytimer": {
+    "first_pass": {
+      "problem": "Prob156_review2015_fancytimer",
+      "status": "timeout",
+      "compile_status": "0",
+      "sim_status": "0",
+      "mismatches": "0",
+      "samples": "200000",
+      "timeout": "True"
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 200000,
+        "timeout": true,
+        "status": "timeout"
+      },
+      {
+        "attempt": 2,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 199999,
+        "timeout": false,
+        "status": "pass"
+      },
+      {
+        "attempt": 3,
+        "compile_status": 0,
+        "sim_status": 0,
+        "mismatches": 0,
+        "samples": 200000,
+        "timeout": true,
+        "status": "timeout"
+      }
+    ],
+    "repair_status": "timeout"
+  }
+}

@@ -1,0 +1,11 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob055_conditional/Prob055_conditional.ivvp runs/verilog/Prob055_conditional/Prob055_conditional.sv dataset_spec-to-rtl/Prob055_conditional_test.sv dataset_spec-to-rtl/Prob055_conditional_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob055_conditional/Prob055_conditional.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob055_conditional_test.sv:38: $finish called at 560 (1ps)
+Hint: Output 'min' has no mismatches.
+Hint: Total mismatched samples is 0 out of 112 samples
+
+Simulation finished at 560 ps
+Mismatches: 0 in 112 samples
+SIM_STATUS: 0

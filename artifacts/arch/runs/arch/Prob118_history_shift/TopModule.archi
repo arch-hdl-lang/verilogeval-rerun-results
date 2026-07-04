@@ -1,0 +1,10 @@
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port areset: in Reset<Async>;
+  port predict_valid: in Bool;
+  port predict_taken: in Bool;
+  port train_mispredicted: in Bool;
+  port train_taken: in Bool;
+  port train_history: in UInt<32>;
+  port predict_history: out UInt<32> comb_dep_on();
+end module TopModule

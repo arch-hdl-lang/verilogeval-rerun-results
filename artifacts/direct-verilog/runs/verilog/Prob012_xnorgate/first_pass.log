@@ -1,0 +1,11 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob012_xnorgate/Prob012_xnorgate.ivvp runs/verilog/Prob012_xnorgate/Prob012_xnorgate.sv dataset_spec-to-rtl/Prob012_xnorgate_test.sv dataset_spec-to-rtl/Prob012_xnorgate_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob012_xnorgate/Prob012_xnorgate.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob012_xnorgate_test.sv:38: $finish called at 1096 (1ps)
+Hint: Output 'out' has no mismatches.
+Hint: Total mismatched samples is 0 out of 219 samples
+
+Simulation finished at 1096 ps
+Mismatches: 0 in 219 samples
+SIM_STATUS: 0

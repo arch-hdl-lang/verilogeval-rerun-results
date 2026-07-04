@@ -1,0 +1,25 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob123_bugs_addsubz_prompt.txt
+//! tags: [adder, subtractor, zero_flag, combinational]
+//! refs: []
+//! ---
+//!
+//! Combinational 8-bit adder/subtractor with a zero flag. The zero flag is
+//! driven on every input combination from the selected wrapped arithmetic result.
+
+/// Top-level combinational add/subtract datapath.
+///
+/// Selects addition when do_sub is low and subtraction when do_sub is high,
+/// then reports whether the selected 8-bit result is zero.
+module TopModule
+  port do_sub: in Bool;
+  port a: in UInt<8>;
+  port b: in UInt<8>;
+  port out: out UInt<8>;
+  port result_is_zero: out Bool;
+
+  let selected_result: UInt<8> = do_sub ? (a -% b) : (a +% b);
+
+  let out = selected_result;
+  let result_is_zero = selected_result == 8'd0;
+end module TopModule

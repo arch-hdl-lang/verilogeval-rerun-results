@@ -1,0 +1,25 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob028_m2014_q4a_prompt.txt
+//! tags: [latch, d_latch, level_sensitive]
+//! refs: []
+//! ---
+//!
+//! Implements the VerilogEval Prob028_m2014_q4a design: a one-bit D latch with enable.
+//! The output follows d while ena is asserted and otherwise retains its prior value.
+
+/// Top-level one-bit D latch with level-sensitive enable.
+module TopModule
+  port d: in Bool;
+  port ena: in Bool;
+  port q: out Bool;
+
+  reg latched_q: Bool reset none;
+
+  latch on ena
+    latched_q <= d;
+  end latch
+
+  let q = latched_q;
+end module TopModule
+[DONE]

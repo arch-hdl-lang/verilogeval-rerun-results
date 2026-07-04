@@ -1,0 +1,22 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob148_2013_q2afsm/Prob148_2013_q2afsm.sv
+Wrote runs/arch/Prob148_2013_q2afsm/TopModule.archi
+
+Icarus compile:
+runs/arch/Prob148_2013_q2afsm/Prob148_2013_q2afsm.sv:53: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+runs/arch/Prob148_2013_q2afsm/Prob148_2013_q2afsm.sv:53: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+runs/arch/Prob148_2013_q2afsm/Prob148_2013_q2afsm.sv:53: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+runs/arch/Prob148_2013_q2afsm/Prob148_2013_q2afsm.sv:55: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+runs/arch/Prob148_2013_q2afsm/Prob148_2013_q2afsm.sv:76: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob148_2013_q2afsm_test.sv:93: $finish called at 5271 (1ps)
+Hint: Output 'g' has no mismatches.
+Hint: Total mismatched samples is 0 out of 1054 samples
+
+Simulation finished at 5271 ps
+Mismatches: 0 in 1054 samples

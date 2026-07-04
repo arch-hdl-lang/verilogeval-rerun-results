@@ -1,0 +1,13 @@
+
+module TopModule (
+    input  logic clk,
+    input  logic a,
+    output logic q
+);
+
+    always @(posedge clk) begin
+        q <= ~a;
+    end
+
+endmodule
+

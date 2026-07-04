@@ -1,0 +1,18 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob005_notgate_prompt.txt
+//! tags: [not-gate, combinational, boolean]
+//! ---
+//!
+//! Implements the Prob005_notgate prompt as a one-bit combinational inverter.
+
+/// Top-level NOT gate module for Prob005_notgate.
+///
+/// Drives the output with the logical inverse of the input.
+module TopModule
+  port in: in Bool;
+  port out: out Bool;
+
+  let out = !in;
+end module TopModule
+[DONE]

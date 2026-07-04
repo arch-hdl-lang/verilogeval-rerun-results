@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob067_countslow",
+  "samples": 499,
+  "source": "runs/arch/Prob067_countslow/Prob067_countslow.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob067_countslow/Prob067_countslow.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob067_countslow/Prob067_countslow.sv",
+        "runs/arch/Prob067_countslow/Prob067_countslow.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob067_countslow/Prob067_countslow.ivvp",
+        "runs/arch/Prob067_countslow/Prob067_countslow.sv",
+        "dataset_spec-to-rtl/Prob067_countslow_test.sv",
+        "dataset_spec-to-rtl/Prob067_countslow_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob067_countslow/Prob067_countslow.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

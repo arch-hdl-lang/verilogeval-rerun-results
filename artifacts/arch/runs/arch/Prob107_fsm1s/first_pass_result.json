@@ -1,0 +1,9 @@
+{
+  "problem": "Prob107_fsm1s",
+  "status": "pass",
+  "mismatches": 0,
+  "samples": 230,
+  "arch_check": "pass",
+  "arch_build": "pass",
+  "icarus": "pass"
+}

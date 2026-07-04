@@ -1,0 +1,18 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob054_edgedetect/Prob054_edgedetect.sv
+Wrote runs/arch/Prob054_edgedetect/TopModule.archi
+
+Icarus compile:
+
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob054_edgedetect_test.sv:45: $finish called at 1135 (1ps)
+Hint: Output 'pedge' has no mismatches.
+Hint: Total mismatched samples is 0 out of 227 samples
+
+Simulation finished at 1135 ps
+Mismatches: 0 in 227 samples

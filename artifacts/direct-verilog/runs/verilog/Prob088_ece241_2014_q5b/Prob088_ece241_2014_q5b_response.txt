@@ -1,0 +1,32 @@
+[BEGIN]
+module TopModule (
+    input  logic clk,
+    input  logic areset,
+    input  logic x,
+    output logic z
+);
+
+    logic state_A;
+    logic state_B;
+    logic next_A;
+    logic next_B;
+
+    always @(*) begin
+        next_A = state_A & ~x;
+        next_B = (state_A & x) | state_B;
+    end
+
+    always @(posedge clk or posedge areset) begin
+        if (areset) begin
+            state_A <= 1'b1;
+            state_B <= 1'b0;
+        end else begin
+            state_A <= next_A;
+            state_B <= next_B;
+        end
+    end
+
+    assign z = (state_A & x) | (state_B & ~x);
+
+endmodule
+[DONE]

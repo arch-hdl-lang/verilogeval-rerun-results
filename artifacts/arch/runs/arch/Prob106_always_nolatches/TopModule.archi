@@ -1,0 +1,7 @@
+module TopModule
+  port scancode: in UInt<16>;
+  port left: out Bool comb_dep_on(scancode);
+  port down: out Bool comb_dep_on(scancode);
+  port right: out Bool comb_dep_on(scancode);
+  port up: out Bool comb_dep_on(scancode);
+end module TopModule

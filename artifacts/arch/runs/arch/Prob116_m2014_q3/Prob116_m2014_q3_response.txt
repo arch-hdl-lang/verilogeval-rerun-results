@@ -1,0 +1,25 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob116_m2014_q3_prompt.txt
+//! tags: [kmap, combinational, boolean-logic]
+//! refs: []
+//! ---
+//!
+//! Implements the requested Karnaugh-map combinational function for TopModule.
+
+/// Combinational boolean function derived from the supplied Karnaugh map.
+///
+/// The one-indexed prompt variables map onto packed vector bits as
+/// x1=x[0], x2=x[1], x3=x[2], and x4=x[3].
+module TopModule
+  port x: in UInt<4>;
+  port f: out Bool;
+
+  let x1: Bool = x[0];
+  let x2: Bool = x[1];
+  let x3: Bool = x[2];
+  let x4: Bool = x[3];
+
+  let f = ((not x1) and x3) or (x2 and x4);
+end module TopModule
+[DONE]

@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob007_wire",
+  "samples": 120,
+  "source": "runs/arch/Prob007_wire/Prob007_wire.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob007_wire/Prob007_wire.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob007_wire/Prob007_wire.sv",
+        "runs/arch/Prob007_wire/Prob007_wire.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob007_wire/Prob007_wire.ivvp",
+        "runs/arch/Prob007_wire/Prob007_wire.sv",
+        "dataset_spec-to-rtl/Prob007_wire_test.sv",
+        "dataset_spec-to-rtl/Prob007_wire_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob007_wire/Prob007_wire.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

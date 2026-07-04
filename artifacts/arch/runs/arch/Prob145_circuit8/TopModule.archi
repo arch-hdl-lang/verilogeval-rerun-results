@@ -1,0 +1,6 @@
+module TopModule
+  port clock: in Clock<SysDomain>;
+  port a: in Bool;
+  port p: out Bool comb_dep_on();
+  port q: out pipe_reg<Bool, 1>;
+end module TopModule

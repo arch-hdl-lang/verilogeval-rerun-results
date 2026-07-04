@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob068_countbcd",
+  "samples": 39805,
+  "source": "runs/arch/Prob068_countbcd/Prob068_countbcd.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob068_countbcd/Prob068_countbcd.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob068_countbcd/Prob068_countbcd.sv",
+        "runs/arch/Prob068_countbcd/Prob068_countbcd.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob068_countbcd/Prob068_countbcd.ivvp",
+        "runs/arch/Prob068_countbcd/Prob068_countbcd.sv",
+        "dataset_spec-to-rtl/Prob068_countbcd_test.sv",
+        "dataset_spec-to-rtl/Prob068_countbcd_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob068_countbcd/Prob068_countbcd.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

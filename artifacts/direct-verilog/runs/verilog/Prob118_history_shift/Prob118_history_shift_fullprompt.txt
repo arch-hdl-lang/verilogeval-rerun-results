@@ -1,0 +1,73 @@
+
+Question:
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  areset
+ - input  predict_valid
+ - input  predict_taken
+ - input  train_mispredicted
+ - input  train_taken
+ - input  train_history   (32 bits)
+ - output predict_history (32 bits)
+
+The module should implement a 32-bit global history shift register,
+including support for rolling back state in response to a pipeline flush
+caused by a branch misprediction. When a branch prediction is made
+(predict_valid = 1), shift in predict_taken from the LSB side to update
+the branch history for the predicted branch. (predict_history[0] is the
+direction of the youngest branch.) When a branch misprediction occurs
+(train_mispredicted = 1), load the branch history register with the
+history after the completion of the mispredicted branch. This is the
+history before the mispredicted branch (train_history) concatenated with
+the actual result of the branch (train_taken). If both a prediction and
+misprediction occur at the same time, the misprediction takes precedence,
+because the pipeline flush will also flush out the branch that is
+currently making a prediction. predict_history is the value of the branch
+history register. areset is a positive edge triggered asynchronous reset
+that resets the history counter to zero. Assume all sequential logic is
+triggered on the positive edge of the clock.
+
+Benchmark integrity rules:
+
+ - Solve this problem only from the text in this prompt plus the fixed Verilog
+   guidance/examples included here.
+
+ - Do not inspect or rely on VerilogEval `_test.sv` files, `_ref.sv` files,
+   expected-output traces, simulator mismatch hints, or any other hidden
+   evaluation artifact while writing the RTL.
+
+ - Treat this problem as independent from every other VerilogEval problem.
+   Do not rely on solutions, failures, logs, or debugging notes from previous
+   problems. If problems are solved serially, use a fresh model context for
+   each problem before generation.
+
+ - If a later experiment intentionally allows compile/test feedback or repair,
+   that must be logged as a separate repair-mode attempt, not as first-pass
+   generation.
+
+Here are some additional rules and coding conventions.
+
+ - Declare all ports and signals as logic; do not to use wire or reg.
+
+ - For combinational logic with an always block do not explicitly specify
+   the sensitivity list; instead use always @(*).
+
+ - All sized numeric constants must have a size greater than zero
+   (e.g, 0'b0 is not a valid expression).
+
+ - An always block must read at least one signal otherwise it will never
+   be executed; use an assign statement instead of an always block in
+   situations where there is no need to read any signals.
+
+ - if the module uses a synchronous reset signal, this means the reset
+   signal is sampled with respect to the clock. When implementing a
+   synchronous reset signal, do not include posedge reset in the
+   sensitivity list of any sequential always block.
+
+Enclose your code with [BEGIN] and [DONE]. Only output the code snippet
+and do NOT output anything else.
+
+Answer:

@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob076_always_case",
+  "samples": 118,
+  "source": "runs/arch/Prob076_always_case/Prob076_always_case.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob076_always_case/Prob076_always_case.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob076_always_case/Prob076_always_case.sv",
+        "runs/arch/Prob076_always_case/Prob076_always_case.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob076_always_case/Prob076_always_case.ivvp",
+        "runs/arch/Prob076_always_case/Prob076_always_case.sv",
+        "dataset_spec-to-rtl/Prob076_always_case_test.sv",
+        "dataset_spec-to-rtl/Prob076_always_case_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob076_always_case/Prob076_always_case.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

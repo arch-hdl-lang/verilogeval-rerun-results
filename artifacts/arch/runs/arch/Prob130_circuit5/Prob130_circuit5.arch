@@ -1,0 +1,32 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob130_circuit5_prompt.txt
+//! tags: [combinational, mux, waveform, verilog-eval]
+//! refs: []
+//! ---
+//!
+//! Implements the waveform-derived combinational selection for Prob130_circuit5.
+//! The 4-bit selector c chooses b, e, a, or d for selector values 0 through 3,
+//! and produces 4'hf for all other selector values.
+
+/// Waveform-derived combinational TopModule for Prob130_circuit5.
+///
+/// Interface is preserved exactly from the prompt: five 4-bit inputs and one
+/// 4-bit output.
+module TopModule
+  port a: in UInt<4>;
+  port b: in UInt<4>;
+  port c: in UInt<4>;
+  port d: in UInt<4>;
+  port e: in UInt<4>;
+  port q: out UInt<4>;
+
+  comb
+    unique match c
+      4'h0 => q = b;
+      4'h1 => q = e;
+      4'h2 => q = a;
+      4'h3 => q = d;
+      _ => q = 4'hf;
+    end match
+  end comb
+end module TopModule

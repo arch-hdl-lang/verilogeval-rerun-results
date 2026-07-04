@@ -1,0 +1,30 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob054_edgedetect_prompt.txt
+//! tags: [edge-detect, vector, registered-output]
+//! refs: []
+//! ---
+//!
+//! Implements the Prob054_edgedetect prompt as an 8-bit positive-edge detector.
+//! Each bit is compared with its previous sampled value and the registered output
+//! reports 0-to-1 transitions one clock cycle after they are observed.
+
+/// Top-level 8-bit positive-edge detector.
+///
+/// Samples the input vector on the rising clock edge and stores the previous
+/// cycle value to detect per-bit 0-to-1 transitions.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port in: in UInt<8>;
+  port pedge: out pipe_reg<UInt<8>, 1> init 0 reset none;
+
+  reg prev_in: UInt<8> init 0 reset none;
+
+  let edge_now: UInt<8> = (~prev_in) & in;
+
+  default seq on clk rising;
+
+  seq
+    prev_in <= in;
+    pedge@1 <= edge_now;
+  end seq
+end module TopModule

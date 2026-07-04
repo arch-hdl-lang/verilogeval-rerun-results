@@ -1,0 +1,21 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob042_vector4_prompt.txt
+//! tags: [sign-extension, vector, combinational]
+//! refs: []
+//! ---
+//!
+//! Implements the Prob042_vector4 prompt: sign-extend an 8-bit input to a
+//! 32-bit output by copying the input sign bit into the upper 24 bits.
+
+/// Combinational top module for 8-bit to 32-bit sign extension.
+module TopModule
+  port in: in UInt<8>;
+  port out: out UInt<32>;
+
+  let out = {
+    in[7], in[7], in[7], in[7], in[7], in[7], in[7], in[7],
+    in[7], in[7], in[7], in[7], in[7], in[7], in[7], in[7],
+    in[7], in[7], in[7], in[7], in[7], in[7], in[7], in[7],
+    in
+  };
+end module TopModule

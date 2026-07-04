@@ -1,0 +1,12 @@
+module TopModule
+  port p1a: in Bool;
+  port p1b: in Bool;
+  port p1c: in Bool;
+  port p1d: in Bool;
+  port p2a: in Bool;
+  port p2b: in Bool;
+  port p2c: in Bool;
+  port p2d: in Bool;
+  port p1y: out Bool comb_dep_on(p1a, p1b, p1c, p1d);
+  port p2y: out Bool comb_dep_on(p2a, p2b, p2c, p2d);
+end module TopModule

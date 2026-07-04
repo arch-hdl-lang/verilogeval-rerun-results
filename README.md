@@ -7,9 +7,9 @@ spec-to-RTL lanes:
 - ARCH HDL generation and repair, built to SystemVerilog before black-box
   Icarus evaluation.
 
-The result files here are small, auditable summaries. The runnable lane
-workspaces are expected to be published separately or added as pinned
-submodules before an external release.
+The repo includes a pinned upstream VerilogEval submodule, lane-specific
+overlays, summary reports, and the complete clean run artifacts needed to audit
+the accounting.
 
 ## Headline Results
 
@@ -26,8 +26,15 @@ direct-Verilog run, this repository uses the max-4 repair budget result.
 
 - `reports/direct-verilog/`: direct-Verilog final report and accounting JSON.
 - `reports/arch/`: ARCH final report and accounting JSON.
+- `artifacts/direct-verilog/runs/verilog/`: archived direct-Verilog run tree.
+- `artifacts/arch/runs/arch/`: archived ARCH run tree.
+- `overlays/direct-verilog/`: scripts and instructions added to upstream for
+  the direct-Verilog rerun.
+- `overlays/arch/`: scripts and instructions added to upstream for the ARCH
+  rerun.
+- `upstream/verilog-eval/`: upstream VerilogEval pinned as a git submodule.
 - `manifests/`: machine-readable lane metadata.
-- `checksums.sha256`: SHA256 checksums for archived report artifacts.
+- `checksums.sha256`: SHA256 checksums for archived files in this repo.
 - `REPRODUCE.md`: rerun instructions.
 - `COMPARISON.md`: comparison notes and interpretation.
 
@@ -37,6 +44,7 @@ Verify archived report artifacts:
 
 ```sh
 ./scripts/verify-checksums.sh
+./scripts/check-archive.sh
 ```
 
 ## Benchmark Rules
@@ -49,4 +57,3 @@ Both lanes used the same benchmark data boundaries:
 - Use fresh independent context for each problem and for each repair worker.
 - Do not inspect archived prior repair outputs, waveforms, backup histories, or
   hidden checker logic.
-

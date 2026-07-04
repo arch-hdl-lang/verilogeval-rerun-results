@@ -1,0 +1,22 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob029_m2014_q4g_prompt.txt
+//! tags: [combinational, xnor, xor]
+//! refs: []
+//! ---
+//!
+//! Implements the requested one-bit combinational circuit for Prob029_m2014_q4g.
+//! The output is the XOR of in3 with the XNOR of in1 and in2.
+
+/// Top-level combinational module for the VerilogEval Prob029_m2014_q4g prompt.
+///
+/// Computes out as ((in1 XNOR in2) XOR in3) using one-bit Boolean ports.
+module TopModule
+  port in1: in Bool;
+  port in2: in Bool;
+  port in3: in Bool;
+  port out: out Bool;
+
+  let out = (in1 == in2) ^ in3;
+end module TopModule
+[DONE]

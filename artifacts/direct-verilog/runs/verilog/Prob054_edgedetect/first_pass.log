@@ -1,0 +1,11 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob054_edgedetect/Prob054_edgedetect.ivvp runs/verilog/Prob054_edgedetect/Prob054_edgedetect.sv dataset_spec-to-rtl/Prob054_edgedetect_test.sv dataset_spec-to-rtl/Prob054_edgedetect_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob054_edgedetect/Prob054_edgedetect.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob054_edgedetect_test.sv:45: $finish called at 1135 (1ps)
+Hint: Output 'pedge' has no mismatches.
+Hint: Total mismatched samples is 0 out of 227 samples
+
+Simulation finished at 1135 ps
+Mismatches: 0 in 227 samples
+SIM_STATUS: 0

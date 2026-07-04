@@ -1,0 +1,80 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob142_lemmings2_prompt.txt
+//! tags: [lemmings, fsm, moore, async-reset]
+//! refs: []
+//! ---
+//!
+//! Implements the Prob142_lemmings2 Lemming controller as a Moore FSM.
+//! The falling states remember the walking direction from before ground disappeared.
+
+/// Top-level Moore FSM for the Lemming walking/falling behavior.
+///
+/// Port timing/type notes:
+/// - clk: positive-edge clock for all sequential state updates.
+/// - areset: positive-edge asynchronous active-high reset to WalkLeft.
+/// - bump_left, bump_right, ground: sampled on clk rising when not in asynchronous reset.
+/// - walk_left, walk_right, aaah: combinational/state-derived Moore outputs.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// | not ground | WalkLeft | FallLeft | walk_left=1, walk_right=0, aaah=0 |
+/// | ground and bump_left | WalkLeft | WalkRight | walk_left=1, walk_right=0, aaah=0 |
+/// | ground and not bump_left | WalkLeft | WalkLeft | walk_left=1, walk_right=0, aaah=0 |
+/// | not ground | WalkRight | FallRight | walk_left=0, walk_right=1, aaah=0 |
+/// | ground and bump_right | WalkRight | WalkLeft | walk_left=0, walk_right=1, aaah=0 |
+/// | ground and not bump_right | WalkRight | WalkRight | walk_left=0, walk_right=1, aaah=0 |
+/// | ground | FallLeft | WalkLeft | walk_left=0, walk_right=0, aaah=1 |
+/// | not ground | FallLeft | FallLeft | walk_left=0, walk_right=0, aaah=1 |
+/// | ground | FallRight | WalkRight | walk_left=0, walk_right=0, aaah=1 |
+/// | not ground | FallRight | FallRight | walk_left=0, walk_right=0, aaah=1 |
+fsm TopModule
+  port clk: in Clock<SysDomain>;
+  port areset: in Reset<Async, High>;
+  port bump_left: in Bool;
+  port bump_right: in Bool;
+  port ground: in Bool;
+  port walk_left: out Bool;
+  port walk_right: out Bool;
+  port aaah: out Bool;
+
+  state [WalkLeft, WalkRight, FallLeft, FallRight]
+  default state WalkLeft;
+
+  default
+    comb
+      walk_left = false;
+      walk_right = false;
+      aaah = false;
+    end comb
+  end default
+
+  state WalkLeft
+    comb
+      walk_left = true;
+    end comb
+    -> FallLeft when not ground;
+    -> WalkRight when ground and bump_left;
+  end state WalkLeft
+
+  state WalkRight
+    comb
+      walk_right = true;
+    end comb
+    -> FallRight when not ground;
+    -> WalkLeft when ground and bump_right;
+  end state WalkRight
+
+  state FallLeft
+    comb
+      aaah = true;
+    end comb
+    -> WalkLeft when ground;
+  end state FallLeft
+
+  state FallRight
+    comb
+      aaah = true;
+    end comb
+      -> WalkRight when ground;
+  end state FallRight
+end fsm TopModule

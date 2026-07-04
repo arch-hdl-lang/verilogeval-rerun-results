@@ -1,0 +1,7 @@
+fsm TopModule
+  port clk: in Clock<SysDomain>;
+  port areset: in Reset<Async>;
+  port j: in Bool;
+  port k: in Bool;
+  port out: out Bool comb_dep_on();
+end fsm TopModule

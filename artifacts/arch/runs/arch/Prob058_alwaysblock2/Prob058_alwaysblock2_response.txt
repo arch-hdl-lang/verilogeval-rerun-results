@@ -1,0 +1,34 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob058_alwaysblock2_prompt.txt
+//! tags: [xor, combinational, sequential]
+//! refs: []
+//! ---
+//!
+//! Implements the requested three XOR outputs for the VerilogEval alwaysblock2 problem.
+
+/// Top-level VerilogEval module preserving the requested interface.
+///
+/// `out_assign` and `out_always_comb` are combinational XOR outputs, while
+/// `out_always_ff` captures the XOR result on the positive clock edge.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port a: in Bool;
+  port b: in Bool;
+  port out_assign: out Bool;
+  port out_always_comb: out Bool;
+  port out_always_ff: out pipe_reg<Bool, 1>;
+
+  let out_assign = a ^ b;
+
+  comb
+    out_always_comb = a ^ b;
+  end comb
+
+  default seq on clk rising;
+
+  seq
+    out_always_ff@1 <= a ^ b;
+  end seq
+end module TopModule
+[DONE]

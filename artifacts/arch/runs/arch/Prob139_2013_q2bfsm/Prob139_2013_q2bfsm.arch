@@ -1,0 +1,91 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob139_2013_q2bfsm_prompt.txt
+//! tags: [fsm, motor-control, sequence-detect, synchronous-reset]
+//! ---
+//!
+//! Motor-control FSM for Prob139_2013_q2bfsm. The controller emits a one-cycle
+//! f pulse after synchronous active-low reset releases, then detects x=1,0,1
+//! and decides whether g remains asserted based on y over the next two cycles.
+///
+/// Top-level motor-control finite state machine.
+///
+/// Port timing/type notes:
+/// - clk: positive-edge clock.
+/// - resetn: synchronous active-low reset; while asserted, state is A.
+/// - x, y: sampled on the positive edge of clk.
+/// - f, g: combinational, state-derived outputs visible from the current state.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// | any, resetn asserted | any | A | f=0, g=0 |
+/// | resetn deasserted | A | B | f=0, g=0 |
+/// | any | B | C | f=1, g=0 |
+/// | x == 1 | C | D | f=0, g=0 |
+/// | x == 0 | C | C | f=0, g=0 |
+/// | x == 0 | D | E | f=0, g=0 |
+/// | x == 1 | D | D | f=0, g=0 |
+/// | x == 1 | E | F | f=0, g=0 |
+/// | x == 0 | E | C | f=0, g=0 |
+/// | y == 1 | F | G | f=0, g=1 |
+/// | y == 0 | F | H | f=0, g=1 |
+/// | y == 1 | H | G | f=0, g=1 |
+/// | y == 0 | H | I | f=0, g=1 |
+/// | any | G | G | f=0, g=1 |
+/// | any | I | I | f=0, g=0 |
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port resetn: in Reset<Sync, Low>;
+  port x: in Bool;
+  port y: in Bool;
+  port f: out Bool;
+  port g: out Bool;
+
+  reg state_r: UInt<4> reset resetn => 0;
+
+  let f = state_r == 4'd1;
+  let g = (state_r == 4'd5) or (state_r == 4'd6) or (state_r == 4'd7);
+
+  default seq on clk rising;
+
+  seq
+    if state_r == 4'd0
+      state_r <= 4'd1;
+    elsif state_r == 4'd1
+      state_r <= 4'd2;
+    elsif state_r == 4'd2
+      if x
+        state_r <= 4'd3;
+      else
+        state_r <= 4'd2;
+      end if
+    elsif state_r == 4'd3
+      if x
+        state_r <= 4'd3;
+      else
+        state_r <= 4'd4;
+      end if
+    elsif state_r == 4'd4
+      if x
+        state_r <= 4'd5;
+      else
+        state_r <= 4'd2;
+      end if
+    elsif state_r == 4'd5
+      if y
+        state_r <= 4'd6;
+      else
+        state_r <= 4'd7;
+      end if
+    elsif state_r == 4'd7
+      if y
+        state_r <= 4'd6;
+      else
+        state_r <= 4'd8;
+      end if
+    elsif state_r == 4'd6
+      state_r <= 4'd6;
+    else
+      state_r <= 4'd8;
+    end if
+  end seq
+end module TopModule

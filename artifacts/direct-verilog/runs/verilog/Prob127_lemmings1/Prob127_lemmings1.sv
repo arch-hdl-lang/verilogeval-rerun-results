@@ -1,0 +1,46 @@
+
+module TopModule (
+    input logic clk,
+    input logic areset,
+    input logic bump_left,
+    input logic bump_right,
+    output logic walk_left,
+    output logic walk_right
+);
+
+    localparam logic LEFT = 1'b0;
+    localparam logic RIGHT = 1'b1;
+
+    logic state;
+
+    always @(posedge clk or posedge areset) begin
+        if (areset) begin
+            state <= LEFT;
+        end else begin
+            case (state)
+                LEFT: begin
+                    if (bump_left) begin
+                        state <= RIGHT;
+                    end else begin
+                        state <= LEFT;
+                    end
+                end
+                RIGHT: begin
+                    if (bump_right) begin
+                        state <= LEFT;
+                    end else begin
+                        state <= RIGHT;
+                    end
+                end
+                default: begin
+                    state <= LEFT;
+                end
+            endcase
+        end
+    end
+
+    assign walk_left = (state == LEFT);
+    assign walk_right = (state == RIGHT);
+
+endmodule
+

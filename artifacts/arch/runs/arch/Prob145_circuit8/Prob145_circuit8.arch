@@ -1,0 +1,62 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob145_circuit8_prompt.txt
+//! tags: [sequential, latch, waveform]
+//! refs: []
+//! ---
+//!
+//! Implements the waveform-derived sequential circuit for Prob145_circuit8.
+//! The observed behavior is a high-transparent latch for p followed by an
+//! equivalent falling-edge sample for q, since p is stable while clock is low.
+
+/// One-bit latch storage using the ARCH latch regfile primitive.
+///
+/// Row zero is used as the stored latch bit; the second row only keeps the
+/// address width nonzero for portable generated SystemVerilog.
+regfile BitLatchStore
+  param NREGS: const = 2;
+  param T: const = 1;
+
+  port clk: in Clock<SysDomain>;
+
+  ports[1] read
+    addr: in UInt<1>;
+    data: out UInt<T>;
+  end ports read
+
+  ports[1] write
+    en: in Bool;
+    addr: in UInt<1>;
+    data: in UInt<T>;
+  end ports write
+
+  kind latch;
+  flops: external;
+  forward write_before_read: true;
+end regfile BitLatchStore
+
+/// Top-level waveform-derived sequential circuit.
+///
+/// p is transparent while clock is high and otherwise holds. q captures that
+/// held p value on each falling clock edge.
+module TopModule
+  port clock: in Clock<SysDomain>;
+  port a: in Bool;
+  port p: out Bool;
+  port q: out pipe_reg<Bool, 1> reset none;
+
+  reg zero_addr: UInt<1> init 0 reset none;
+
+  inst p_store: BitLatchStore
+    clk <- clock;
+    read[0].addr <- zero_addr;
+    read[0].data -> p;
+    write[0].en <- clock;
+    write[0].addr <- zero_addr;
+    write[0].data <- a;
+  end inst p_store
+
+  seq on clock falling
+    q@1 <= p;
+  end seq
+end module TopModule
+

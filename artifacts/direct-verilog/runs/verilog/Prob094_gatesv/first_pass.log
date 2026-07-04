@@ -1,0 +1,13 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob094_gatesv/Prob094_gatesv.ivvp runs/verilog/Prob094_gatesv/Prob094_gatesv.sv dataset_spec-to-rtl/Prob094_gatesv_test.sv dataset_spec-to-rtl/Prob094_gatesv_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob094_gatesv/Prob094_gatesv.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob094_gatesv_test.sv:44: $finish called at 1066 (1ps)
+Hint: Output 'out_both' has no mismatches.
+Hint: Output 'out_any' has no mismatches.
+Hint: Output 'out_different' has no mismatches.
+Hint: Total mismatched samples is 0 out of 213 samples
+
+Simulation finished at 1066 ps
+Mismatches: 0 in 213 samples
+SIM_STATUS: 0

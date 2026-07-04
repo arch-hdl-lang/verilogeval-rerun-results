@@ -1,0 +1,35 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob063_review2015_shiftcount_prompt.txt
+//! tags: [shift-register, down-counter, sequential]
+//! refs: []
+//! ---
+//!
+//! Four-bit positive-edge shift register that can also decrement its stored value.
+//! Incoming serial data is most-significant-bit first, so shifting moves earlier
+//! bits toward the MSB while the newest bit enters at the LSB.
+
+/// Top-level module for the requested four-bit shift/count register.
+///
+/// Inputs are sampled on the rising edge of clk. The output q reflects the
+/// current contents of the internal register with no extra output pipeline.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port shift_ena: in Bool;
+  port count_ena: in Bool;
+  port data: in Bool;
+  port q: out UInt<4>;
+
+  reg q_state: UInt<4> reset none;
+
+  let q = q_state;
+
+  default seq on clk rising;
+
+  seq
+    if shift_ena
+      q_state <= {q_state[2:0], data};
+    elsif count_ena
+      q_state <= q_state -% 4'd1;
+    end if
+  end seq
+end module TopModule

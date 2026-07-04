@@ -1,0 +1,35 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob061_2014_q4a_prompt.txt
+//! tags: [shift_register, load_enable, sequential_logic]
+//! refs: []
+//! ---
+//!
+//! One stage of a larger shift register. The stage stores one bit, loading R when L is asserted, otherwise shifting in w when E is asserted, and otherwise holding the previous value.
+
+/// One-bit positive-edge shift-register stage with synchronous load priority.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port w: in Bool;
+  port R: in Bool;
+  port E: in Bool;
+  port L: in Bool;
+  port Q: out Bool;
+
+  reg q_value: Bool reset none;
+
+  let Q = q_value;
+
+  default seq on clk rising;
+
+  seq
+    if L
+      q_value <= R;
+    elsif E
+      q_value <= w;
+    else
+      q_value <= q_value;
+    end if
+  end seq
+end module TopModule
+[DONE]

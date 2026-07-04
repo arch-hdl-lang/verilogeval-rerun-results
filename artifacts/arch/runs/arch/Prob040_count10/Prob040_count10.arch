@@ -1,0 +1,28 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob040_count10_prompt.txt
+//! tags: [counter, decade, synchronous-reset]
+//! refs: []
+//! ---
+//!
+//! Implements the requested TopModule as a positive-edge decade counter.
+//! The active-high synchronous reset returns the count output to zero.
+
+/// Top-level decade counter with the exact VerilogEval interface.
+///
+/// `q` is a registered 4-bit output that advances 0 through 9 on each
+/// rising clock edge and wraps back to 0 after 9.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port q: out pipe_reg<UInt<4>, 1> reset reset => 0;
+
+  default seq on clk rising;
+
+  seq
+    if q == 4'd9
+      q@1 <= 4'd0;
+    else
+      q@1 <= q +% 4'd1;
+    end if
+  end seq
+end module TopModule

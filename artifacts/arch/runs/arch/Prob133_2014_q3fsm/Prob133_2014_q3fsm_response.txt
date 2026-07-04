@@ -1,0 +1,97 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob133_2014_q3fsm_prompt.txt
+//! tags: [fsm, sequence-counting, synchronous-reset]
+//! refs: []
+//! ---
+//!
+//! Implements the requested TopModule finite state machine. The FSM waits in
+//! state A until s is asserted, then evaluates w in repeating three-cycle
+//! windows and drives z high only in the cycle following a window with exactly
+//! two asserted samples.
+
+/// Top-level FSM for Prob133_2014_q3fsm.
+///
+/// Port timing/type notes:
+/// - clk: positive-edge clock.
+/// - reset: active-high synchronous reset to state A.
+/// - s: sampled on clk rising only while in state A.
+/// - w: sampled on clk rising while checking repeating three-cycle windows.
+/// - z: combinational, state-derived output visible for the current state.
+///
+/// Standard transition table:
+/// | input condition | current state | next state | output z |
+/// | s = 0 | A | A | 0 |
+/// | s = 1 | A | B | 0 |
+/// | w = 0 | B | C0 | 0 |
+/// | w = 1 | B | C1 | 0 |
+/// | w = 0 | G | C0 | 1 |
+/// | w = 1 | G | C1 | 1 |
+/// | w = 0 | C0 | D0 | 0 |
+/// | w = 1 | C0 | D1 | 0 |
+/// | w = 0 | C1 | D1 | 0 |
+/// | w = 1 | C1 | D2 | 0 |
+/// | w = 0 | D0 | B | 0 |
+/// | w = 1 | D0 | B | 0 |
+/// | w = 0 | D1 | B | 0 |
+/// | w = 1 | D1 | G | 0 |
+/// | w = 0 | D2 | G | 0 |
+/// | w = 1 | D2 | B | 0 |
+fsm TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port s: in Bool;
+  port w: in Bool;
+  port z: out Bool;
+
+  state [A, B, C0, C1, D0, D1, D2, G]
+  default state A;
+
+  default
+    comb
+      z = false;
+    end comb
+  end default
+
+  state A
+    -> B when s;
+  end state A
+
+  state B
+    -> C1 when w;
+    -> C0 when not w;
+  end state B
+
+  state G
+    comb
+      z = true;
+    end comb
+    -> C1 when w;
+    -> C0 when not w;
+  end state G
+
+  state C0
+    -> D1 when w;
+    -> D0 when not w;
+  end state C0
+
+  state C1
+    -> D2 when w;
+    -> D1 when not w;
+  end state C1
+
+  state D0
+    -> B;
+  end state D0
+
+  state D1
+    -> G when w;
+    -> B when not w;
+  end state D1
+
+  state D2
+    -> B when w;
+    -> G when not w;
+  end state D2
+end fsm TopModule
+[DONE]

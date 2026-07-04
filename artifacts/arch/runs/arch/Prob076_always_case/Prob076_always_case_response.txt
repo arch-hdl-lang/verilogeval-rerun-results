@@ -1,0 +1,37 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob076_always_case_prompt.txt
+//! tags: [mux, combinational, case]
+//! refs: []
+//! ---
+//!
+//! Implements the Prob076_always_case prompt as a combinational 6-to-1
+//! multiplexer with an explicit zero default for out-of-range selections.
+
+/// Top-level combinational multiplexer required by the VerilogEval prompt.
+///
+/// Selects one of six 4-bit data inputs when sel is 0 through 5; otherwise
+/// drives zero.
+module TopModule
+  port sel: in UInt<3>;
+  port data0: in UInt<4>;
+  port data1: in UInt<4>;
+  port data2: in UInt<4>;
+  port data3: in UInt<4>;
+  port data4: in UInt<4>;
+  port data5: in UInt<4>;
+  port out: out UInt<4>;
+
+  comb
+    unique match sel
+      0 => out = data0;
+      1 => out = data1;
+      2 => out = data2;
+      3 => out = data3;
+      4 => out = data4;
+      5 => out = data5;
+      _ => out = 0;
+    end match
+  end comb
+end module TopModule
+[DONE]

@@ -1,0 +1,30 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob078_dualedge_prompt.txt
+//! tags: [dualedge, flipflop, clocking]
+//! ---
+//!
+//! Implements a one-bit dual-edge triggered flip-flop behavior using two
+//! single-edge registers and a clock-level output mux.
+
+/// Top-level dual-edge flip-flop emulation with the requested interface.
+///
+/// The rising-edge register holds the sample visible while clk is high, and
+/// the falling-edge register holds the sample visible while clk is low.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port d: in Bool;
+  port q: out Bool;
+
+  reg pos_sample: Bool reset none;
+  reg neg_sample: Bool reset none;
+
+  seq on clk rising
+    pos_sample <= d;
+  end seq
+
+  seq on clk falling
+    neg_sample <= d;
+  end seq
+
+  let q = clk ? pos_sample : neg_sample;
+end module TopModule

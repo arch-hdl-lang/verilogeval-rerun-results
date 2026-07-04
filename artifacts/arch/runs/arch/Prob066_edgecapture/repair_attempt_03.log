@@ -1,0 +1,18 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob066_edgecapture/repair_attempt_03.sv
+Wrote runs/arch/Prob066_edgecapture/TopModule.archi
+
+Icarus compile:
+
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob066_edgecapture_test.sv:86: $finish called at 1330 (1ps)
+Hint: Output 'out' has 4 mismatches. First mismatch occurred at time 100.
+Hint: Total mismatched samples is 4 out of 266 samples
+
+Simulation finished at 1330 ps
+Mismatches: 4 in 266 samples

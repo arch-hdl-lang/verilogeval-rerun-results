@@ -1,0 +1,12 @@
+{
+  "problem": "Prob053_m2014_q4d",
+  "arch_check": "pass",
+  "arch_build": "pass",
+  "verilator_lint": "pass",
+  "icarus_compile": "pass",
+  "icarus_run": "fail",
+  "mismatches": 1,
+  "samples": 100,
+  "first_mismatch_time": 5,
+  "log": "runs/arch/Prob053_m2014_q4d/first_pass.log"
+}

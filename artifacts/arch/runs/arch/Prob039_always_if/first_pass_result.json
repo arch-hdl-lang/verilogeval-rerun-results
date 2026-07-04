@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob039_always_if",
+  "samples": 114,
+  "source": "runs/arch/Prob039_always_if/Prob039_always_if.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob039_always_if/Prob039_always_if.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob039_always_if/Prob039_always_if.sv",
+        "runs/arch/Prob039_always_if/Prob039_always_if.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob039_always_if/Prob039_always_if.ivvp",
+        "runs/arch/Prob039_always_if/Prob039_always_if.sv",
+        "dataset_spec-to-rtl/Prob039_always_if_test.sv",
+        "dataset_spec-to-rtl/Prob039_always_if_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob039_always_if/Prob039_always_if.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

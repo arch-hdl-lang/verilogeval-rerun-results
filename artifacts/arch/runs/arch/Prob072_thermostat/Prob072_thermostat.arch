@@ -1,0 +1,27 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob072_thermostat_prompt.txt
+//! tags: [thermostat, combinational, hvac]
+//! refs: []
+//! ---
+//!
+//! Combinational thermostat controller for heating and cooling modes.
+//! The user fan request is ORed with active HVAC circulation demand.
+
+/// Top-level thermostat controller preserving the requested VerilogEval interface.
+///
+/// In heating mode, `heater` follows `too_cold` and `aircon` is off. In cooling
+/// mode, `aircon` follows `too_hot` and `heater` is off; `fan` is on when either
+/// HVAC output is active or the user requests fan operation.
+module TopModule
+  port mode: in Bool;
+  port too_cold: in Bool;
+  port too_hot: in Bool;
+  port fan_on: in Bool;
+  port heater: out Bool;
+  port aircon: out Bool;
+  port fan: out Bool;
+
+  let heater = mode and too_cold;
+  let aircon = (not mode) and too_hot;
+  let fan = heater or aircon or fan_on;
+end module TopModule

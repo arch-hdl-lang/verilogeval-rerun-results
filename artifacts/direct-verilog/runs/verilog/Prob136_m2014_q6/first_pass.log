@@ -1,0 +1,9 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob136_m2014_q6/Prob136_m2014_q6.ivvp runs/verilog/Prob136_m2014_q6/Prob136_m2014_q6.sv dataset_spec-to-rtl/Prob136_m2014_q6_test.sv dataset_spec-to-rtl/Prob136_m2014_q6_ref.sv
+runs/verilog/Prob136_m2014_q6/Prob136_m2014_q6.sv:22: error: This assignment requires an explicit cast.
+runs/verilog/Prob136_m2014_q6/Prob136_m2014_q6.sv:23: error: This assignment requires an explicit cast.
+runs/verilog/Prob136_m2014_q6/Prob136_m2014_q6.sv:24: error: This assignment requires an explicit cast.
+runs/verilog/Prob136_m2014_q6/Prob136_m2014_q6.sv:25: error: This assignment requires an explicit cast.
+runs/verilog/Prob136_m2014_q6/Prob136_m2014_q6.sv:26: error: This assignment requires an explicit cast.
+runs/verilog/Prob136_m2014_q6/Prob136_m2014_q6.sv:27: error: This assignment requires an explicit cast.
+6 error(s) during elaboration.
+COMPILE_STATUS: 6

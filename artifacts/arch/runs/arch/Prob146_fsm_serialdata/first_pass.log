@@ -1,0 +1,19 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob146_fsm_serialdata/Prob146_fsm_serialdata.sv
+Wrote runs/arch/Prob146_fsm_serialdata/TopModule.archi
+
+Icarus compile:
+
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob146_fsm_serialdata_test.sv:45: $finish called at 4526 (1ps)
+Hint: Output 'out_byte' has no mismatches.
+Hint: Output 'done' has no mismatches.
+Hint: Total mismatched samples is 0 out of 905 samples
+
+Simulation finished at 4526 ps
+Mismatches: 0 in 905 samples

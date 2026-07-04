@@ -1,0 +1,19 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob019_m2014_q4f_prompt.txt
+//! tags: [combinational, logic_gate, inversion]
+//! refs: []
+//! ---
+//!
+//! Implements the requested two-input combinational gate with a bubble on
+//! the second AND input.
+
+/// Top-level combinational module for Prob019_m2014_q4f.
+///
+/// Drives out high only when in1 is high and in2 is low.
+module TopModule
+  port in1: in Bool;
+  port in2: in Bool;
+  port out: out Bool;
+
+  let out = in1 and not in2;
+end module TopModule

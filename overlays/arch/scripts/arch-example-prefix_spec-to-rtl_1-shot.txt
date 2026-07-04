@@ -1,0 +1,28 @@
+Question:
+Translate the following RTL specification into ARCH HDL.
+
+Implement a hardware module named TopModule with the following interface.
+All input and output ports are one bit unless otherwise specified.
+
+ - input  in0
+ - input  in1
+ - output out
+
+The module should implement an XOR gate.
+
+Enclose your code with [BEGIN] and [DONE]. Only output the ARCH code snippet
+and do NOT output anything else.
+
+Answer:
+[BEGIN]
+//! Simple combinational XOR gate.
+/// XOR gate with two one-bit inputs and one one-bit output.
+module TopModule
+  port in0: in Bool;
+  port in1: in Bool;
+  port out: out Bool;
+
+  let out = in0 ^ in1;
+end module TopModule
+[DONE]
+

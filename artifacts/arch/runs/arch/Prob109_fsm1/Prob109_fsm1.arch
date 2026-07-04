@@ -1,0 +1,48 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob109_fsm1_prompt.txt
+//! tags: [fsm, moore, async-reset]
+//! ---
+//!
+//! Two-state Moore machine for Prob109_fsm1. The asynchronous active-high reset
+//! returns the state machine to state B, where the state-derived output is high.
+
+/// Top-level Moore FSM with the exact requested TopModule interface.
+///
+/// Timing/types:
+/// input clk: positive-edge clock.
+/// input areset: asynchronous active-high reset, resetting state to B.
+/// input in: sampled on clk rising for state transitions.
+/// output out: combinational/state-derived Moore output.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// | in == 0         | B             | A          | 1      |
+/// | in == 1         | B             | B          | 1      |
+/// | in == 0         | A             | B          | 0      |
+/// | in == 1         | A             | A          | 0      |
+fsm TopModule
+  port clk: in Clock<SysDomain>;
+  port areset: in Reset<Async, High>;
+  port in: in Bool;
+  port out: out Bool;
+
+  state [A, B]
+  default state B;
+
+  default
+    comb
+      out = false;
+    end comb
+  end default
+
+  state A
+    -> B when not in;
+  end state A
+
+  state B
+    comb
+      out = true;
+    end comb
+    -> A when not in;
+  end state B
+end fsm TopModule

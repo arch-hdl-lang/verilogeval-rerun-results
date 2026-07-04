@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob106_always_nolatches",
+  "samples": 30020,
+  "source": "runs/arch/Prob106_always_nolatches/Prob106_always_nolatches.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob106_always_nolatches/Prob106_always_nolatches.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob106_always_nolatches/Prob106_always_nolatches.sv",
+        "runs/arch/Prob106_always_nolatches/Prob106_always_nolatches.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob106_always_nolatches/Prob106_always_nolatches.ivvp",
+        "runs/arch/Prob106_always_nolatches/Prob106_always_nolatches.sv",
+        "dataset_spec-to-rtl/Prob106_always_nolatches_test.sv",
+        "dataset_spec-to-rtl/Prob106_always_nolatches_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob106_always_nolatches/Prob106_always_nolatches.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

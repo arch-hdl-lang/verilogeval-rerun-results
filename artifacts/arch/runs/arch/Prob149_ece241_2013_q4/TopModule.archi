@@ -1,0 +1,15 @@
+module TopModule
+  local param LOW[2:0]: const = 3'd0;
+  local param MID_LOW_RISE[2:0]: const = 3'd1;
+  local param MID_LOW_FALL[2:0]: const = 3'd2;
+  local param MID_HIGH_RISE[2:0]: const = 3'd3;
+  local param MID_HIGH_FALL[2:0]: const = 3'd4;
+  local param HIGH_LEVEL[2:0]: const = 3'd5;
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync>;
+  port s: in UInt<3>;
+  port fr2: out Bool comb_dep_on();
+  port fr1: out Bool comb_dep_on();
+  port fr0: out Bool comb_dep_on();
+  port dfr: out Bool comb_dep_on();
+end module TopModule

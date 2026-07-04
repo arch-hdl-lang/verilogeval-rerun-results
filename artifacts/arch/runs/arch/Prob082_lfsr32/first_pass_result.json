@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob082_lfsr32",
+  "samples": 200000,
+  "source": "runs/arch/Prob082_lfsr32/Prob082_lfsr32.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob082_lfsr32/Prob082_lfsr32.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob082_lfsr32/Prob082_lfsr32.sv",
+        "runs/arch/Prob082_lfsr32/Prob082_lfsr32.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob082_lfsr32/Prob082_lfsr32.ivvp",
+        "runs/arch/Prob082_lfsr32/Prob082_lfsr32.sv",
+        "dataset_spec-to-rtl/Prob082_lfsr32_test.sv",
+        "dataset_spec-to-rtl/Prob082_lfsr32_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob082_lfsr32/Prob082_lfsr32.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

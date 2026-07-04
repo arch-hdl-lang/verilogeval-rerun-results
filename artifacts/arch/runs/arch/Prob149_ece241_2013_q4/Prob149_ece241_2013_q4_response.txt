@@ -1,0 +1,144 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob149_ece241_2013_q4_prompt.txt
+//! tags: [fsm, water-level, flow-control]
+//! refs: []
+//! ---
+//!
+//! Water reservoir flow controller derived from the VerilogEval prompt.
+//! The controller tracks the current sensor-defined water level and, for
+//! middle levels, whether the latest level change came from below or above.
+
+/// Top-level water reservoir controller.
+///
+/// Input timing/type: `clk` is the positive-edge system clock, `reset` is
+/// active-high synchronous reset, and `s` is sampled by the controller on
+/// `clk`. Output timing/type: `fr2`, `fr1`, `fr0`, and `dfr` are
+/// combinational state-derived outputs visible for the current state.
+///
+/// Transition table:
+/// input condition | current state | next state | output visible in current state
+/// reset asserted | any | Low | fr2=1, fr1=1, fr0=1, dfr=1 after reset state is entered
+/// s == 3'b000 | Low | Low | fr2=1, fr1=1, fr0=1, dfr=1
+/// s == 3'b001 | Low | MidLowRise | fr2=1, fr1=1, fr0=1, dfr=1
+/// s == 3'b011 | Low | MidHighRise | fr2=1, fr1=1, fr0=1, dfr=1
+/// s == 3'b111 | Low | High | fr2=1, fr1=1, fr0=1, dfr=1
+/// s == 3'b000 | MidLowRise | Low | fr2=0, fr1=1, fr0=1, dfr=1
+/// s == 3'b001 | MidLowRise | MidLowRise | fr2=0, fr1=1, fr0=1, dfr=1
+/// s == 3'b011 | MidLowRise | MidHighRise | fr2=0, fr1=1, fr0=1, dfr=1
+/// s == 3'b111 | MidLowRise | High | fr2=0, fr1=1, fr0=1, dfr=1
+/// s == 3'b000 | MidLowFall | Low | fr2=0, fr1=1, fr0=1, dfr=0
+/// s == 3'b001 | MidLowFall | MidLowFall | fr2=0, fr1=1, fr0=1, dfr=0
+/// s == 3'b011 | MidLowFall | MidHighRise | fr2=0, fr1=1, fr0=1, dfr=0
+/// s == 3'b111 | MidLowFall | High | fr2=0, fr1=1, fr0=1, dfr=0
+/// s == 3'b000 | MidHighRise | Low | fr2=0, fr1=0, fr0=1, dfr=1
+/// s == 3'b001 | MidHighRise | MidLowFall | fr2=0, fr1=0, fr0=1, dfr=1
+/// s == 3'b011 | MidHighRise | MidHighRise | fr2=0, fr1=0, fr0=1, dfr=1
+/// s == 3'b111 | MidHighRise | High | fr2=0, fr1=0, fr0=1, dfr=1
+/// s == 3'b000 | MidHighFall | Low | fr2=0, fr1=0, fr0=1, dfr=0
+/// s == 3'b001 | MidHighFall | MidLowFall | fr2=0, fr1=0, fr0=1, dfr=0
+/// s == 3'b011 | MidHighFall | MidHighFall | fr2=0, fr1=0, fr0=1, dfr=0
+/// s == 3'b111 | MidHighFall | High | fr2=0, fr1=0, fr0=1, dfr=0
+/// s == 3'b000 | High | Low | fr2=0, fr1=0, fr0=0, dfr=0
+/// s == 3'b001 | High | MidLowFall | fr2=0, fr1=0, fr0=0, dfr=0
+/// s == 3'b011 | High | MidHighFall | fr2=0, fr1=0, fr0=0, dfr=0
+/// s == 3'b111 | High | High | fr2=0, fr1=0, fr0=0, dfr=0
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port s: in UInt<3>;
+  port fr2: out Bool;
+  port fr1: out Bool;
+  port fr0: out Bool;
+  port dfr: out Bool;
+
+  local param LOW[2:0]: const = 3'b000;
+  local param MID_LOW_RISE[2:0]: const = 3'b001;
+  local param MID_LOW_FALL[2:0]: const = 3'b010;
+  local param MID_HIGH_RISE[2:0]: const = 3'b011;
+  local param MID_HIGH_FALL[2:0]: const = 3'b100;
+  local param HIGH_LEVEL[2:0]: const = 3'b101;
+
+  reg state_r: UInt<3> reset reset => 0;
+
+  comb
+    fr2 = false;
+    fr1 = false;
+    fr0 = false;
+    dfr = false;
+
+    if state_r == LOW
+      fr2 = true;
+      fr1 = true;
+      fr0 = true;
+      dfr = true;
+    elsif state_r == MID_LOW_RISE
+      fr1 = true;
+      fr0 = true;
+      dfr = true;
+    elsif state_r == MID_LOW_FALL
+      fr1 = true;
+      fr0 = true;
+    elsif state_r == MID_HIGH_RISE
+      fr0 = true;
+      dfr = true;
+    elsif state_r == MID_HIGH_FALL
+      fr0 = true;
+    end if
+  end comb
+
+  default seq on clk rising;
+
+  seq
+    if state_r == LOW
+      if s == 3'b111
+        state_r <= HIGH_LEVEL;
+      elsif s == 3'b011
+        state_r <= MID_HIGH_RISE;
+      elsif s == 3'b001
+        state_r <= MID_LOW_RISE;
+      end if
+    elsif state_r == MID_LOW_RISE
+      if s == 3'b111
+        state_r <= HIGH_LEVEL;
+      elsif s == 3'b011
+        state_r <= MID_HIGH_RISE;
+      elsif s == 3'b000
+        state_r <= LOW;
+      end if
+    elsif state_r == MID_LOW_FALL
+      if s == 3'b111
+        state_r <= HIGH_LEVEL;
+      elsif s == 3'b011
+        state_r <= MID_HIGH_RISE;
+      elsif s == 3'b000
+        state_r <= LOW;
+      end if
+    elsif state_r == MID_HIGH_RISE
+      if s == 3'b111
+        state_r <= HIGH_LEVEL;
+      elsif s == 3'b001
+        state_r <= MID_LOW_FALL;
+      elsif s == 3'b000
+        state_r <= LOW;
+      end if
+    elsif state_r == MID_HIGH_FALL
+      if s == 3'b111
+        state_r <= HIGH_LEVEL;
+      elsif s == 3'b001
+        state_r <= MID_LOW_FALL;
+      elsif s == 3'b000
+        state_r <= LOW;
+      end if
+    else
+      if s == 3'b011
+        state_r <= MID_HIGH_FALL;
+      elsif s == 3'b001
+        state_r <= MID_LOW_FALL;
+      elsif s == 3'b000
+        state_r <= LOW;
+      end if
+    end if
+  end seq
+end module TopModule
+[DONE]

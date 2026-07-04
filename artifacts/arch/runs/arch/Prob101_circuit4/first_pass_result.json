@@ -1,0 +1,8 @@
+{
+  "problem": "Prob101_circuit4",
+  "pass": true,
+  "mismatches": 0,
+  "samples": 121,
+  "command": "zsh -lc 'source .benchmark-env.sh; scripts/arch-blackbox-eval Prob101_circuit4'",
+  "log": "runs/arch/Prob101_circuit4/first_pass.log"
+}

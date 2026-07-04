@@ -1,0 +1,34 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob117_circuit9_prompt.txt
+//! tags: [sequential, waveform, counter, modulo, registered-output]
+//! refs: []
+//! ---
+//!
+//! Implements the waveform-derived sequential circuit for Prob117_circuit9.
+//! The 3-bit output is a positive-edge registered value that loads 4 while
+//! input a is asserted, then counts upward modulo 7 when a is deasserted.
+
+/// Top-level waveform-derived sequential circuit.
+///
+/// Input a is sampled on the rising edge of clk. Output q is a one-cycle
+/// registered 3-bit value with no reset: when a is high the next q is 4;
+/// otherwise q advances modulo 7, wrapping from 6 to 0.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port a: in Bool;
+  port q: out pipe_reg<UInt<3>, 1>;
+
+  default seq on clk rising;
+
+  seq
+    if a
+      q@1 <= 3'd4;
+    elsif q@0 == 3'd6
+      q@1 <= 3'd0;
+    else
+      q@1 <= q@0 +% 3'd1;
+    end if
+  end seq
+end module TopModule
+[DONE]

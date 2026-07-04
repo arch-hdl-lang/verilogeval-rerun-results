@@ -1,0 +1,7 @@
+module TopModule
+  port cpu_overheated: in Bool;
+  port shut_off_computer: out Bool comb_dep_on(cpu_overheated);
+  port arrived: in Bool;
+  port gas_tank_empty: in Bool;
+  port keep_driving: out Bool comb_dep_on(arrived, gas_tank_empty);
+end module TopModule

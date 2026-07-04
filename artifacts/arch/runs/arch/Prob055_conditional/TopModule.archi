@@ -1,0 +1,7 @@
+module TopModule
+  port a: in UInt<8>;
+  port b: in UInt<8>;
+  port c: in UInt<8>;
+  port d: in UInt<8>;
+  port min: out UInt<8> comb_dep_on(a, b, c, d);
+end module TopModule

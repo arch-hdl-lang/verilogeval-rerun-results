@@ -1,0 +1,16 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob030_popcount255_prompt.txt
+//! tags: [popcount, combinational, reduction]
+//! ---
+//!
+//! Implements the Prob030_popcount255 specification: count the number of set bits in a 255-bit input vector and return the 8-bit population count.
+
+/// Top-level combinational population count module.
+///
+/// Counts every asserted bit in the 255-bit input and drives the exact 8-bit result in the same cycle.
+module TopModule
+  port in: in Vec<Bool, 255>;
+  port out: out UInt<8>;
+
+  let out = in.count(item);
+end module TopModule

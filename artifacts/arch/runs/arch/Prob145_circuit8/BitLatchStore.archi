@@ -1,0 +1,5 @@
+regfile BitLatchStore
+  param NREGS: const = 2;
+  param T: const = 1;
+  port clk: in Clock<SysDomain>;
+end regfile BitLatchStore

@@ -1,0 +1,11 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob062_bugs_mux2/Prob062_bugs_mux2.ivvp runs/verilog/Prob062_bugs_mux2/Prob062_bugs_mux2.sv dataset_spec-to-rtl/Prob062_bugs_mux2_test.sv dataset_spec-to-rtl/Prob062_bugs_mux2_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob062_bugs_mux2/Prob062_bugs_mux2.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob062_bugs_mux2_test.sv:47: $finish called at 570 (1ps)
+Hint: Output 'out' has 111 mismatches. First mismatch occurred at time 20.
+Hint: Total mismatched samples is 111 out of 114 samples
+
+Simulation finished at 570 ps
+Mismatches: 111 in 114 samples
+SIM_STATUS: 0

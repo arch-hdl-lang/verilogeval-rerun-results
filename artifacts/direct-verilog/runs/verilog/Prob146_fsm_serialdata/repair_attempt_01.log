@@ -1,0 +1,12 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob146_fsm_serialdata/repair_attempt_01.ivvp runs/verilog/Prob146_fsm_serialdata/repair_attempt_01.sv dataset_spec-to-rtl/Prob146_fsm_serialdata_test.sv dataset_spec-to-rtl/Prob146_fsm_serialdata_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob146_fsm_serialdata/repair_attempt_01.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob146_fsm_serialdata_test.sv:45: $finish called at 4526 (1ps)
+Hint: Output 'out_byte' has no mismatches.
+Hint: Output 'done' has no mismatches.
+Hint: Total mismatched samples is 0 out of 905 samples
+
+Simulation finished at 4526 ps
+Mismatches: 0 in 905 samples
+SIM_STATUS: 0

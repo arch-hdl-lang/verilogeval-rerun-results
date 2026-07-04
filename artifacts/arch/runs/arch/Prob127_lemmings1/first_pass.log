@@ -1,0 +1,20 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob127_lemmings1/Prob127_lemmings1.sv
+Wrote runs/arch/Prob127_lemmings1/TopModule.archi
+
+Icarus compile:
+runs/arch/Prob127_lemmings1/Prob127_lemmings1.sv:48: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+runs/arch/Prob127_lemmings1/Prob127_lemmings1.sv:62: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob127_lemmings1_test.sv:73: $finish called at 1146 (1ps)
+Hint: Output 'walk_left' has no mismatches.
+Hint: Output 'walk_right' has no mismatches.
+Hint: Total mismatched samples is 0 out of 229 samples
+
+Simulation finished at 1146 ps
+Mismatches: 0 in 229 samples

@@ -1,0 +1,44 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob095_review2015_fsmshift_prompt.txt
+//! tags: [fsm, shift-enable, synchronous-reset]
+//! refs: []
+//! ---
+//!
+//! Shift-register enable controller. A synchronous active-high reset returns
+//! the controller to the first of four enable cycles; after the fourth cycle,
+//! the enable remains low until reset is asserted again.
+/// Top-level shift-enable controller implementing the requested TopModule interface.
+///
+/// Port timing/type notes:
+/// - clk: positive-edge clock sampling the controller state.
+/// - reset: active-high synchronous reset returning the controller to phase 0.
+/// - shift_ena: combinational state-derived output, visible from the current phase.
+///
+/// Transition table:
+/// | input condition | current state | next state | output shift_ena |
+/// | reset asserted at rising edge | any | Shift0 | state-derived high after reset state is loaded |
+/// | otherwise | Shift0 | Shift1 | 1 |
+/// | otherwise | Shift1 | Shift2 | 1 |
+/// | otherwise | Shift2 | Shift3 | 1 |
+/// | otherwise | Shift3 | Idle | 1 |
+/// | otherwise | Idle | Idle | 0 |
+module TopModule (
+  input logic clk,
+  input logic reset,
+  output logic shift_ena
+);
+
+  logic [2:0] phase = 0;
+  assign shift_ena = phase < 3'd4;
+  always_ff @(posedge clk) begin
+    if (reset) begin
+      phase <= 0;
+    end else begin
+      if (phase < 3'd4) begin
+        phase <= 3'(phase + 3'd1);
+      end
+    end
+  end
+
+endmodule
+

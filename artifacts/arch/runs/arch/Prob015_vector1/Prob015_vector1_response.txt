@@ -1,0 +1,19 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob015_vector1_prompt.txt
+//! tags: [vector, bit-slice, combinational]
+//! refs: []
+//! ---
+//!
+//! Implements a combinational 16-bit half-word splitter into upper and lower bytes.
+
+/// Top-level combinational byte splitter for the VerilogEval Prob015_vector1 prompt.
+module TopModule
+  port in: in UInt<16>;
+  port out_hi: out UInt<8>;
+  port out_lo: out UInt<8>;
+
+  let out_hi = in[15:8];
+  let out_lo = in[7:0];
+end module TopModule
+[DONE]

@@ -1,0 +1,38 @@
+
+module TopModule (
+    input  logic clk,
+    input  logic areset,
+    input  logic in,
+    output logic out
+);
+
+    localparam logic [1:0] A = 2'd0;
+    localparam logic [1:0] B = 2'd1;
+    localparam logic [1:0] C = 2'd2;
+    localparam logic [1:0] D = 2'd3;
+
+    logic [1:0] state;
+    logic [1:0] next_state;
+
+    always @(*) begin
+        case (state)
+            A: next_state = in ? B : A;
+            B: next_state = in ? B : C;
+            C: next_state = in ? D : A;
+            D: next_state = in ? B : C;
+            default: next_state = A;
+        endcase
+    end
+
+    always @(posedge clk or posedge areset) begin
+        if (areset) begin
+            state <= A;
+        end else begin
+            state <= next_state;
+        end
+    end
+
+    assign out = (state == D);
+
+endmodule
+

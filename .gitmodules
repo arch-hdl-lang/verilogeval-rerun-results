@@ -1,0 +1,3 @@
+[submodule "upstream/verilog-eval"]
+	path = upstream/verilog-eval
+	url = https://github.com/NVlabs/verilog-eval.git

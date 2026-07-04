@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob151_review2015_fsm",
+  "samples": 5069,
+  "source": "runs/arch/Prob151_review2015_fsm/Prob151_review2015_fsm.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob151_review2015_fsm/Prob151_review2015_fsm.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob151_review2015_fsm/Prob151_review2015_fsm.sv",
+        "runs/arch/Prob151_review2015_fsm/Prob151_review2015_fsm.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob151_review2015_fsm/Prob151_review2015_fsm.ivvp",
+        "runs/arch/Prob151_review2015_fsm/Prob151_review2015_fsm.sv",
+        "dataset_spec-to-rtl/Prob151_review2015_fsm_test.sv",
+        "dataset_spec-to-rtl/Prob151_review2015_fsm_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob151_review2015_fsm/Prob151_review2015_fsm.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

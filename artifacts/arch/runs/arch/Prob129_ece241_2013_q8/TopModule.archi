@@ -1,0 +1,6 @@
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port aresetn: in Reset<Async, Low>;
+  port x: in Bool;
+  port z: out Bool comb_dep_on(x);
+end module TopModule

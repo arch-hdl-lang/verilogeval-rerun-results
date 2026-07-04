@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob016_m2014_q4j",
+  "samples": 100,
+  "source": "runs/arch/Prob016_m2014_q4j/Prob016_m2014_q4j.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob016_m2014_q4j/Prob016_m2014_q4j.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob016_m2014_q4j/Prob016_m2014_q4j.sv",
+        "runs/arch/Prob016_m2014_q4j/Prob016_m2014_q4j.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob016_m2014_q4j/Prob016_m2014_q4j.ivvp",
+        "runs/arch/Prob016_m2014_q4j/Prob016_m2014_q4j.sv",
+        "dataset_spec-to-rtl/Prob016_m2014_q4j_test.sv",
+        "dataset_spec-to-rtl/Prob016_m2014_q4j_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob016_m2014_q4j/Prob016_m2014_q4j.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

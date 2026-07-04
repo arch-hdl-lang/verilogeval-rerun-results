@@ -1,0 +1,23 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob024_hadd_prompt.txt
+//! tags: [half-adder, combinational, bit-logic]
+//! refs: []
+//! ---
+//!
+//! Implements the Prob024_hadd prompt as a combinational one-bit half adder.
+//! The sum output is the XOR of the input bits and cout is their carry.
+/// One-bit combinational half adder.
+///
+/// Adds inputs a and b with no carry-in, producing sum and carry-out.
+module TopModule (
+  input logic a,
+  input logic b,
+  output logic sum,
+  output logic cout
+);
+
+  assign sum = a ^ b;
+  assign cout = a & b;
+
+endmodule
+

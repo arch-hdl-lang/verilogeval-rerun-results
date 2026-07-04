@@ -1,0 +1,11 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob067_countslow/Prob067_countslow.ivvp runs/verilog/Prob067_countslow/Prob067_countslow.sv dataset_spec-to-rtl/Prob067_countslow_test.sv dataset_spec-to-rtl/Prob067_countslow_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob067_countslow/Prob067_countslow.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob067_countslow_test.sv:89: $finish called at 2496 (1ps)
+Hint: Output 'q' has no mismatches.
+Hint: Total mismatched samples is 0 out of 499 samples
+
+Simulation finished at 2496 ps
+Mismatches: 0 in 499 samples
+SIM_STATUS: 0

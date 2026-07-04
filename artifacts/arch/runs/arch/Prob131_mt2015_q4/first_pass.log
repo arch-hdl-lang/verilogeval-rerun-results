@@ -1,0 +1,20 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob131_mt2015_q4/Prob131_mt2015_q4.sv
+Wrote runs/arch/Prob131_mt2015_q4/ModuleA.archi
+Wrote runs/arch/Prob131_mt2015_q4/ModuleB.archi
+Wrote runs/arch/Prob131_mt2015_q4/TopModule.archi
+
+Icarus compile:
+
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob131_mt2015_q4_test.sv:17: $finish called at 1001 (1ps)
+Hint: Output 'z' has no mismatches.
+Hint: Total mismatched samples is 0 out of 200 samples
+
+Simulation finished at 1001 ps
+Mismatches: 0 in 200 samples

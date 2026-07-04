@@ -1,0 +1,39 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob097_mux9to1v_prompt.txt
+//! tags: [mux, combinational, select]
+//! refs: []
+//! ---
+//!
+//! Implements the requested 16-bit wide 9-to-1 multiplexer. Select values 0 through 8 choose inputs a through i; unused select values drive all output bits high.
+
+/// Top-level combinational mux preserving the exact requested VerilogEval interface.
+module TopModule
+  port a: in UInt<16>;
+  port b: in UInt<16>;
+  port c: in UInt<16>;
+  port d: in UInt<16>;
+  port e: in UInt<16>;
+  port f: in UInt<16>;
+  port g: in UInt<16>;
+  port h: in UInt<16>;
+  port i: in UInt<16>;
+  port sel: in UInt<4>;
+  port out: out UInt<16>;
+
+  comb
+    unique match sel
+      4'd0 => out = a;
+      4'd1 => out = b;
+      4'd2 => out = c;
+      4'd3 => out = d;
+      4'd4 => out = e;
+      4'd5 => out = f;
+      4'd6 => out = g;
+      4'd7 => out = h;
+      4'd8 => out = i;
+      _ => out = 16'hFFFF;
+    end match
+  end comb
+end module TopModule
+[DONE]

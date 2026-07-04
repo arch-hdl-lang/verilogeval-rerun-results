@@ -1,0 +1,71 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob148_2013_q2afsm_prompt.txt
+//! tags: [fsm, arbiter, priority, synchronous-reset]
+//! refs: []
+//! ---
+//!
+//! Priority arbiter FSM for three requesters. The active-low synchronous reset
+//! returns the machine to the idle A state, and grants are state-derived.
+
+/// Three-request priority arbiter FSM with state-derived grant outputs.
+///
+/// Port timing/types:
+/// input clk: positive-edge sampling clock.
+/// input resetn: active-low synchronous reset sampled on clk rising.
+/// input r[2:0]: request vector sampled by FSM transition logic.
+/// output g[2:0]: combinational/state-derived grant vector visible for the current state.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// | r[0] == 0 and r[1] == 0 and r[2] == 0 | A | A | 3'b000 |
+/// | r[0] == 1 | A | B | 3'b000 |
+/// | r[0] == 0 and r[1] == 1 | A | C | 3'b000 |
+/// | r[0] == 0 and r[1] == 0 and r[2] == 1 | A | D | 3'b000 |
+/// | r[0] == 1 | B | B | 3'b001 |
+/// | r[0] == 0 | B | A | 3'b001 |
+/// | r[1] == 1 | C | C | 3'b010 |
+/// | r[1] == 0 | C | A | 3'b010 |
+/// | r[2] == 1 | D | D | 3'b100 |
+/// | r[2] == 0 | D | A | 3'b100 |
+fsm TopModule
+  port clk: in Clock<SysDomain>;
+  port resetn: in Reset<Sync, Low>;
+  port r: in UInt<3>;
+  port g: out UInt<3>;
+
+  state [A, B, C, D]
+  default state A;
+
+  default
+    comb
+      g = 3'b000;
+    end comb
+  end default
+
+  state A
+    -> B when r[0];
+    -> C when (not r[0]) and r[1];
+    -> D when (not r[0]) and (not r[1]) and r[2];
+  end state A
+
+  state B
+    comb
+      g = 3'b001;
+    end comb
+    -> A when not r[0];
+  end state B
+
+  state C
+    comb
+      g = 3'b010;
+    end comb
+    -> A when not r[1];
+  end state C
+
+  state D
+    comb
+      g = 3'b100;
+    end comb
+    -> A when not r[2];
+  end state D
+end fsm TopModule

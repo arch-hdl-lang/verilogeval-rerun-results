@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob045_edgedetect2",
+  "samples": 228,
+  "source": "runs/arch/Prob045_edgedetect2/Prob045_edgedetect2.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob045_edgedetect2/Prob045_edgedetect2.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob045_edgedetect2/Prob045_edgedetect2.sv",
+        "runs/arch/Prob045_edgedetect2/Prob045_edgedetect2.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob045_edgedetect2/Prob045_edgedetect2.ivvp",
+        "runs/arch/Prob045_edgedetect2/Prob045_edgedetect2.sv",
+        "dataset_spec-to-rtl/Prob045_edgedetect2_test.sv",
+        "dataset_spec-to-rtl/Prob045_edgedetect2_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob045_edgedetect2/Prob045_edgedetect2.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

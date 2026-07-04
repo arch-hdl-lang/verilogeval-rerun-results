@@ -1,0 +1,17 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob011_norgate_prompt.txt
+//! tags: [combinational, logic-gate, nor]
+//! refs: []
+//! ---
+//!
+//! Implements the VerilogEval Prob011_norgate specification: a one-bit
+//! combinational NOR gate with inputs a and b driving output out.
+
+/// Top-level one-bit NOR gate for Prob011_norgate.
+module TopModule
+  port a: in Bool;
+  port b: in Bool;
+  port out: out Bool;
+
+  let out = !(a || b);
+end module TopModule

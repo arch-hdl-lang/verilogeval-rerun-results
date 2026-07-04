@@ -1,0 +1,11 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob078_dualedge/Prob078_dualedge.ivvp runs/verilog/Prob078_dualedge/Prob078_dualedge.sv dataset_spec-to-rtl/Prob078_dualedge_test.sv dataset_spec-to-rtl/Prob078_dualedge_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob078_dualedge/Prob078_dualedge.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob078_dualedge_test.sv:36: $finish called at 1121 (1ps)
+Hint: Output 'q' has 93 mismatches. First mismatch occurred at time 10.
+Hint: Total mismatched samples is 0 out of 224 samples
+
+Simulation finished at 1121 ps
+Mismatches: 0 in 224 samples
+SIM_STATUS: 0

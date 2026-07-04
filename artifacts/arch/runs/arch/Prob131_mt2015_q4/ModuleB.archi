@@ -1,0 +1,5 @@
+module ModuleB
+  port x: in Bool;
+  port y: in Bool;
+  port z: out Bool comb_dep_on(x, y);
+end module ModuleB

@@ -1,0 +1,47 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob079_fsm3onehot_prompt.txt
+//! tags: [fsm, onehot, combinational, moore]
+//! ---
+//!
+//! Combinational next-state and output logic for a four-state Moore machine.
+//! The external state vector uses one-hot encoding A=0001, B=0010, C=0100,
+//! D=1000 and no state register is implemented in this module.
+
+/// TopModule implements the requested one-hot FSM transition and output logic.
+///
+/// Port timing/type:
+/// - in: combinational one-bit input, not clock sampled by this module.
+/// - state: combinational four-bit one-hot current-state input.
+/// - next_state: combinational four-bit one-hot next-state output.
+/// - out: combinational Moore output derived from the current state.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// |-----------------|---------------|------------|--------|
+/// | in == 0         | A             | A          | 0      |
+/// | in == 1         | A             | B          | 0      |
+/// | in == 0         | B             | C          | 0      |
+/// | in == 1         | B             | B          | 0      |
+/// | in == 0         | C             | A          | 0      |
+/// | in == 1         | C             | D          | 0      |
+/// | in == 0         | D             | C          | 1      |
+/// | in == 1         | D             | B          | 1      |
+module TopModule
+  port in: in Bool;
+  port state: in UInt<4>;
+  port next_state: out UInt<4>;
+  port out: out Bool;
+
+  let state_a: Bool = state[0];
+  let state_b: Bool = state[1];
+  let state_c: Bool = state[2];
+  let state_d: Bool = state[3];
+
+  let next_a: Bool = (not in) and (state_a or state_c);
+  let next_b: Bool = in and (state_a or state_b or state_d);
+  let next_c: Bool = (not in) and (state_b or state_d);
+  let next_d: Bool = in and state_c;
+
+  let next_state = {next_d, next_c, next_b, next_a};
+  let out = state_d;
+end module TopModule

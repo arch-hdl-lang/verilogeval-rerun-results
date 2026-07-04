@@ -1,0 +1,27 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob086_lfsr5_prompt.txt
+//! tags: [lfsr, galois, shift-register, synchronous-reset]
+//! refs: []
+//! ---
+//!
+//! Implements the requested 5-bit maximal-length Galois LFSR with taps at
+//! positions 5 and 3. The output register resets synchronously high to 1 and
+//! advances on each positive clock edge.
+
+/// Top-level 5-bit Galois LFSR for Prob086_lfsr5.
+///
+/// Port timing: clk is sampled on the positive edge; reset is active-high
+/// synchronous; q is the registered LFSR state.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port q: out pipe_reg<UInt<5>, 1> reset reset => 5'd1;
+
+  default seq on clk rising;
+
+  seq
+    q@1 <= {q[0], q[4], q[3] ^ q[0], q[2], q[1]};
+  end seq
+end module TopModule
+[DONE]

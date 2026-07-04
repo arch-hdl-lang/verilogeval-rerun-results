@@ -1,0 +1,23 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob050_kmap1_prompt.txt
+//! tags: [kmap, combinational, boolean]
+//! refs: []
+//! ---
+//!
+//! Implements the requested three-input Karnaugh-map circuit. The map is one
+//! for every input combination except a=0, b=0, c=0.
+
+/// Top-level combinational implementation for the Prob050_kmap1 K-map.
+///
+/// Inputs and output are single-bit logical signals; out is high for every
+/// minterm except 000.
+module TopModule
+  port a: in Bool;
+  port b: in Bool;
+  port c: in Bool;
+  port out: out Bool;
+
+  let out = a or b or c;
+end module TopModule
+[DONE]

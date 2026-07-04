@@ -1,0 +1,25 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob150_review2015_fsmonehot/Prob150_review2015_fsmonehot.sv
+Wrote runs/arch/Prob150_review2015_fsmonehot/TopModule.archi
+
+Icarus compile:
+
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob150_review2015_fsmonehot_test.sv:22: $finish called at 1501 (1ps)
+Hint: Output 'B3_next' has no mismatches.
+Hint: Output 'S_next' has no mismatches.
+Hint: Output 'S1_next' has no mismatches.
+Hint: Output 'Count_next' has no mismatches.
+Hint: Output 'Wait_next' has no mismatches.
+Hint: Output 'done' has no mismatches.
+Hint: Output 'counting' has no mismatches.
+Hint: Output 'shift_ena' has no mismatches.
+Hint: Total mismatched samples is 0 out of 300 samples
+
+Simulation finished at 1501 ps
+Mismatches: 0 in 300 samples

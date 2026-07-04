@@ -1,0 +1,25 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob046_dff8p_prompt.txt
+//! tags: [dff, reset, negedge]
+//! ---
+//!
+//! Implements an 8-bit bank of D flip-flops. The output samples `d` on each
+//! falling edge of `clk`, with active-high synchronous reset to 8'h34.
+
+/// Eight negative-edge-triggered D flip-flops with synchronous reset.
+///
+/// The top-level interface is the VerilogEval-requested TopModule port set.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port d: in UInt<8>;
+  port q: out pipe_reg<UInt<8>, 1> reset reset => 8'h34;
+
+  default seq on clk falling;
+
+  seq
+    q@1 <= d;
+  end seq
+end module TopModule
+[DONE]

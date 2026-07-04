@@ -1,0 +1,19 @@
+[BEGIN]
+module TopModule (
+    input  logic [4:1] x,
+    output logic f
+);
+
+    always @(*) begin
+        case ({x[3], x[4], x[1], x[2]})
+            4'b0111,
+            4'b1100,
+            4'b1101,
+            4'b1000,
+            4'b1001: f = 1'b1;
+            default: f = 1'b0;
+        endcase
+    end
+
+endmodule
+[DONE]

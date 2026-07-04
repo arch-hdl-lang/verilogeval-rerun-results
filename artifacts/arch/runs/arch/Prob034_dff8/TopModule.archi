@@ -1,0 +1,5 @@
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port d: in UInt<8>;
+  port q: out UInt<8> comb_dep_on();
+end module TopModule

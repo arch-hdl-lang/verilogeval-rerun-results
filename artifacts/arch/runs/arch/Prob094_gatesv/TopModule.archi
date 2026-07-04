@@ -1,0 +1,6 @@
+module TopModule
+  port in: in UInt<4>;
+  port out_both: out UInt<4> comb_dep_on(in);
+  port out_any: out UInt<4> comb_dep_on(in);
+  port out_different: out UInt<4> comb_dep_on(in);
+end module TopModule

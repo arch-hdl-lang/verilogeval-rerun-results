@@ -1,0 +1,56 @@
+{
+  "mismatches": 4,
+  "problem": "Prob066_edgecapture",
+  "samples": 266,
+  "source": "runs/arch/Prob066_edgecapture/repair_attempt_02.arch",
+  "status": "fail",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob066_edgecapture/repair_attempt_02.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob066_edgecapture/repair_attempt_02.sv",
+        "runs/arch/Prob066_edgecapture/repair_attempt_02.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob066_edgecapture/repair_attempt_02.ivvp",
+        "runs/arch/Prob066_edgecapture/repair_attempt_02.sv",
+        "dataset_spec-to-rtl/Prob066_edgecapture_test.sv",
+        "dataset_spec-to-rtl/Prob066_edgecapture_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob066_edgecapture/repair_attempt_02.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob067_countslow_prompt.txt
+//! tags: [counter, decade, synchronous-reset, enable]
+//! refs: []
+//! ---
+//!
+//! Implements the requested TopModule decade counter. The counter advances from 0 through 9 only when slowena is high and synchronously resets to 0 on active-high reset.
+
+/// Top-level decade counter for Prob067_countslow.
+///
+/// The 4-bit q output reflects the current registered count. On each positive clock edge, reset takes the count to 0; otherwise slowena increments the count with wrap from 9 to 0.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port slowena: in Bool;
+  port q: out UInt<4>;
+
+  reg count_r: UInt<4> reset reset => 0;
+
+  let q = count_r;
+
+  default seq on clk rising;
+
+  seq
+    if slowena
+      if count_r == 4'd9
+        count_r <= 0;
+      else
+        count_r <= count_r +% 4'd1;
+      end if
+    end if
+  end seq
+end module TopModule
+[DONE]

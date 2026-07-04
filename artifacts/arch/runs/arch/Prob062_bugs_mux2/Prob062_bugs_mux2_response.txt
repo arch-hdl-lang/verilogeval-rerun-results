@@ -1,0 +1,23 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob062_bugs_mux2_prompt.txt
+//! tags: [mux, combinational, width-fix]
+//! refs: []
+//! ---
+//!
+//! Implements the corrected 8-bit 2-to-1 mux from the prompt. The original bug
+//! was a scalar output driven by an 8-bit mux expression.
+
+/// Corrected 8-bit 2-to-1 mux top module.
+///
+/// Selects `a` when `sel` is low and `b` when `sel` is high, producing an
+/// 8-bit combinational output.
+module TopModule
+  port sel: in Bool;
+  port a: in UInt<8>;
+  port b: in UInt<8>;
+  port out: out UInt<8>;
+
+  let out = sel ? b : a;
+end module TopModule
+[DONE]

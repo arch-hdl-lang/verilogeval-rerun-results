@@ -1,0 +1,10 @@
+{
+  "problem": "Prob043_vector5",
+  "status": "pass",
+  "mismatches": 0,
+  "samples": 100,
+  "arch_check": "pass",
+  "arch_build": "pass",
+  "verilator_lint": "pass",
+  "icarus": "pass"
+}

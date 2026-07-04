@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob144_conwaylife",
+  "samples": 5023,
+  "source": "runs/arch/Prob144_conwaylife/Prob144_conwaylife.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob144_conwaylife/Prob144_conwaylife.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob144_conwaylife/Prob144_conwaylife.sv",
+        "runs/arch/Prob144_conwaylife/Prob144_conwaylife.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob144_conwaylife/Prob144_conwaylife.ivvp",
+        "runs/arch/Prob144_conwaylife/Prob144_conwaylife.sv",
+        "dataset_spec-to-rtl/Prob144_conwaylife_test.sv",
+        "dataset_spec-to-rtl/Prob144_conwaylife_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob144_conwaylife/Prob144_conwaylife.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

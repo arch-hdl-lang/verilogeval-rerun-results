@@ -1,0 +1,19 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob088_ece241_2014_q5b/Prob088_ece241_2014_q5b.sv
+Wrote runs/arch/Prob088_ece241_2014_q5b/TopModule.archi
+
+Icarus compile:
+runs/arch/Prob088_ece241_2014_q5b/Prob088_ece241_2014_q5b.sv:46: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+runs/arch/Prob088_ece241_2014_q5b/Prob088_ece241_2014_q5b.sv:59: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob088_ece241_2014_q5b_test.sv:73: $finish called at 2180 (1ps)
+Hint: Output 'z' has no mismatches.
+Hint: Total mismatched samples is 0 out of 436 samples
+
+Simulation finished at 2180 ps
+Mismatches: 0 in 436 samples

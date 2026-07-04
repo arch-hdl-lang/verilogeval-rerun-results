@@ -1,0 +1,74 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob131_mt2015_q4_prompt.txt
+//! tags: [combinational, boolean, structural]
+//! refs: []
+//! ---
+//!
+//! Structural combinational implementation of the requested TopModule. The A submodule computes
+//! `(x ^ y) & x`, the B submodule waveform is equivalent to equality/XNOR, and TopModule combines
+//! two copies of each through OR, AND, and XOR as specified.
+
+/// Boolean submodule A from the prompt.
+///
+/// Computes z = (x ^ y) & x for one-bit inputs.
+module ModuleA
+  port x: in Bool;
+  port y: in Bool;
+  port z: out Bool;
+
+  let z = (x ^ y) & x;
+end module ModuleA
+
+/// Boolean submodule B inferred from the prompt waveform.
+///
+/// The waveform maps 00 and 11 to 1, and 01 and 10 to 0, so this is XNOR/equality.
+module ModuleB
+  port x: in Bool;
+  port y: in Bool;
+  port z: out Bool;
+
+  let z = x == y;
+end module ModuleB
+
+/// Top-level structural composition requested by the problem.
+///
+/// All four submodules receive x and y. The first A/B pair feeds an OR, the second pair feeds an
+/// AND, and those two gate outputs feed the final XOR output z.
+module TopModule
+  port x: in Bool;
+  port y: in Bool;
+  port z: out Bool;
+
+  wire a_or_in: Bool;
+  wire b_or_in: Bool;
+  wire a_and_in: Bool;
+  wire b_and_in: Bool;
+
+  inst a0: ModuleA
+    x <- x;
+    y <- y;
+    z -> a_or_in;
+  end inst a0
+
+  inst b0: ModuleB
+    x <- x;
+    y <- y;
+    z -> b_or_in;
+  end inst b0
+
+  inst a1: ModuleA
+    x <- x;
+    y <- y;
+    z -> a_and_in;
+  end inst a1
+
+  inst b1: ModuleB
+    x <- x;
+    y <- y;
+    z -> b_and_in;
+  end inst b1
+
+  let z = (a_or_in | b_or_in) ^ (a_and_in & b_and_in);
+end module TopModule
+[DONE]

@@ -1,0 +1,9 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob151_review2015_fsm/Prob151_review2015_fsm.ivvp runs/verilog/Prob151_review2015_fsm/Prob151_review2015_fsm.sv dataset_spec-to-rtl/Prob151_review2015_fsm_test.sv dataset_spec-to-rtl/Prob151_review2015_fsm_ref.sv
+runs/verilog/Prob151_review2015_fsm/Prob151_review2015_fsm.sv:32: error: This assignment requires an explicit cast.
+runs/verilog/Prob151_review2015_fsm/Prob151_review2015_fsm.sv:33: error: This assignment requires an explicit cast.
+runs/verilog/Prob151_review2015_fsm/Prob151_review2015_fsm.sv:34: error: This assignment requires an explicit cast.
+runs/verilog/Prob151_review2015_fsm/Prob151_review2015_fsm.sv:35: error: This assignment requires an explicit cast.
+runs/verilog/Prob151_review2015_fsm/Prob151_review2015_fsm.sv:40: error: This assignment requires an explicit cast.
+runs/verilog/Prob151_review2015_fsm/Prob151_review2015_fsm.sv:41: error: This assignment requires an explicit cast.
+6 error(s) during elaboration.
+COMPILE_STATUS: 6

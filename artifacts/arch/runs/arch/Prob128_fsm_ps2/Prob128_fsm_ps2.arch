@@ -1,0 +1,60 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob128_fsm_ps2_prompt.txt
+//! tags: [ps2, mouse, byte-stream, fsm]
+//! ---
+//!
+//! PS/2 mouse message boundary detector. The design discards bytes until a
+//! first message byte is identified by in[3]=1, then asserts done for one
+//! cycle after the third byte has been sampled.
+
+/// Top-level FSM for PS/2 mouse packet framing.
+///
+/// Port timing/type notes:
+/// clk: positive-edge sampling clock.
+/// reset: active-high synchronous reset.
+/// in: UInt<8> byte sampled on each positive clock edge.
+/// done: combinational/state-derived output, high only in state Done.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// | in[3] == 0 | Search | Search | done = 0 |
+/// | in[3] == 1 | Search | Byte2 | done = 0 |
+/// | any byte | Byte2 | Byte3 | done = 0 |
+/// | any byte | Byte3 | Done | done = 0 |
+/// | in[3] == 0 | Done | Search | done = 1 |
+/// | in[3] == 1 | Done | Byte2 | done = 1 |
+fsm TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port in: in UInt<8>;
+  port done: out Bool;
+
+  state [Search, Byte2, Byte3, Done]
+  default state Search;
+
+  default
+    comb
+      done = false;
+    end comb
+  end default
+
+  state Search
+    -> Byte2 when in[3] == 1'b1;
+  end state Search
+
+  state Byte2
+    -> Byte3;
+  end state Byte2
+
+  state Byte3
+    -> Done;
+  end state Byte3
+
+  state Done
+    comb
+      done = true;
+    end comb
+    -> Byte2 when in[3] == 1'b1;
+    -> Search when in[3] == 1'b0;
+  end state Done
+end fsm TopModule

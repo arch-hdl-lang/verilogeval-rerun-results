@@ -1,0 +1,33 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob016_m2014_q4j_prompt.txt
+//! tags: [adder, combinational, arithmetic]
+//! refs: []
+//! ---
+//!
+//! Implements the VerilogEval Prob016_m2014_q4j prompt: a combinational 4-bit
+//! adder whose 5-bit output includes the carry-out overflow bit.
+
+/// Top-level combinational 4-bit adder.
+///
+/// Adds the two 4-bit inputs and exposes the 5-bit result including carry-out.
+module TopModule
+  port x: in UInt<4>;
+  port y: in UInt<4>;
+  port sum: out UInt<5>;
+
+  let c0: Bool = false;
+
+  let s0: Bool = x[0] ^ y[0] ^ c0;
+  let c1: Bool = (x[0] & y[0]) | (x[0] & c0) | (y[0] & c0);
+
+  let s1: Bool = x[1] ^ y[1] ^ c1;
+  let c2: Bool = (x[1] & y[1]) | (x[1] & c1) | (y[1] & c1);
+
+  let s2: Bool = x[2] ^ y[2] ^ c2;
+  let c3: Bool = (x[2] & y[2]) | (x[2] & c2) | (y[2] & c2);
+
+  let s3: Bool = x[3] ^ y[3] ^ c3;
+  let c4: Bool = (x[3] & y[3]) | (x[3] & c3) | (y[3] & c3);
+
+  let sum = {c4, s3, s2, s1, s0};
+end module TopModule

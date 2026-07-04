@@ -1,0 +1,8 @@
+module TopModule
+  port a: in Bool;
+  port b: in Bool;
+  port c: in Bool;
+  port d: in Bool;
+  port e: in Bool;
+  port out: out UInt<25> comb_dep_on(a, b, c, d, e);
+end module TopModule

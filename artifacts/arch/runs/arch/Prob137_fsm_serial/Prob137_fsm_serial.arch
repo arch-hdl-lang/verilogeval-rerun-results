@@ -1,0 +1,103 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob137_fsm_serial_prompt.txt
+//! tags: [serial, uart, fsm, receiver]
+//! ---
+//!
+//! Serial byte receiver FSM for a stream with idle-high line level, one low
+//! start bit, eight data bits sent least significant bit first, and one high
+//! stop bit. The FSM reports a correctly received byte by asserting `done` for
+//! one cycle after the stop bit has been sampled high.
+
+/// Top-level serial receiver module implementing the finite-state machine.
+///
+/// Input timing: `in` is sampled on the rising edge of `clk`; `reset` is
+/// active-high synchronous. Output timing: `done` is a combinational
+/// state-derived Moore output, high only in the Done state, the cycle after a
+/// valid stop bit was sampled.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// | --- | --- | --- | --- |
+/// | `in == 1` | Idle | Idle | `done = 0` |
+/// | `in == 0` start bit | Idle | Data0 | `done = 0` |
+/// | any data bit 0 | Data0 | Data1 | `done = 0` |
+/// | any data bit 1 | Data1 | Data2 | `done = 0` |
+/// | any data bit 2 | Data2 | Data3 | `done = 0` |
+/// | any data bit 3 | Data3 | Data4 | `done = 0` |
+/// | any data bit 4 | Data4 | Data5 | `done = 0` |
+/// | any data bit 5 | Data5 | Data6 | `done = 0` |
+/// | any data bit 6 | Data6 | Data7 | `done = 0` |
+/// | any data bit 7 | Data7 | Stop | `done = 0` |
+/// | `in == 1` valid stop bit | Stop | Done | `done = 0` |
+/// | `in == 0` invalid stop bit | Stop | WaitStop | `done = 0` |
+/// | `in == 0` still missing stop | WaitStop | WaitStop | `done = 0` |
+/// | `in == 1` recovery stop found | WaitStop | Idle | `done = 0` |
+/// | `in == 1` idle after byte | Done | Idle | `done = 1` |
+/// | `in == 0` immediate next start bit | Done | Data0 | `done = 1` |
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port in: in Bool;
+  port done: out Bool;
+
+  local param S_IDLE[3:0]: const = 0;
+  local param S_DATA0[3:0]: const = 1;
+  local param S_DATA1[3:0]: const = 2;
+  local param S_DATA2[3:0]: const = 3;
+  local param S_DATA3[3:0]: const = 4;
+  local param S_DATA4[3:0]: const = 5;
+  local param S_DATA5[3:0]: const = 6;
+  local param S_DATA6[3:0]: const = 7;
+  local param S_DATA7[3:0]: const = 8;
+  local param S_STOP[3:0]: const = 9;
+  local param S_DONE[3:0]: const = 10;
+  local param S_WAITSTOP[3:0]: const = 11;
+
+  reg state_r: UInt<4> reset reset => 0;
+
+  let done = state_r == S_DONE;
+
+  default seq on clk rising;
+
+  seq
+    if state_r == S_IDLE
+      if not in
+        state_r <= S_DATA0;
+      end if
+    elsif state_r == S_DATA0
+      state_r <= S_DATA1;
+    elsif state_r == S_DATA1
+      state_r <= S_DATA2;
+    elsif state_r == S_DATA2
+      state_r <= S_DATA3;
+    elsif state_r == S_DATA3
+      state_r <= S_DATA4;
+    elsif state_r == S_DATA4
+      state_r <= S_DATA5;
+    elsif state_r == S_DATA5
+      state_r <= S_DATA6;
+    elsif state_r == S_DATA6
+      state_r <= S_DATA7;
+    elsif state_r == S_DATA7
+      state_r <= S_STOP;
+    elsif state_r == S_STOP
+      if in
+        state_r <= S_DONE;
+      else
+        state_r <= S_WAITSTOP;
+      end if
+    elsif state_r == S_DONE
+      if in
+        state_r <= S_IDLE;
+      else
+        state_r <= S_DATA0;
+      end if
+    elsif state_r == S_WAITSTOP
+      if in
+        state_r <= S_IDLE;
+      end if
+    else
+      state_r <= S_IDLE;
+    end if
+  end seq
+end module TopModule

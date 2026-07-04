@@ -1,0 +1,19 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob082_lfsr32/Prob082_lfsr32.sv
+Wrote runs/arch/Prob082_lfsr32/TopModule.archi
+
+Icarus compile:
+
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+TIMEOUT
+dataset_spec-to-rtl/Prob082_lfsr32_test.sv:114: $finish called at 1000000 (1ps)
+Hint: Output 'q' has no mismatches.
+Hint: Total mismatched samples is 0 out of 200000 samples
+
+Simulation finished at 1000000 ps
+Mismatches: 0 in 200000 samples

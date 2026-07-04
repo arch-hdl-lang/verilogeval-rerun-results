@@ -1,0 +1,97 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob151_review2015_fsm_prompt.txt
+//! tags: [fsm, timer, sequence-detect, moore-control]
+//! ---
+//!
+//! Finite-state controller for a serially-started timer. The FSM detects the
+//! 1101 start sequence, enables four duration-bit shifts, waits for the counter
+//! datapath to finish, and holds done until acknowledged.
+
+/// Top-level timer-control finite-state machine.
+///
+/// Port timing/type notes:
+/// - clk: positive-edge sequential clock.
+/// - reset: active-high synchronous reset to Search.
+/// - data, done_counting, ack: sampled on the rising edge of clk.
+/// - shift_ena, counting, done: combinational/state-derived Moore outputs.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// | data=0 | Search | Search | shift_ena=0 counting=0 done=0 |
+/// | data=1 | Search | Seen1 | shift_ena=0 counting=0 done=0 |
+/// | data=0 | Seen1 | Search | shift_ena=0 counting=0 done=0 |
+/// | data=1 | Seen1 | Seen11 | shift_ena=0 counting=0 done=0 |
+/// | data=0 | Seen11 | Seen110 | shift_ena=0 counting=0 done=0 |
+/// | data=1 | Seen11 | Seen11 | shift_ena=0 counting=0 done=0 |
+/// | data=0 | Seen110 | Search | shift_ena=0 counting=0 done=0 |
+/// | data=1 | Seen110 | Shift0 | shift_ena=0 counting=0 done=0 |
+/// | any | Shift0 | Shift1 | shift_ena=1 counting=0 done=0 |
+/// | any | Shift1 | Shift2 | shift_ena=1 counting=0 done=0 |
+/// | any | Shift2 | Shift3 | shift_ena=1 counting=0 done=0 |
+/// | any | Shift3 | Count | shift_ena=1 counting=0 done=0 |
+/// | done_counting=0 | Count | Count | shift_ena=0 counting=1 done=0 |
+/// | done_counting=1 | Count | Done | shift_ena=0 counting=1 done=0 |
+/// | ack=0 | Done | Done | shift_ena=0 counting=0 done=1 |
+/// | ack=1 | Done | Search | shift_ena=0 counting=0 done=1 |
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port data: in Bool;
+  port done_counting: in Bool;
+  port ack: in Bool;
+  port shift_ena: out Bool;
+  port counting: out Bool;
+  port done: out Bool;
+
+  reg state_r: UInt<4> reset reset => 0;
+
+  let shift_ena = (state_r == 4'd4) or (state_r == 4'd5) or (state_r == 4'd6) or (state_r == 4'd7);
+  let counting = state_r == 4'd8;
+  let done = state_r == 4'd9;
+
+  default seq on clk rising;
+
+  seq
+    if state_r == 4'd0
+      if data
+        state_r <= 4'd1;
+      end if
+    elsif state_r == 4'd1
+      if data
+        state_r <= 4'd2;
+      else
+        state_r <= 4'd0;
+      end if
+    elsif state_r == 4'd2
+      if data
+        state_r <= 4'd2;
+      else
+        state_r <= 4'd3;
+      end if
+    elsif state_r == 4'd3
+      if data
+        state_r <= 4'd4;
+      else
+        state_r <= 4'd0;
+      end if
+    elsif state_r == 4'd4
+      state_r <= 4'd5;
+    elsif state_r == 4'd5
+      state_r <= 4'd6;
+    elsif state_r == 4'd6
+      state_r <= 4'd7;
+    elsif state_r == 4'd7
+      state_r <= 4'd8;
+    elsif state_r == 4'd8
+      if done_counting
+        state_r <= 4'd9;
+      end if
+    elsif state_r == 4'd9
+      if ack
+        state_r <= 4'd0;
+      end if
+    else
+      state_r <= 4'd0;
+    end if
+  end seq
+end module TopModule

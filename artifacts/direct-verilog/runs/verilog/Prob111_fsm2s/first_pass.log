@@ -1,0 +1,11 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob111_fsm2s/Prob111_fsm2s.ivvp runs/verilog/Prob111_fsm2s/Prob111_fsm2s.sv dataset_spec-to-rtl/Prob111_fsm2s_test.sv dataset_spec-to-rtl/Prob111_fsm2s_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob111_fsm2s/Prob111_fsm2s.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob111_fsm2s_test.sv:72: $finish called at 1206 (1ps)
+Hint: Output 'out' has no mismatches.
+Hint: Total mismatched samples is 0 out of 241 samples
+
+Simulation finished at 1206 ps
+Mismatches: 0 in 241 samples
+SIM_STATUS: 0

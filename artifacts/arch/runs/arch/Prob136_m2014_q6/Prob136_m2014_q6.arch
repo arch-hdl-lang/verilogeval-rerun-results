@@ -1,0 +1,84 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob136_m2014_q6_prompt.txt
+//! tags: [fsm, moore, state-machine]
+//! refs: []
+//! ---
+//!
+//! Implements the requested six-state Moore state machine. State updates occur on
+//! the positive edge of clk, reset returns the state register to A, and z is
+//! derived combinationally from the current state.
+
+/// Top-level registered Moore state machine for Prob136_m2014_q6.
+///
+/// Port timing/type notes:
+/// - clk: positive-edge sequential clock.
+/// - reset: synchronous active-high reset for the state register.
+/// - w: one-bit input sampled for next-state selection on the positive clock edge.
+/// - z: combinational/state-derived Moore output visible from the current state.
+///
+/// Transition table:
+/// | input condition | current state | next state | output z |
+/// | w == 0 | A | B | 0 |
+/// | w == 1 | A | A | 0 |
+/// | w == 0 | B | C | 0 |
+/// | w == 1 | B | D | 0 |
+/// | w == 0 | C | E | 0 |
+/// | w == 1 | C | D | 0 |
+/// | w == 0 | D | F | 0 |
+/// | w == 1 | D | A | 0 |
+/// | w == 0 | E | E | 1 |
+/// | w == 1 | E | D | 1 |
+/// | w == 0 | F | C | 1 |
+/// | w == 1 | F | D | 1 |
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port w: in Bool;
+  port z: out Bool;
+
+  reg state_cur: UInt<3> reset reset => 0;
+
+  let z = (state_cur == 3'd4) or (state_cur == 3'd5);
+
+  default seq on clk rising;
+
+  seq
+    if state_cur == 3'd0
+      if not w
+        state_cur <= 3'd1;
+      else
+        state_cur <= 3'd0;
+      end if
+    elsif state_cur == 3'd1
+      if not w
+        state_cur <= 3'd2;
+      else
+        state_cur <= 3'd3;
+      end if
+    elsif state_cur == 3'd2
+      if not w
+        state_cur <= 3'd4;
+      else
+        state_cur <= 3'd3;
+      end if
+    elsif state_cur == 3'd3
+      if not w
+        state_cur <= 3'd5;
+      else
+        state_cur <= 3'd0;
+      end if
+    elsif state_cur == 3'd4
+      if w
+        state_cur <= 3'd3;
+      else
+        state_cur <= 3'd4;
+      end if
+    else
+      if not w
+        state_cur <= 3'd2;
+      else
+        state_cur <= 3'd3;
+      end if
+    end if
+  end seq
+end module TopModule

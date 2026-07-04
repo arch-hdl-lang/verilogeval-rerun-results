@@ -1,0 +1,70 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob150_review2015_fsmonehot_prompt.txt
+//! tags: [fsm, onehot, combinational, next_state, moore]
+//! ---
+//!
+//! Combinational next-state and Moore-output decode for the Review 2015 one-hot FSM.
+//! The state register is external; this module only derives requested next-state bits and outputs.
+
+/// Top-level combinational one-hot FSM decoder.
+///
+/// Port timing/types:
+/// input d, done_counting, ack: combinational inputs sampled by external state logic.
+/// input state[9:0]: current one-hot state encoding, with state[0]=S through state[9]=Wait.
+/// outputs B3_next, S_next, S1_next, Count_next, Wait_next: combinational next-state decode bits.
+/// outputs done, counting, shift_ena: combinational Moore outputs from current state.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// | d=0 | S | S | shift_ena=0, counting=0, done=0 |
+/// | d=1 | S | S1 | shift_ena=0, counting=0, done=0 |
+/// | d=0 | S1 | S | shift_ena=0, counting=0, done=0 |
+/// | d=1 | S1 | S11 | shift_ena=0, counting=0, done=0 |
+/// | d=0 | S11 | S110 | shift_ena=0, counting=0, done=0 |
+/// | d=1 | S11 | S11 | shift_ena=0, counting=0, done=0 |
+/// | d=0 | S110 | S | shift_ena=0, counting=0, done=0 |
+/// | d=1 | S110 | B0 | shift_ena=0, counting=0, done=0 |
+/// | always | B0 | B1 | shift_ena=1, counting=0, done=0 |
+/// | always | B1 | B2 | shift_ena=1, counting=0, done=0 |
+/// | always | B2 | B3 | shift_ena=1, counting=0, done=0 |
+/// | always | B3 | Count | shift_ena=1, counting=0, done=0 |
+/// | done_counting=0 | Count | Count | shift_ena=0, counting=1, done=0 |
+/// | done_counting=1 | Count | Wait | shift_ena=0, counting=1, done=0 |
+/// | ack=0 | Wait | Wait | shift_ena=0, counting=0, done=1 |
+/// | ack=1 | Wait | S | shift_ena=0, counting=0, done=1 |
+module TopModule
+  port d: in Bool;
+  port done_counting: in Bool;
+  port ack: in Bool;
+  port state: in UInt<10>;
+  port B3_next: out Bool;
+  port S_next: out Bool;
+  port S1_next: out Bool;
+  port Count_next: out Bool;
+  port Wait_next: out Bool;
+  port done: out Bool;
+  port counting: out Bool;
+  port shift_ena: out Bool;
+
+  let in_S: Bool = state[0];
+  let in_S1: Bool = state[1];
+  let in_S110: Bool = state[3];
+  let in_B0: Bool = state[4];
+  let in_B1: Bool = state[5];
+  let in_B2: Bool = state[6];
+  let in_B3: Bool = state[7];
+  let in_Count: Bool = state[8];
+  let in_Wait: Bool = state[9];
+
+  let B3_next = in_B2;
+  let S_next = (in_S and not d) or (in_S1 and not d) or (in_S110 and not d) or (in_Wait and ack);
+  let S1_next = in_S and d;
+  let Count_next = in_B3 or (in_Count and not done_counting);
+  let Wait_next = (in_Count and done_counting) or (in_Wait and not ack);
+
+  let done = in_Wait;
+  let counting = in_Count;
+  let shift_ena = in_B0 or in_B1 or in_B2 or in_B3;
+end module TopModule
+[DONE]

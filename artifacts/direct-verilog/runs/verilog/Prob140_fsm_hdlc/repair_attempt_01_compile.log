@@ -1,0 +1,2 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob140_fsm_hdlc/repair_attempt_01.ivvp runs/verilog/Prob140_fsm_hdlc/repair_attempt_01.sv dataset_spec-to-rtl/Prob140_fsm_hdlc_test.sv dataset_spec-to-rtl/Prob140_fsm_hdlc_ref.sv
+COMPILE_STATUS: 0

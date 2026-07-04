@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob011_norgate",
+  "samples": 219,
+  "source": "runs/arch/Prob011_norgate/Prob011_norgate.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob011_norgate/Prob011_norgate.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob011_norgate/Prob011_norgate.sv",
+        "runs/arch/Prob011_norgate/Prob011_norgate.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob011_norgate/Prob011_norgate.ivvp",
+        "runs/arch/Prob011_norgate/Prob011_norgate.sv",
+        "dataset_spec-to-rtl/Prob011_norgate_test.sv",
+        "dataset_spec-to-rtl/Prob011_norgate_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob011_norgate/Prob011_norgate.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

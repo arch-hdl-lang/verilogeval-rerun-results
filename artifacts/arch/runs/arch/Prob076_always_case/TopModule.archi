@@ -1,0 +1,10 @@
+module TopModule
+  port sel: in UInt<3>;
+  port data0: in UInt<4>;
+  port data1: in UInt<4>;
+  port data2: in UInt<4>;
+  port data3: in UInt<4>;
+  port data4: in UInt<4>;
+  port data5: in UInt<4>;
+  port out: out UInt<4> comb_dep_on(data0, data1, data2, data3, data4, data5, sel);
+end module TopModule

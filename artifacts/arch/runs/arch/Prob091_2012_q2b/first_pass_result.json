@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob091_2012_q2b",
+  "samples": 600,
+  "source": "runs/arch/Prob091_2012_q2b/Prob091_2012_q2b.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob091_2012_q2b/Prob091_2012_q2b.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob091_2012_q2b/Prob091_2012_q2b.sv",
+        "runs/arch/Prob091_2012_q2b/Prob091_2012_q2b.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob091_2012_q2b/Prob091_2012_q2b.ivvp",
+        "runs/arch/Prob091_2012_q2b/Prob091_2012_q2b.sv",
+        "dataset_spec-to-rtl/Prob091_2012_q2b_test.sv",
+        "dataset_spec-to-rtl/Prob091_2012_q2b_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob091_2012_q2b/Prob091_2012_q2b.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

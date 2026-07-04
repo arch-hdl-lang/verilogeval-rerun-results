@@ -1,0 +1,24 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob031_dff_prompt.txt
+//! tags: [dff, sequential, register]
+//! refs: []
+//! ---
+//!
+//! Implements the Prob031_dff prompt as a single positive-edge D flip-flop.
+//! The q port is the registered output that captures d on each rising edge of clk.
+
+/// Single-bit positive-edge D flip-flop.
+///
+/// Captures d on each rising edge of clk and presents the sampled value on q
+/// with one cycle of registered output latency.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port d: in Bool;
+  port q: out pipe_reg<Bool, 1> reset none;
+
+  seq on clk rising
+    q@1 <= d;
+  end seq
+end module TopModule
+[DONE]

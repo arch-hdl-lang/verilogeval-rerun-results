@@ -1,0 +1,18 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob124_rule110/Prob124_rule110.sv
+Wrote runs/arch/Prob124_rule110/TopModule.archi
+
+Icarus compile:
+
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob124_rule110_test.sv:73: $finish called at 31416 (1ps)
+Hint: Output 'q' has no mismatches.
+Hint: Total mismatched samples is 0 out of 6283 samples
+
+Simulation finished at 31416 ps
+Mismatches: 0 in 6283 samples

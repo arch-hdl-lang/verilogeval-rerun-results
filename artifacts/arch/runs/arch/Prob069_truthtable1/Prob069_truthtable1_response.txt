@@ -1,0 +1,27 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob069_truthtable1_prompt.txt
+//! tags: [truth-table, combinational, boolean-logic]
+//! refs: []
+//! ---
+//!
+//! Implements the requested one-bit combinational truth table for x3, x2, x1.
+//! The output f is high for rows 010, 011, 101, and 111.
+
+/// One-bit combinational truth-table implementation for VerilogEval Prob069_truthtable1.
+///
+/// Ports preserve the requested TopModule interface exactly: inputs x3, x2, x1 and output f.
+module TopModule
+  port x3: in Bool;
+  port x2: in Bool;
+  port x1: in Bool;
+  port f: out Bool;
+
+  let row_010: Bool = (not x3) and x2 and (not x1);
+  let row_011: Bool = (not x3) and x2 and x1;
+  let row_101: Bool = x3 and (not x2) and x1;
+  let row_111: Bool = x3 and x2 and x1;
+
+  let f = row_010 or row_011 or row_101 or row_111;
+end module TopModule
+[DONE]

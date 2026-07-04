@@ -1,0 +1,18 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob012_xnorgate/Prob012_xnorgate.sv
+Wrote runs/arch/Prob012_xnorgate/TopModule.archi
+
+Icarus compile:
+
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob012_xnorgate_test.sv:38: $finish called at 1096 (1ps)
+Hint: Output 'out' has no mismatches.
+Hint: Total mismatched samples is 0 out of 219 samples
+
+Simulation finished at 1096 ps
+Mismatches: 0 in 219 samples

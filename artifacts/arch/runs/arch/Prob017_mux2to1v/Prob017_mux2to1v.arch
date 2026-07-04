@@ -1,0 +1,22 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob017_mux2to1v_prompt.txt
+//! tags: [multiplexer, combinational, vector_select]
+//! refs: []
+//! ---
+//!
+//! Implements the Prob017_mux2to1v prompt as a purely combinational 100-bit
+//! two-input multiplexer. The output chooses input a when sel is low and input
+//! b when sel is high.
+
+/// Top-level 100-bit 2:1 multiplexer.
+///
+/// This module exposes the exact VerilogEval interface and drives out
+/// combinationally from sel, a, and b.
+module TopModule
+  port a: in UInt<100>;
+  port b: in UInt<100>;
+  port sel: in Bool;
+  port out: out UInt<100>;
+
+  let out = sel ? b : a;
+end module TopModule

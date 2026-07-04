@@ -1,0 +1,19 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob053_m2014_q4d_prompt.txt
+//! tags: [dff, xor, sequential]
+//! refs: []
+//! ---
+//!
+//! Implements a one-bit positive-edge D flip-flop whose next value is the XOR
+//! of the external input and the current flip-flop output. The design has no reset.
+
+/// Positive-edge one-bit XOR feedback flip-flop with no reset.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port in: in Bool;
+  port out: out pipe_reg<Bool, 1> init 0 reset none;
+
+  seq on clk rising
+    out <= out ^ in;
+  end seq
+end module TopModule

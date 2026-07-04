@@ -1,0 +1,69 @@
+
+Question:
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - input  in
+ - output done
+
+In many (older) serial communications protocols, each data byte is sent
+along with a start bit and a stop bit, to help the receiver delimit bytes
+from the stream of bits. One common scheme is to use one start bit (0), 8
+data bits, and 1 stop bit (1). The line is also at logic 1 when nothing
+is being transmitted (idle).
+
+Implement a finite state machine that will identify when bytes have been
+correctly received when given a stream of bits. It needs to identify the
+start bit, wait for all 8 data bits, then verify that the stop bit was
+correct. If the stop bit does not appear when expected, the FSM must wait
+until it finds a stop bit before attempting to receive the next byte.
+Include a active-high synchronous reset. Note that the serial protocol
+sends the least significant bit first.
+
+Assume all sequential logic is triggered on the positive edge of the
+clock.
+
+Benchmark integrity rules:
+
+ - Solve this problem only from the text in this prompt plus the fixed Verilog
+   guidance/examples included here.
+
+ - Do not inspect or rely on VerilogEval `_test.sv` files, `_ref.sv` files,
+   expected-output traces, simulator mismatch hints, or any other hidden
+   evaluation artifact while writing the RTL.
+
+ - Treat this problem as independent from every other VerilogEval problem.
+   Do not rely on solutions, failures, logs, or debugging notes from previous
+   problems. If problems are solved serially, use a fresh model context for
+   each problem before generation.
+
+ - If a later experiment intentionally allows compile/test feedback or repair,
+   that must be logged as a separate repair-mode attempt, not as first-pass
+   generation.
+
+Here are some additional rules and coding conventions.
+
+ - Declare all ports and signals as logic; do not to use wire or reg.
+
+ - For combinational logic with an always block do not explicitly specify
+   the sensitivity list; instead use always @(*).
+
+ - All sized numeric constants must have a size greater than zero
+   (e.g, 0'b0 is not a valid expression).
+
+ - An always block must read at least one signal otherwise it will never
+   be executed; use an assign statement instead of an always block in
+   situations where there is no need to read any signals.
+
+ - if the module uses a synchronous reset signal, this means the reset
+   signal is sampled with respect to the clock. When implementing a
+   synchronous reset signal, do not include posedge reset in the
+   sensitivity list of any sequential always block.
+
+Enclose your code with [BEGIN] and [DONE]. Only output the code snippet
+and do NOT output anything else.
+
+Answer:

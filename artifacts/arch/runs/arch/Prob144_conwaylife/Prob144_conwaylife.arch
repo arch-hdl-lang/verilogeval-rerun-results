@@ -1,0 +1,69 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob144_conwaylife_prompt.txt
+//! tags: [conwaylife, toroidal-grid, cellular-automaton, sequential-logic]
+//! ---
+//!
+//! Implements a 16x16 toroidal Conway's Game of Life stepper. The 256-bit
+//! state is loaded synchronously when load is high; otherwise it advances one
+//! generation on each rising clock edge.
+
+/// Computes the next state for one Conway cell from its eight neighbours.
+function NextCell(
+  alive: Bool,
+  nw: Bool,
+  n: Bool,
+  ne: Bool,
+  w: Bool,
+  e: Bool,
+  sw: Bool,
+  s: Bool,
+  se: Bool
+) -> Bool
+  let neighbours: UInt<4> =
+    nw.resize<4>() +% n.resize<4>() +% ne.resize<4>() +% w.resize<4>() +%
+    e.resize<4>() +% sw.resize<4>() +% s.resize<4>() +% se.resize<4>();
+  return (neighbours == 4'd3) or ((neighbours == 4'd2) and alive);
+end function NextCell
+
+/// Top-level 16x16 toroidal Conway's Game of Life state machine.
+///
+/// q[15:0] is row 0 and q[255:240] is row 15. Each cell explicitly indexes
+/// its wrapped north, south, west, and east neighbours instead of relying on
+/// whole-vector shifts.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port load: in Bool;
+  port data: in UInt<256>;
+  port q: out UInt<256>;
+
+  reg grid: UInt<256> reset none;
+  wire next_grid: UInt<256>;
+
+  let q = grid;
+
+  comb
+    for row_idx in 0..15
+      for col_idx in 0..15
+        next_grid[row_idx * 16 + col_idx] = NextCell(
+          grid[row_idx * 16 + col_idx],
+          grid[((row_idx + 15) % 16) * 16 + ((col_idx + 15) % 16)],
+          grid[((row_idx + 15) % 16) * 16 + col_idx],
+          grid[((row_idx + 15) % 16) * 16 + ((col_idx + 1) % 16)],
+          grid[row_idx * 16 + ((col_idx + 15) % 16)],
+          grid[row_idx * 16 + ((col_idx + 1) % 16)],
+          grid[((row_idx + 1) % 16) * 16 + ((col_idx + 15) % 16)],
+          grid[((row_idx + 1) % 16) * 16 + col_idx],
+          grid[((row_idx + 1) % 16) * 16 + ((col_idx + 1) % 16)]
+        );
+      end for
+    end for
+  end comb
+
+  seq on clk rising
+    if load
+      grid <= data;
+    else
+      grid <= next_grid;
+    end if
+  end seq
+end module TopModule

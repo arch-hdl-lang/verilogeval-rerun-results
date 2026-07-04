@@ -1,0 +1,18 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob090_circuit1_prompt.txt
+//! tags: [combinational, waveform, and_gate]
+//! refs: []
+//! ---
+//!
+//! Implements the TopModule combinational circuit inferred from the provided waveform.
+
+/// One-bit combinational circuit whose output is high only when both inputs are high.
+module TopModule
+  port a: in Bool;
+  port b: in Bool;
+  port q: out Bool;
+
+  let q = a and b;
+end module TopModule
+[DONE]

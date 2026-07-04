@@ -1,0 +1,51 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob107_fsm1s_prompt.txt
+//! tags: [fsm, moore, synchronous-reset]
+//! refs: []
+//! ---
+//!
+//! Implements the VerilogEval Prob107_fsm1s two-state Moore machine.
+//! Reset is active-high synchronous and returns the machine to state B.
+
+/// Top-level two-state Moore FSM with the exact requested VerilogEval interface.
+///
+/// Port timing/type:
+/// clk: input clock, sampled on the rising edge.
+/// reset: active-high synchronous reset to state B.
+/// in: one-bit input sampled by the FSM transition logic on the rising clock edge.
+/// out: combinational state-derived Moore output visible from the current state.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// | in == 0         | B             | A          | 1      |
+/// | in == 1         | B             | B          | 1      |
+/// | in == 0         | A             | B          | 0      |
+/// | in == 1         | A             | A          | 0      |
+fsm TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port in: in Bool;
+  port out: out Bool;
+
+  state [A, B]
+  default state B;
+
+  default
+    comb
+      out = true;
+    end comb
+  end default
+
+  state B
+    -> A when not in;
+  end state B
+
+  state A
+    comb
+      out = false;
+    end comb
+    -> B when not in;
+  end state A
+end fsm TopModule
+[DONE]

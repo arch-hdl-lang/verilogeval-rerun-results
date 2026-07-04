@@ -1,0 +1,11 @@
+{
+  "problem": "Prob112_always_case2",
+  "passed": true,
+  "mismatches": 0,
+  "samples": 94,
+  "arch_check": "pass",
+  "arch_build": "pass",
+  "verilator_lint": "pass",
+  "icarus_compile": "pass",
+  "icarus_run": "pass"
+}

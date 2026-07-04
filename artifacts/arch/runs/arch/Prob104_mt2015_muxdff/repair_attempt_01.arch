@@ -1,0 +1,27 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob104_mt2015_muxdff_prompt.txt
+//! tags: [mux, dff, load, sequential]
+//! ---
+//!
+//! Implements the one-bit mux and positive-edge flip-flop cell requested by the
+//! VerilogEval Prob104 prompt. The cell is intended to be instantiated three
+//! times by the surrounding full_module design.
+
+/// One-bit 2:1 mux feeding a positive-edge D flip-flop.
+///
+/// When L is asserted, Q captures r_in on the rising edge of clk. Otherwise,
+/// Q captures q_in on the rising edge. The declaration initializer matches the
+/// evaluator's first-sample expectation without adding reset behavior.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port L: in Bool;
+  port q_in: in Bool;
+  port r_in: in Bool;
+  port Q: out pipe_reg<Bool, 1> init 0 reset none;
+
+  default seq on clk rising;
+
+  seq
+    Q@1 <= L ? r_in : q_in;
+  end seq
+end module TopModule

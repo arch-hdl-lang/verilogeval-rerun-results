@@ -1,0 +1,71 @@
+
+Question:
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  c
+ - input  d
+ - output mux_in (4 bits)
+
+For the following Karnaugh map, give the circuit implementation using one
+4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using
+as few as possible. You are not allowed to use any other logic gate and
+you must use _a_ and _b_ as the multiplexer selector inputs, as shown on
+the 4-to-1 multiplexer below.
+
+      ab
+  cd  00  01  11  10
+  00 | 0 | 0 | 0 | 1 |
+  01 | 1 | 0 | 0 | 0 |
+  11 | 1 | 0 | 1 | 1 |
+  10 | 1 | 0 | 0 | 1 |
+
+Consider a block diagram with inputs 'c' and 'd' going into a module
+called "TopModule". This "TopModule" has four outputs, mux_in[3:0], that
+connect to a four input mux. The mux takes as input {a,b} and ab = 00 is
+connected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You
+are implementing in Verilog just the portion labelled "TopModule", such
+that the entire circuit (including the 4-to-1 mux) implements the K-map.
+
+Benchmark integrity rules:
+
+ - Solve this problem only from the text in this prompt plus the fixed Verilog
+   guidance/examples included here.
+
+ - Do not inspect or rely on VerilogEval `_test.sv` files, `_ref.sv` files,
+   expected-output traces, simulator mismatch hints, or any other hidden
+   evaluation artifact while writing the RTL.
+
+ - Treat this problem as independent from every other VerilogEval problem.
+   Do not rely on solutions, failures, logs, or debugging notes from previous
+   problems. If problems are solved serially, use a fresh model context for
+   each problem before generation.
+
+ - If a later experiment intentionally allows compile/test feedback or repair,
+   that must be logged as a separate repair-mode attempt, not as first-pass
+   generation.
+
+Here are some additional rules and coding conventions.
+
+ - Declare all ports and signals as logic; do not to use wire or reg.
+
+ - For combinational logic with an always block do not explicitly specify
+   the sensitivity list; instead use always @(*).
+
+ - All sized numeric constants must have a size greater than zero
+   (e.g, 0'b0 is not a valid expression).
+
+ - An always block must read at least one signal otherwise it will never
+   be executed; use an assign statement instead of an always block in
+   situations where there is no need to read any signals.
+
+ - if the module uses a synchronous reset signal, this means the reset
+   signal is sampled with respect to the clock. When implementing a
+   synchronous reset signal, do not include posedge reset in the
+   sensitivity list of any sequential always block.
+
+Enclose your code with [BEGIN] and [DONE]. Only output the code snippet
+and do NOT output anything else.
+
+Answer:

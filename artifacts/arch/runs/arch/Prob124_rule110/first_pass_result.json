@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob124_rule110",
+  "samples": 6283,
+  "source": "runs/arch/Prob124_rule110/Prob124_rule110.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob124_rule110/Prob124_rule110.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob124_rule110/Prob124_rule110.sv",
+        "runs/arch/Prob124_rule110/Prob124_rule110.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob124_rule110/Prob124_rule110.ivvp",
+        "runs/arch/Prob124_rule110/Prob124_rule110.sv",
+        "dataset_spec-to-rtl/Prob124_rule110_test.sv",
+        "dataset_spec-to-rtl/Prob124_rule110_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob124_rule110/Prob124_rule110.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

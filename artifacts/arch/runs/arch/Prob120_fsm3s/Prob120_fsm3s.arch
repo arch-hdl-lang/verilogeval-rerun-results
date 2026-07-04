@@ -1,0 +1,63 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob120_fsm3s_prompt.txt
+//! tags: [fsm, moore, sync-reset, verilogeval]
+//! refs: []
+//! ---
+//!
+//! Four-state Moore FSM for the VerilogEval Prob120_fsm3s prompt. The FSM has
+//! synchronous active-high reset to state A and drives out high only in state D.
+
+/// TopModule implements the requested four-state Moore state machine.
+///
+/// Timing/type notes:
+/// - clk is the positive-edge sequential clock.
+/// - reset is synchronous active-high and returns the FSM to A.
+/// - in is sampled by the state transition logic on each rising clock edge.
+/// - out is a combinational, state-derived Moore output with no pipe_reg latency.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// | in == 0         | A             | A          | 0      |
+/// | in == 1         | A             | B          | 0      |
+/// | in == 0         | B             | C          | 0      |
+/// | in == 1         | B             | B          | 0      |
+/// | in == 0         | C             | A          | 0      |
+/// | in == 1         | C             | D          | 0      |
+/// | in == 0         | D             | C          | 1      |
+/// | in == 1         | D             | B          | 1      |
+fsm TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port in: in Bool;
+  port out: out Bool;
+
+  state [A, B, C, D]
+  default state A;
+
+  default
+    comb
+      out = false;
+    end comb
+  end default
+
+  state A
+    -> B when in;
+  end state A
+
+  state B
+    -> C when not in;
+  end state B
+
+  state C
+    -> A when not in;
+    -> D when in;
+  end state C
+
+  state D
+    comb
+      out = true;
+    end comb
+    -> C when not in;
+    -> B when in;
+  end state D
+end fsm TopModule

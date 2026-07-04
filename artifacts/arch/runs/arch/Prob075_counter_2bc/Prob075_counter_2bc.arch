@@ -1,0 +1,42 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob075_counter_2bc_prompt.txt
+//! tags: [counter, saturating-counter, async-reset, branch-predictor]
+//! refs: []
+//! ---
+//!
+//! Implements the requested two-bit saturating counter for branch training.
+//! The asynchronous active-high reset initializes the counter to weakly
+//! not-taken, and the state output continuously reflects the stored count.
+
+/// Top-level two-bit saturating counter with the exact requested interface.
+///
+/// `state` is a combinational view of the internal counter. Sequential updates
+/// occur on the positive clock edge, with active-high asynchronous reset to
+/// `2'b01`.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port areset: in Reset<Async, High>;
+  port train_valid: in Bool;
+  port train_taken: in Bool;
+  port state: out UInt<2>;
+
+  reg count_r: UInt<2> reset areset => 2'b01;
+
+  let state = count_r;
+
+  default seq on clk rising;
+
+  seq
+    if train_valid
+      if train_taken
+        if count_r != 2'b11
+          count_r <= count_r +% 2'b01;
+        end if
+      else
+        if count_r != 2'b00
+          count_r <= count_r -% 2'b01;
+        end if
+      end if
+    end if
+  end seq
+end module TopModule

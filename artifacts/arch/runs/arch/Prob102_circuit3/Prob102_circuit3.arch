@@ -1,0 +1,20 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob102_circuit3_prompt.txt
+//! tags: [combinational, truth-table, boolean-logic]
+//! ---
+//!
+//! Implements the combinational circuit inferred from the supplied waveform table.
+//! The output is asserted when either a or b is high and either c or d is high.
+
+/// Top-level combinational circuit for Prob102_circuit3.
+///
+/// Preserves the requested one-bit ports and drives q without registered latency.
+module TopModule
+  port a: in Bool;
+  port b: in Bool;
+  port c: in Bool;
+  port d: in Bool;
+  port q: out Bool;
+
+  let q = (a or b) and (c or d);
+end module TopModule

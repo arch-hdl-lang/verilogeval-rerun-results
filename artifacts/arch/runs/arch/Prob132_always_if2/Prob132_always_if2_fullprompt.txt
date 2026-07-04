@@ -1,0 +1,50 @@
+Question:
+Translate the following RTL specification into ARCH HDL.
+
+Consider the following adder-subtractor with a zero flag:
+
+  module TopModule (
+      input      cpu_overheated,
+      output reg shut_off_computer,
+      input      arrived,
+      input      gas_tank_empty,
+      output reg keep_driving
+  );
+
+      always @(*) begin
+          if (cpu_overheated)
+             shut_off_computer = 1;
+      end
+
+      always @(*) begin
+          if (~arrived)
+             keep_driving = ~gas_tank_empty;
+      end
+
+  endmodule
+
+Unfortunately, this module has a bug. Implement a new version of this
+module that fixes the bug.
+
+Benchmark integrity rules:
+
+ - Solve this problem only from the text in this prompt plus the fixed ARCH
+   guidance/examples included here.
+
+ - Do not inspect or rely on VerilogEval `_test.sv` files, `_ref.sv` files,
+   expected-output traces, simulator mismatch hints, or any other hidden
+   evaluation artifact while writing the RTL.
+
+ - Treat this problem as independent from every other VerilogEval problem.
+   Do not rely on solutions, failures, logs, or debugging notes from previous
+   problems. If problems are solved serially, use a fresh model context for
+   each problem before generation.
+
+ - If a later experiment intentionally allows compile/test feedback or repair,
+   that must be logged as a separate repair-mode attempt, not as first-pass
+   generation.
+
+Enclose your code with [BEGIN] and [DONE]. Only output the ARCH code snippet
+and do NOT output anything else.
+
+Answer:

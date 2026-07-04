@@ -1,0 +1,24 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob077_wire_decl_prompt.txt
+//! tags: [combinational, gates, wire-decl]
+//! ---
+//!
+//! Implements the requested two-level gate circuit for Prob077_wire_decl.
+//! The output out is the OR of two AND gate results, and out_n is its inversion.
+
+/// Top-level combinational gate network for the VerilogEval wire declaration problem.
+module TopModule
+  port a: in Bool;
+  port b: in Bool;
+  port c: in Bool;
+  port d: in Bool;
+  port out: out Bool;
+  port out_n: out Bool;
+
+  let and_ab: Bool = a and b;
+  let and_cd: Bool = c and d;
+  let out = and_ab or and_cd;
+  let out_n = not out;
+end module TopModule
+[DONE]

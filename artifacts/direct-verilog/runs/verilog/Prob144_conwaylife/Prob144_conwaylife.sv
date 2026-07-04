@@ -1,0 +1,52 @@
+
+module TopModule (
+    input  logic         clk,
+    input  logic         load,
+    input  logic [255:0] data,
+    output logic [255:0] q
+);
+
+    logic [255:0] next_q;
+    logic [3:0] neighbours;
+    integer row;
+    integer col;
+    integer idx;
+
+    always @(*) begin
+        next_q = 256'b0;
+
+        for (row = 0; row < 16; row = row + 1) begin
+            for (col = 0; col < 16; col = col + 1) begin
+                idx = row * 16 + col;
+
+                neighbours =
+                    q[(((row + 15) % 16) * 16) + ((col + 15) % 16)] +
+                    q[(((row + 15) % 16) * 16) + col] +
+                    q[(((row + 15) % 16) * 16) + ((col + 1) % 16)] +
+                    q[(row * 16) + ((col + 15) % 16)] +
+                    q[(row * 16) + ((col + 1) % 16)] +
+                    q[(((row + 1) % 16) * 16) + ((col + 15) % 16)] +
+                    q[(((row + 1) % 16) * 16) + col] +
+                    q[(((row + 1) % 16) * 16) + ((col + 1) % 16)];
+
+                if (neighbours == 4'd2) begin
+                    next_q[idx] = q[idx];
+                end else if (neighbours == 4'd3) begin
+                    next_q[idx] = 1'b1;
+                end else begin
+                    next_q[idx] = 1'b0;
+                end
+            end
+        end
+    end
+
+    always @(posedge clk) begin
+        if (load) begin
+            q <= data;
+        end else begin
+            q <= next_q;
+        end
+    end
+
+endmodule
+

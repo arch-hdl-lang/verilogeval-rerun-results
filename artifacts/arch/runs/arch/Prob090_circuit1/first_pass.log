@@ -1,0 +1,20 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob090_circuit1/Prob090_circuit1.sv
+Wrote runs/arch/Prob090_circuit1/TopModule.archi
+
+Icarus compile:
+
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob090_circuit1_test.sv:36: $finish called at 600 (1ps)
+Hint: Output 'q' has no mismatches.
+Hint: Total mismatched samples is 0 out of 120 samples
+
+Simulation finished at 600 ps
+Mismatches: 0 in 120 samples
+
+ARCH_BLACKBOX_EXIT=0

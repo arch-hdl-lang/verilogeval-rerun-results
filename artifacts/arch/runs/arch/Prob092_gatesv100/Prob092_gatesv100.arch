@@ -1,0 +1,24 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob092_gatesv100_prompt.txt
+//! tags: [gates, vector_logic, combinational]
+//! ---
+//!
+//! Implements the Prob092_gatesv100 vector-neighbor gate operations as a pure
+//! combinational top-level module with the requested VerilogEval interface.
+
+/// Computes per-bit neighbour relations for a 100-bit input vector.
+///
+/// `out_both` compares each bit with the neighbour at the next higher index,
+/// forcing bit 99 to zero. `out_any` compares each bit with the neighbour at
+/// the next lower index, forcing bit 0 to zero. `out_different` compares with
+/// the next higher index and wraps bit 99 around to bit 0.
+module TopModule
+  port in: in UInt<100>;
+  port out_both: out UInt<100>;
+  port out_any: out UInt<100>;
+  port out_different: out UInt<100>;
+
+  let out_both = {1'b0, (in[98:0] & in[99:1])};
+  let out_any = {(in[99:1] | in[98:0]), 1'b0};
+  let out_different = {(in[99] ^ in[0]), (in[98:0] ^ in[99:1])};
+end module TopModule

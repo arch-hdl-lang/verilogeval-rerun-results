@@ -1,0 +1,51 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob110_fsm2_prompt.txt
+//! tags: [fsm, moore, async-reset]
+//! refs: []
+//! ---
+//!
+//! Two-state Moore FSM generated for Prob110_fsm2. The active-high asynchronous reset places the machine in OFF; output `out` is state-derived.
+
+/// Top-level two-state Moore FSM for the requested TopModule interface.
+///
+/// Port timing/type:
+/// - `clk`: sampled on the rising edge for state transitions.
+/// - `areset`: active-high asynchronous reset to OFF.
+/// - `j`, `k`: one-bit inputs sampled by the FSM transition logic.
+/// - `out`: combinational/state-derived Moore output, 0 in OFF and 1 in ON.
+///
+/// Transition table:
+/// | input condition | current state | next state | output |
+/// | j == 0          | OFF           | OFF        | 0      |
+/// | j == 1          | OFF           | ON         | 0      |
+/// | k == 0          | ON            | ON         | 1      |
+/// | k == 1          | ON            | OFF        | 1      |
+fsm TopModule
+  port clk: in Clock<SysDomain>;
+  port areset: in Reset<Async, High>;
+  port j: in Bool;
+  port k: in Bool;
+  port out: out Bool;
+
+  state [OFF, ON]
+  default state OFF;
+
+  default
+    comb
+      out = false;
+    end comb
+  end default
+
+  state OFF
+    -> ON when j;
+  end state OFF
+
+  state ON
+    comb
+      out = true;
+    end comb
+    -> OFF when k;
+  end state ON
+end fsm TopModule
+[DONE]

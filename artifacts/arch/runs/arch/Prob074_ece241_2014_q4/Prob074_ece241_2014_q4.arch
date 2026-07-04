@@ -1,0 +1,37 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob074_ece241_2014_q4_prompt.txt
+//! tags: [fsm, flipflop, gates, feedback]
+//! ---
+//!
+//! Implements the requested three flip-flop feedback machine. The output is
+//! the combinational NOR of the three current flip-flop outputs.
+
+/// Top-level feedback machine for Prob074_ece241_2014_q4.
+///
+/// Port timing: `clk` samples all three D flip-flops on the positive edge,
+/// `x` is the sampled data input, and `z` is a combinational output from the
+/// current flip-flop states.
+///
+/// State transition table over current states `(q_xor, q_and, q_or)`:
+/// input condition | current state | next state | output
+/// x == 0 | (a, b, c) | (a, 0, !c) | !(a || b || c)
+/// x == 1 | (a, b, c) | (!a, !b, 1) | !(a || b || c)
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port x: in Bool;
+  port z: out Bool;
+
+  reg q_xor: Bool init false reset none;
+  reg q_and: Bool init false reset none;
+  reg q_or: Bool init false reset none;
+
+  let z = not (q_xor or q_and or q_or);
+
+  default seq on clk rising;
+
+  seq
+    q_xor <= x ^ q_xor;
+    q_and <= x and not q_and;
+    q_or <= x or not q_or;
+  end seq
+end module TopModule

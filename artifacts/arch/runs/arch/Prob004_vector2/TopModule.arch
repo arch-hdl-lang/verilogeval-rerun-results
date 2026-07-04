@@ -1,0 +1,17 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob004_vector2_prompt.txt
+//! tags: [vector, byte_order, combinational]
+//! refs: []
+//! ---
+//!
+//! Implements the Prob004_vector2 byte-order reversal for a 32-bit input vector.
+
+/// Top-level combinational byte-swap module for VerilogEval Prob004_vector2.
+///
+/// The output concatenates the four input bytes in reverse order.
+module TopModule
+  port in: in UInt<32>;
+  port out: out UInt<32>;
+
+  let out = {in[7:0], in[15:8], in[23:16], in[31:24]};
+end module TopModule

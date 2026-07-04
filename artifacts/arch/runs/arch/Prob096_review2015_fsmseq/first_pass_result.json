@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob096_review2015_fsmseq",
+  "samples": 643,
+  "source": "runs/arch/Prob096_review2015_fsmseq/Prob096_review2015_fsmseq.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob096_review2015_fsmseq/Prob096_review2015_fsmseq.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob096_review2015_fsmseq/Prob096_review2015_fsmseq.sv",
+        "runs/arch/Prob096_review2015_fsmseq/Prob096_review2015_fsmseq.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob096_review2015_fsmseq/Prob096_review2015_fsmseq.ivvp",
+        "runs/arch/Prob096_review2015_fsmseq/Prob096_review2015_fsmseq.sv",
+        "dataset_spec-to-rtl/Prob096_review2015_fsmseq_test.sv",
+        "dataset_spec-to-rtl/Prob096_review2015_fsmseq_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob096_review2015_fsmseq/Prob096_review2015_fsmseq.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

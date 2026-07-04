@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob130_circuit5",
+  "samples": 141,
+  "source": "runs/arch/Prob130_circuit5/Prob130_circuit5.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob130_circuit5/Prob130_circuit5.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob130_circuit5/Prob130_circuit5.sv",
+        "runs/arch/Prob130_circuit5/Prob130_circuit5.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob130_circuit5/Prob130_circuit5.ivvp",
+        "runs/arch/Prob130_circuit5/Prob130_circuit5.sv",
+        "dataset_spec-to-rtl/Prob130_circuit5_test.sv",
+        "dataset_spec-to-rtl/Prob130_circuit5_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob130_circuit5/Prob130_circuit5.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

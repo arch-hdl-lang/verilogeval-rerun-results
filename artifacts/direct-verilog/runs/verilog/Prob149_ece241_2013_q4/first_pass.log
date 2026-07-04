@@ -1,0 +1,5 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob149_ece241_2013_q4/Prob149_ece241_2013_q4.ivvp runs/verilog/Prob149_ece241_2013_q4/Prob149_ece241_2013_q4.sv dataset_spec-to-rtl/Prob149_ece241_2013_q4_test.sv dataset_spec-to-rtl/Prob149_ece241_2013_q4_ref.sv
+runs/verilog/Prob149_ece241_2013_q4/Prob149_ece241_2013_q4.sv:2: warning: macro systemverilog undefined (and assumed null) at this point.
+runs/verilog/Prob149_ece241_2013_q4/Prob149_ece241_2013_q4.sv:2: syntax error
+I give up.
+COMPILE_STATUS: 2

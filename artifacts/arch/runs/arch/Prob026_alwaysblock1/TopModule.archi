@@ -1,0 +1,6 @@
+module TopModule
+  port a: in Bool;
+  port b: in Bool;
+  port out_assign: out Bool comb_dep_on(a, b);
+  port out_alwaysblock: out Bool comb_dep_on(a, b);
+end module TopModule

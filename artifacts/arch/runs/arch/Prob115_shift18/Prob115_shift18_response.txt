@@ -1,0 +1,40 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob115_shift18_prompt.txt
+//! tags: [shift-register, arithmetic-shift, synchronous-load]
+//! refs: []
+//! ---
+//!
+//! Implements the Prob115_shift18 prompt: a 64-bit synchronous-load arithmetic
+//! shift register controlled by load, enable, and a two-bit shift amount.
+
+/// Top-level 64-bit arithmetic shift register.
+///
+/// On each rising edge, load has priority over enabled shifts. The current
+/// register contents are exposed on q.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port load: in Bool;
+  port ena: in Bool;
+  port amount: in UInt<2>;
+  port data: in UInt<64>;
+  port q: out UInt<64>;
+
+  reg sh: UInt<64> reset none;
+
+  let q = sh;
+
+  seq on clk rising
+    if load
+      sh <= data;
+    elsif ena
+      unique match amount
+        2'b00 => sh <= {sh[62:0], 1'b0};
+        2'b01 => sh <= {sh[55:0], 8'b00000000};
+        2'b10 => sh <= {sh[63], sh[63:1]};
+        2'b11 => sh <= {sh[63], sh[63], sh[63], sh[63], sh[63], sh[63], sh[63], sh[63], sh[63:8]};
+      end match
+    end if
+  end seq
+end module TopModule
+[DONE]

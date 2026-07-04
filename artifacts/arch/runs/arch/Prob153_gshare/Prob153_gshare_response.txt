@@ -1,0 +1,84 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob153_gshare_prompt.txt
+//! tags: [branch-prediction, gshare, saturating-counter, history]
+//! ---
+//!
+//! Implements a 7-bit gshare branch predictor with a 128-entry table of
+//! two-bit saturating counters and a recoverable global history register.
+
+/// Top-level gshare branch predictor.
+///
+/// Prediction outputs are combinational from the current PHT and global
+/// history. The global history and PHT update on the positive clock edge,
+/// with asynchronous active-high reset and misprediction recovery taking
+/// precedence over speculative prediction history updates.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port areset: in Reset<Async, High>;
+
+  port predict_valid: in Bool;
+  port predict_pc: in UInt<7>;
+  port predict_taken: out Bool;
+  port predict_history: out UInt<7>;
+
+  port train_valid: in Bool;
+  port train_taken: in Bool;
+  port train_mispredicted: in Bool;
+  port train_history: in UInt<7>;
+  port train_pc: in UInt<7>;
+
+  reg history_reg: UInt<7> reset areset => 0;
+
+  let predict_idx: UInt<7> = predict_pc ^ history_reg;
+  let train_idx: UInt<7> = train_pc ^ train_history;
+  let predict_hi_shifted: UInt<128> = pht_hi >> predict_idx;
+  let predict_lo_shifted: UInt<128> = pht_lo >> predict_idx;
+  let train_hi_shifted: UInt<128> = pht_hi >> train_idx;
+  let train_lo_shifted: UInt<128> = pht_lo >> train_idx;
+  let predict_ctr: UInt<2> = {predict_hi_shifted[0], predict_lo_shifted[0]};
+  let train_ctr: UInt<2> = {train_hi_shifted[0], train_lo_shifted[0]};
+  let predicted_dir: Bool = predict_ctr[1];
+  let train_next_history: UInt<7> = {train_history[5:0], train_taken};
+  let predict_next_history: UInt<7> = {history_reg[5:0], predicted_dir};
+  let train_inc_ctr: UInt<2> = train_ctr +% 1;
+  let train_dec_ctr: UInt<2> = train_ctr -% 1;
+  let train_updated_ctr: UInt<2> = train_taken ? train_inc_ctr : train_dec_ctr;
+  let train_onehot: UInt<128> = 128'd1 << train_idx;
+  let pht_clear_mask: UInt<128> = ~train_onehot;
+  let pht_updated_hi: UInt<128> =
+    (pht_hi & pht_clear_mask) | (train_updated_ctr[1].zext<128>() << train_idx);
+  let pht_updated_lo: UInt<128> =
+    (pht_lo & pht_clear_mask) | (train_updated_ctr[0].zext<128>() << train_idx);
+
+  let predict_taken = predicted_dir;
+  let predict_history = history_reg;
+
+  reg pht_hi: UInt<128> reset areset => 0;
+  reg pht_lo: UInt<128> reset areset => ~0;
+
+  default seq on clk rising;
+
+  seq
+    if train_valid
+      if train_taken
+        if train_ctr != 3
+          pht_hi <= pht_updated_hi;
+          pht_lo <= pht_updated_lo;
+        end if
+      else
+        if train_ctr != 0
+          pht_hi <= pht_updated_hi;
+          pht_lo <= pht_updated_lo;
+        end if
+      end if
+    end if
+
+    if train_valid and train_mispredicted
+      history_reg <= train_next_history;
+    elsif predict_valid
+      history_reg <= predict_next_history;
+    end if
+  end seq
+end module TopModule
+[DONE]

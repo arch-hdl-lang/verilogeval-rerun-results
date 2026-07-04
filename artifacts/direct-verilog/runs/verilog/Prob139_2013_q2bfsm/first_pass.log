@@ -1,0 +1,5 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob139_2013_q2bfsm/Prob139_2013_q2bfsm.ivvp runs/verilog/Prob139_2013_q2bfsm/Prob139_2013_q2bfsm.sv dataset_spec-to-rtl/Prob139_2013_q2bfsm_test.sv dataset_spec-to-rtl/Prob139_2013_q2bfsm_ref.sv
+runs/verilog/Prob139_2013_q2bfsm/Prob139_2013_q2bfsm.sv:11: error: Enumeration name G_OFF has an inferred value that overflowed.
+runs/verilog/Prob139_2013_q2bfsm/Prob139_2013_q2bfsm.sv:11: error: Enumeration name G_OFF and A have the same value: 3'd0
+3 error(s) during elaboration.
+COMPILE_STATUS: 3

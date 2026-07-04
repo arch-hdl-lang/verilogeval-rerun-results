@@ -1,0 +1,5 @@
+module TopModule
+  port code: in UInt<8>;
+  port out: out UInt<4> comb_dep_on(code);
+  port valid: out Bool comb_dep_on(code);
+end module TopModule

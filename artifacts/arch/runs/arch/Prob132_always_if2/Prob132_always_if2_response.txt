@@ -1,0 +1,27 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob132_always_if2_prompt.txt
+//! tags: [combinational, latch-fix, boolean-logic]
+//! refs: []
+//! ---
+//!
+//! Implements the corrected version of the prompt's combinational control logic.
+//! The original Verilog omitted assignments on some paths, so both outputs are
+//! driven for every input combination.
+
+/// Corrected combinational computer shutdown and driving-control logic.
+///
+/// shut_off_computer is asserted when cpu_overheated is true. keep_driving is
+/// asserted only while the destination has not been reached and the gas tank is
+/// not empty.
+module TopModule
+  port cpu_overheated: in Bool;
+  port shut_off_computer: out Bool;
+  port arrived: in Bool;
+  port gas_tank_empty: in Bool;
+  port keep_driving: out Bool;
+
+  let shut_off_computer = cpu_overheated;
+  let keep_driving = (not arrived) and (not gas_tank_empty);
+end module TopModule
+[DONE]

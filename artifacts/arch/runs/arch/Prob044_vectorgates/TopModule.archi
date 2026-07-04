@@ -1,0 +1,7 @@
+module TopModule
+  port a: in UInt<3>;
+  port b: in UInt<3>;
+  port out_or_bitwise: out UInt<3> comb_dep_on(a, b);
+  port out_or_logical: out Bool comb_dep_on(a, b);
+  port out_not: out UInt<6> comb_dep_on(a, b);
+end module TopModule

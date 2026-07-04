@@ -1,0 +1,97 @@
+Question:
+Translate the following RTL specification into ARCH HDL.
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  a
+ - input  b
+ - input  c
+ - output out
+
+The module should implement the circuit described by the Karnaugh map
+below.
+
+          a
+   bc   0   1
+   00 | 0 | 1 |
+   01 | 1 | 1 |
+   11 | 1 | 1 |
+   10 | 1 | 1 |
+
+Benchmark integrity rules:
+
+ - Solve this problem only from the text in this prompt plus the fixed ARCH
+   guidance/examples included here.
+
+ - Do not inspect or rely on VerilogEval `_test.sv` files, `_ref.sv` files,
+   expected-output traces, simulator mismatch hints, or any other hidden
+   evaluation artifact while writing the RTL.
+
+ - Treat this problem as independent from every other VerilogEval problem.
+   Do not rely on solutions, failures, logs, or debugging notes from previous
+   problems. If problems are solved serially, use a fresh model context for
+   each problem before generation.
+
+ - If a later experiment intentionally allows compile/test feedback or repair,
+   that must be logged as a separate repair-mode attempt, not as first-pass
+   generation.
+
+Here are additional ARCH HDL rules and coding conventions.
+
+ - Implement the requested top-level design as a construct named TopModule.
+
+ - Use `module TopModule` for combinational or ordinary registered logic.
+   Use `fsm TopModule` when the behavior is naturally a finite-state machine.
+
+ - For every FSM problem, first derive a standard state transition table with
+   exactly these columns: input condition, current state, next state, output.
+   Also call out each input/output port's timing/type: input sampling edge,
+   combinational/state-derived output, registered output, or `pipe_reg`
+   latency. If you are writing files in a workspace, save this as
+   `transition_table.md` beside the generated RTL. If the response must be
+   code-only, embed the table as `///` ARCH doc comments above `fsm TopModule`.
+   For serial protocols, the table must have a distinct row/state for every
+   sampled protocol symbol boundary such as start, each data bit, stop/parity,
+   done, and error/recovery.
+
+ - In a state transition table, interpret the output column together with each
+   port's timing/type note. For a combinational or state-derived output, the
+   table entry is the value visible in the current state. For a registered or
+   `pipe_reg` output, the table entry is the value assigned by that state's
+   sequential action and must state when it becomes externally visible. Do not
+   invent extra `done`/`valid` ports or extra states because of this rule.
+   Choose combinational vs registered timing from the prompt/waveform; add a
+   completion/valid state only when the protocol timing requires one.
+
+ - Declare ports with ARCH syntax: `port name: in Type;` or
+   `port name: out Type;`. Use `Bool` for one-bit logical signals and
+   `UInt<N>` for N-bit vectors unless signed behavior is explicitly required.
+
+ - Map clocks and resets to typed ports. For example, use
+   `Clock<SysDomain>` for a positive-edge clock and
+   `Reset<Sync, High>` or `Reset<Async, High>` according to the prompt.
+
+ - Choose output timing from the prompt, waveform, and transition table. Use
+   plain `port out: out T;` driven by `let` or `comb` for combinational,
+   state-derived, or same-cycle FSM outputs. Use
+   `port out: out pipe_reg<T, N> reset reset => 0;` only when a registered
+   output and its latency are intended. Do not add a redundant `if reset`
+   branch when the port or register already has a reset clause.
+
+ - Use wrapping arithmetic (`+%`, `-%`, `*%`) when the intended result should
+   stay at the destination width.
+
+ - Use `let out = expr;` to drive a combinational output directly. Use
+   `comb ... end comb` only when conditional assignment is needed.
+
+ - Use ARCH block endings exactly: `end module TopModule`,
+   `end fsm TopModule`, `end state Name`, `end seq`, and `end comb`.
+
+ - Do not output markdown fences. Do not output SystemVerilog.
+
+Enclose your code with [BEGIN] and [DONE]. Only output the ARCH code snippet
+and do NOT output anything else.
+
+Answer:

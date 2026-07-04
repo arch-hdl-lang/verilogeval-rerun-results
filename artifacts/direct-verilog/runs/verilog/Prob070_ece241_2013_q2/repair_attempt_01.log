@@ -1,0 +1,9 @@
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob070_ece241_2013_q2_test.sv:63: $finish called at 535 (1ps)
+Hint: Output 'out_sop' has no mismatches.
+Hint: Output 'out_pos' has no mismatches.
+Hint: Total mismatched samples is 0 out of 107 samples
+
+Simulation finished at 535 ps
+Mismatches: 0 in 107 samples
+SIM_STATUS: 0

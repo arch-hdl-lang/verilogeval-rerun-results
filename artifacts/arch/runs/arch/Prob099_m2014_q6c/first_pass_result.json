@@ -1,0 +1,48 @@
+{
+  "mismatches": null,
+  "problem": "Prob099_m2014_q6c",
+  "samples": null,
+  "source": "runs/arch/Prob099_m2014_q6c/Prob099_m2014_q6c.arch",
+  "status": "fail",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob099_m2014_q6c/Prob099_m2014_q6c.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob099_m2014_q6c/Prob099_m2014_q6c.sv",
+        "runs/arch/Prob099_m2014_q6c/Prob099_m2014_q6c.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob099_m2014_q6c/Prob099_m2014_q6c.ivvp",
+        "runs/arch/Prob099_m2014_q6c/Prob099_m2014_q6c.sv",
+        "dataset_spec-to-rtl/Prob099_m2014_q6c_test.sv",
+        "dataset_spec-to-rtl/Prob099_m2014_q6c_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 4
+    }
+  ]
+}

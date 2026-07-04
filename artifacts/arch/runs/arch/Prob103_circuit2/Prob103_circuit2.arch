@@ -1,0 +1,23 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob103_circuit2_prompt.txt
+//! tags: [combinational, truth-table, parity]
+//! refs: []
+//! ---
+//!
+//! Implements the Prob103_circuit2 waveform-derived combinational circuit.
+//! The output is high for input combinations with even parity across a, b, c,
+//! and d.
+
+/// Top-level combinational circuit for Prob103_circuit2.
+///
+/// Preserves the requested one-bit input and output interface while driving q
+/// from the even-parity relation indicated by the waveform table.
+module TopModule
+  port a: in Bool;
+  port b: in Bool;
+  port c: in Bool;
+  port d: in Bool;
+  port q: out Bool;
+
+  let q = not (a ^ b ^ c ^ d);
+end module TopModule

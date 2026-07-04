@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob055_conditional",
+  "samples": 112,
+  "source": "runs/arch/Prob055_conditional/Prob055_conditional.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob055_conditional/Prob055_conditional.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob055_conditional/Prob055_conditional.sv",
+        "runs/arch/Prob055_conditional/Prob055_conditional.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob055_conditional/Prob055_conditional.ivvp",
+        "runs/arch/Prob055_conditional/Prob055_conditional.sv",
+        "dataset_spec-to-rtl/Prob055_conditional_test.sv",
+        "dataset_spec-to-rtl/Prob055_conditional_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob055_conditional/Prob055_conditional.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob068_countbcd/Prob068_countbcd.sv
+Wrote runs/arch/Prob068_countbcd/TopModule.archi
+
+Icarus compile:
+
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob068_countbcd_test.sv:68: $finish called at 199026 (1ps)
+Hint: Output 'ena' has no mismatches.
+Hint: Output 'q' has no mismatches.
+Hint: Total mismatched samples is 0 out of 39805 samples
+
+Simulation finished at 199026 ps
+Mismatches: 0 in 39805 samples

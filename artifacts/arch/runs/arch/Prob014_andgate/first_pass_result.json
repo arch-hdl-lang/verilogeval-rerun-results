@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob014_andgate",
+  "samples": 219,
+  "source": "runs/arch/Prob014_andgate/Prob014_andgate.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob014_andgate/Prob014_andgate.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob014_andgate/Prob014_andgate.sv",
+        "runs/arch/Prob014_andgate/Prob014_andgate.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob014_andgate/Prob014_andgate.ivvp",
+        "runs/arch/Prob014_andgate/Prob014_andgate.sv",
+        "dataset_spec-to-rtl/Prob014_andgate_test.sv",
+        "dataset_spec-to-rtl/Prob014_andgate_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob014_andgate/Prob014_andgate.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob134_2014_q3c",
+  "samples": 200,
+  "source": "runs/arch/Prob134_2014_q3c/Prob134_2014_q3c.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob134_2014_q3c/Prob134_2014_q3c.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob134_2014_q3c/Prob134_2014_q3c.sv",
+        "runs/arch/Prob134_2014_q3c/Prob134_2014_q3c.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob134_2014_q3c/Prob134_2014_q3c.ivvp",
+        "runs/arch/Prob134_2014_q3c/Prob134_2014_q3c.sv",
+        "dataset_spec-to-rtl/Prob134_2014_q3c_test.sv",
+        "dataset_spec-to-rtl/Prob134_2014_q3c_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob134_2014_q3c/Prob134_2014_q3c.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

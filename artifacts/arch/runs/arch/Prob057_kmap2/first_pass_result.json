@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob057_kmap2",
+  "samples": 232,
+  "source": "runs/arch/Prob057_kmap2/Prob057_kmap2.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob057_kmap2/Prob057_kmap2.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob057_kmap2/Prob057_kmap2.sv",
+        "runs/arch/Prob057_kmap2/Prob057_kmap2.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob057_kmap2/Prob057_kmap2.ivvp",
+        "runs/arch/Prob057_kmap2/Prob057_kmap2.sv",
+        "dataset_spec-to-rtl/Prob057_kmap2_test.sv",
+        "dataset_spec-to-rtl/Prob057_kmap2_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob057_kmap2/Prob057_kmap2.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

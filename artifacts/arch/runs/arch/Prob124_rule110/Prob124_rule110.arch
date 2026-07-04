@@ -1,0 +1,37 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob124_rule110_prompt.txt
+//! tags: [cellular-automaton, rule110, sequential-logic]
+//! refs: []
+//! ---
+//!
+//! Implements a 512-cell Rule 110 cellular automaton. The state is loaded
+//! synchronously from data when load is high, otherwise it advances one step
+//! per positive clock edge with zero-valued boundary cells.
+
+/// Top-level 512-bit Rule 110 automaton.
+///
+/// The q output is the registered cell state. Each clock edge either loads
+/// data[511:0] or computes the next generation from q[511:0].
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port load: in Bool;
+  port data: in UInt<512>;
+  port q: out pipe_reg<UInt<512>, 1>;
+
+  default seq on clk rising;
+
+  let left_cells: UInt<512> = {1'b0, q[511:1]};
+  let right_cells: UInt<512> = {q[510:0], 1'b0};
+  let next_cells: UInt<512> =
+    ((~left_cells) & (q | right_cells)) |
+    (left_cells & q & (~right_cells)) |
+    (left_cells & (~q) & right_cells);
+
+  seq
+    if load
+      q@1 <= data;
+    else
+      q@1 <= next_cells;
+    end if
+  end seq
+end module TopModule

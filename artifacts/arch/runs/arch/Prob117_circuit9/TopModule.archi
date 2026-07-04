@@ -1,0 +1,5 @@
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port a: in Bool;
+  port q: out pipe_reg<UInt<3>, 1>;
+end module TopModule

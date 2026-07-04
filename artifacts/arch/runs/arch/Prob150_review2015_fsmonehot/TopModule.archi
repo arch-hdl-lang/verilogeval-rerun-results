@@ -1,0 +1,14 @@
+module TopModule
+  port d: in Bool;
+  port done_counting: in Bool;
+  port ack: in Bool;
+  port state: in UInt<10>;
+  port B3_next: out Bool comb_dep_on(state);
+  port S_next: out Bool comb_dep_on(ack, d, state);
+  port S1_next: out Bool comb_dep_on(d, state);
+  port Count_next: out Bool comb_dep_on(done_counting, state);
+  port Wait_next: out Bool comb_dep_on(ack, done_counting, state);
+  port done: out Bool comb_dep_on(state);
+  port counting: out Bool comb_dep_on(state);
+  port shift_ena: out Bool comb_dep_on(state);
+end module TopModule

@@ -1,0 +1,19 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob101_circuit4_prompt.txt
+//! tags: [combinational, waveform, boolean-logic]
+//! ---
+//!
+//! Implements the waveform-derived combinational circuit for Prob101_circuit4.
+//! The output is high whenever input b or input c is high; inputs a and d do not affect q.
+
+/// Top-level combinational circuit with the exact VerilogEval interface.
+/// One-bit output q is the logical OR of inputs b and c.
+module TopModule
+  port a: in Bool;
+  port b: in Bool;
+  port c: in Bool;
+  port d: in Bool;
+  port q: out Bool;
+
+  let q = b or c;
+end module TopModule

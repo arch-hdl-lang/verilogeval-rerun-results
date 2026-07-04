@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob037_review2015_count1k",
+  "samples": 8027,
+  "source": "runs/arch/Prob037_review2015_count1k/Prob037_review2015_count1k.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob037_review2015_count1k/Prob037_review2015_count1k.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob037_review2015_count1k/Prob037_review2015_count1k.sv",
+        "runs/arch/Prob037_review2015_count1k/Prob037_review2015_count1k.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob037_review2015_count1k/Prob037_review2015_count1k.ivvp",
+        "runs/arch/Prob037_review2015_count1k/Prob037_review2015_count1k.sv",
+        "dataset_spec-to-rtl/Prob037_review2015_count1k_test.sv",
+        "dataset_spec-to-rtl/Prob037_review2015_count1k_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob037_review2015_count1k/Prob037_review2015_count1k.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

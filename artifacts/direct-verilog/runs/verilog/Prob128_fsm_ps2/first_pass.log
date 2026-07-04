@@ -1,0 +1,11 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob128_fsm_ps2/Prob128_fsm_ps2.ivvp runs/verilog/Prob128_fsm_ps2/Prob128_fsm_ps2.sv dataset_spec-to-rtl/Prob128_fsm_ps2_test.sv dataset_spec-to-rtl/Prob128_fsm_ps2_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob128_fsm_ps2/Prob128_fsm_ps2.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob128_fsm_ps2_test.sv:18: $finish called at 2001 (1ps)
+Hint: Output 'done' has no mismatches.
+Hint: Total mismatched samples is 0 out of 400 samples
+
+Simulation finished at 2001 ps
+Mismatches: 0 in 400 samples
+SIM_STATUS: 0

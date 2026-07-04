@@ -1,0 +1,7 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob099_m2014_q6c/Prob099_m2014_q6c.ivvp runs/verilog/Prob099_m2014_q6c/Prob099_m2014_q6c.sv dataset_spec-to-rtl/Prob099_m2014_q6c_test.sv dataset_spec-to-rtl/Prob099_m2014_q6c_ref.sv
+dataset_spec-to-rtl/Prob099_m2014_q6c_test.sv:71: error: port ``Y2'' is not a port of good1.
+dataset_spec-to-rtl/Prob099_m2014_q6c_test.sv:71: error: port ``Y4'' is not a port of good1.
+dataset_spec-to-rtl/Prob099_m2014_q6c_test.sv:77: error: port ``Y2'' is not a port of top_module1.
+dataset_spec-to-rtl/Prob099_m2014_q6c_test.sv:77: error: port ``Y4'' is not a port of top_module1.
+4 error(s) during elaboration.
+COMPILE_STATUS: 4

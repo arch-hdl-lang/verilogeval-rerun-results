@@ -1,0 +1,22 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob021_mux256to1v_prompt.txt
+//! tags: [mux, combinational, vector-select]
+//! refs: []
+//! ---
+//!
+//! Implements the VerilogEval Prob021_mux256to1v specification as a 4-bit wide,
+//! 256-to-1 combinational multiplexer over a packed 1024-bit input vector.
+
+/// Top-level combinational 256-to-1 mux.
+///
+/// The 8-bit selector chooses one 4-bit lane from the packed input vector.
+module TopModule
+  port in: in UInt<1024>;
+  port sel: in UInt<8>;
+  port out: out UInt<4>;
+
+  let bit_offset: UInt<10> = {sel, 2'b00};
+  let out = in[bit_offset +: 4];
+end module TopModule
+[DONE]

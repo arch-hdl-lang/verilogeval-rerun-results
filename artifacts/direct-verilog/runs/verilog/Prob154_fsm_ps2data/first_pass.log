@@ -1,0 +1,12 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob154_fsm_ps2data/Prob154_fsm_ps2data.ivvp runs/verilog/Prob154_fsm_ps2data/Prob154_fsm_ps2data.sv dataset_spec-to-rtl/Prob154_fsm_ps2data_test.sv dataset_spec-to-rtl/Prob154_fsm_ps2data_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob154_fsm_ps2data/Prob154_fsm_ps2data.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob154_fsm_ps2data_test.sv:31: $finish called at 8096 (1ps)
+Hint: Output 'out_bytes' has 192 mismatches. First mismatch occurred at time 240.
+Hint: Output 'done' has 488 mismatches. First mismatch occurred at time 230.
+Hint: Total mismatched samples is 488 out of 1619 samples
+
+Simulation finished at 8096 ps
+Mismatches: 488 in 1619 samples
+SIM_STATUS: 0

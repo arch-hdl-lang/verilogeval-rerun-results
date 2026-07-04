@@ -1,0 +1,4 @@
+module TopModule
+  port a: in UInt<3>;
+  port q: out UInt<16> comb_dep_on(a);
+end module TopModule

@@ -1,0 +1,6 @@
+module TopModule
+  port ring: in Bool;
+  port vibrate_mode: in Bool;
+  port ringer: out Bool comb_dep_on(ring, vibrate_mode);
+  port motor: out Bool comb_dep_on(ring, vibrate_mode);
+end module TopModule

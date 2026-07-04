@@ -1,0 +1,31 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob039_always_if_prompt.txt
+//! tags: [mux, combinational, procedural-if]
+//! refs: []
+//! ---
+//!
+//! Implements the requested one-bit 2-to-1 mux twice: once as a direct continuous-style assignment and once with a procedural conditional.
+
+/// Top-level one-bit mux implementation for the VerilogEval Prob039_always_if interface.
+///
+/// Selects `b` only when both select inputs are true; otherwise selects `a`.
+module TopModule
+  port a: in Bool;
+  port b: in Bool;
+  port sel_b1: in Bool;
+  port sel_b2: in Bool;
+  port out_assign: out Bool;
+  port out_always: out Bool;
+
+  let use_b: Bool = sel_b1 and sel_b2;
+
+  let out_assign = use_b ? b : a;
+
+  comb
+    if use_b
+      out_always = b;
+    else
+      out_always = a;
+    end if
+  end comb
+end module TopModule

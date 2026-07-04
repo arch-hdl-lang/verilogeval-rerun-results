@@ -1,0 +1,18 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob006_vectorr/Prob006_vectorr.sv
+Wrote runs/arch/Prob006_vectorr/TopModule.archi
+
+Icarus compile:
+
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob006_vectorr_test.sv:43: $finish called at 1090 (1ps)
+Hint: Output 'out' has no mismatches.
+Hint: Total mismatched samples is 0 out of 218 samples
+
+Simulation finished at 1090 ps
+Mismatches: 0 in 218 samples

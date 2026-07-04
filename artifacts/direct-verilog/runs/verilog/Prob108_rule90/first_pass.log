@@ -1,0 +1,11 @@
+COMMAND: iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o runs/verilog/Prob108_rule90/Prob108_rule90.ivvp runs/verilog/Prob108_rule90/Prob108_rule90.sv dataset_spec-to-rtl/Prob108_rule90_test.sv dataset_spec-to-rtl/Prob108_rule90_ref.sv
+COMPILE_STATUS: 0
+COMMAND: vvp runs/verilog/Prob108_rule90/Prob108_rule90.ivvp
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob108_rule90_test.sv:75: $finish called at 35606 (1ps)
+Hint: Output 'q' has no mismatches.
+Hint: Total mismatched samples is 0 out of 7121 samples
+
+Simulation finished at 35606 ps
+Mismatches: 0 in 7121 samples
+SIM_STATUS: 0

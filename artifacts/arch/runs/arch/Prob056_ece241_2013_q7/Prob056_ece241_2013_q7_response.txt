@@ -1,0 +1,35 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob056_ece241_2013_q7_prompt.txt
+//! tags: [flip_flop, jk, sequential]
+//! refs: []
+//! ---
+//!
+//! Implements the VerilogEval Prob056_ece241_2013_q7 prompt as a JK flip-flop.
+//! The output updates on the positive edge of clk using the specified J/K truth table.
+
+/// Top-level JK flip-flop with the exact requested VerilogEval interface.
+///
+/// Inputs j and k are sampled on the rising edge of clk. Output Q is the
+/// registered flip-flop state: hold, reset, set, or toggle based on j/k.
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port j: in Bool;
+  port k: in Bool;
+  port Q: out pipe_reg<Bool, 1>;
+
+  default seq on clk rising;
+
+  seq
+    if j and k
+      Q@1 <= ~Q;
+    elsif j
+      Q@1 <= true;
+    elsif k
+      Q@1 <= false;
+    else
+      Q@1 <= Q;
+    end if
+  end seq
+end module TopModule
+[DONE]

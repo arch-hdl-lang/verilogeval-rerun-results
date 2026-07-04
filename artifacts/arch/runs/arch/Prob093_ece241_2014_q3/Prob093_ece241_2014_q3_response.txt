@@ -1,0 +1,29 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob093_ece241_2014_q3_prompt.txt
+//! tags: [kmap, multiplexer, combinational]
+//! refs: []
+//! ---
+//!
+//! Implements mux data-input generation for the VerilogEval ECE241 K-map problem.
+//! The output vector drives an external 4-to-1 mux selected by {a,b}, with
+//! binary select values 00, 01, 10, and 11 mapped to mux_in[0], [1], [2], and [3].
+///
+/// Combinational TopModule for deriving the four external 4-to-1 mux data inputs.
+///
+/// K-map column functions are encoded as mux-style ternaries over c and d:
+/// mux_in[0] = c ? 1 : d, mux_in[1] = 0, mux_in[2] = c ? 1 : ~d,
+/// and mux_in[3] = c ? d : 0.
+module TopModule
+  port c: in Bool;
+  port d: in Bool;
+  port mux_in: out UInt<4>;
+
+  let mux0: Bool = c ? true : d;
+  let mux1: Bool = false;
+  let mux2: Bool = c ? true : ~d;
+  let mux3: Bool = c ? d : false;
+
+  let mux_in = {mux3, mux2, mux1, mux0};
+end module TopModule
+[DONE]

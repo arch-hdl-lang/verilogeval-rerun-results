@@ -1,0 +1,16 @@
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob003_step_one_prompt.txt
+//! tags: [constant, combinational, verilogeval]
+//! refs: []
+//! ---
+//!
+//! Implements the VerilogEval Prob003_step_one prompt: a single output that is always driven logic high.
+/// TopModule exposes the required one-bit output and drives it high in all cycles.
+module TopModule (
+  output logic one
+);
+
+  assign one = 1'b1;
+
+endmodule
+

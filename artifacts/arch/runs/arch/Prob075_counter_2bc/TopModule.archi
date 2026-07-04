@@ -1,0 +1,7 @@
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port areset: in Reset<Async>;
+  port train_valid: in Bool;
+  port train_taken: in Bool;
+  port state: out UInt<2> comb_dep_on();
+end module TopModule

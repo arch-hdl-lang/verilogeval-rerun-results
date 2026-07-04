@@ -1,0 +1,48 @@
+Question:
+Translate the following RTL specification into ARCH HDL.
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  in
+ - input  state (2 bits)
+ - output next_state (2 bits)
+ - output out
+
+The module should implement the following is the state transition table
+for a Moore state machine with one input, one output, and four states.
+Use the following state encoding: A=2'b00, B=2'b01, C=2'b10,
+D=2'b11.Implement only the state transition logic and output logic (the
+combinational logic portion) for this state machine. Given the current
+state (state), compute the next_state and output (out) based on the state
+transition table.
+
+  State | Next state in=0, Next state in=1 | Output
+  A     | A, B                             | 0
+  B     | C, B                             | 0
+  C     | A, D                             | 0
+  D     | C, B                             | 1
+
+Benchmark integrity rules:
+
+ - Solve this problem only from the text in this prompt plus the fixed ARCH
+   guidance/examples included here.
+
+ - Do not inspect or rely on VerilogEval `_test.sv` files, `_ref.sv` files,
+   expected-output traces, simulator mismatch hints, or any other hidden
+   evaluation artifact while writing the RTL.
+
+ - Treat this problem as independent from every other VerilogEval problem.
+   Do not rely on solutions, failures, logs, or debugging notes from previous
+   problems. If problems are solved serially, use a fresh model context for
+   each problem before generation.
+
+ - If a later experiment intentionally allows compile/test feedback or repair,
+   that must be logged as a separate repair-mode attempt, not as first-pass
+   generation.
+
+Enclose your code with [BEGIN] and [DONE]. Only output the ARCH code snippet
+and do NOT output anything else.
+
+Answer:

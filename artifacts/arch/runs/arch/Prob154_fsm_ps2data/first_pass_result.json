@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob154_fsm_ps2data",
+  "samples": 1619,
+  "source": "runs/arch/Prob154_fsm_ps2data/Prob154_fsm_ps2data.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob154_fsm_ps2data/Prob154_fsm_ps2data.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob154_fsm_ps2data/Prob154_fsm_ps2data.sv",
+        "runs/arch/Prob154_fsm_ps2data/Prob154_fsm_ps2data.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob154_fsm_ps2data/Prob154_fsm_ps2data.ivvp",
+        "runs/arch/Prob154_fsm_ps2data/Prob154_fsm_ps2data.sv",
+        "dataset_spec-to-rtl/Prob154_fsm_ps2data_test.sv",
+        "dataset_spec-to-rtl/Prob154_fsm_ps2data_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob154_fsm_ps2data/Prob154_fsm_ps2data.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}

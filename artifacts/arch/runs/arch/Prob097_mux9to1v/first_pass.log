@@ -1,0 +1,18 @@
+ARCH check:
+OK: no errors
+
+ARCH build:
+Wrote runs/arch/Prob097_mux9to1v/Prob097_mux9to1v.sv
+Wrote runs/arch/Prob097_mux9to1v/TopModule.archi
+
+Icarus compile:
+runs/arch/Prob097_mux9to1v/Prob097_mux9to1v.sv:24: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+
+Icarus run:
+VCD info: dumpfile wave.vcd opened for output.
+dataset_spec-to-rtl/Prob097_mux9to1v_test.sv:45: $finish called at 1100 (1ps)
+Hint: Output 'out' has no mismatches.
+Hint: Total mismatched samples is 0 out of 220 samples
+
+Simulation finished at 1100 ps
+Mismatches: 0 in 220 samples

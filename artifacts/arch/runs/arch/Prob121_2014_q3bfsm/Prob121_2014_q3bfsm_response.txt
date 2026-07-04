@@ -1,0 +1,78 @@
+[BEGIN]
+//! ---
+//! spec_md: dataset_spec-to-rtl/Prob121_2014_q3bfsm_prompt.txt
+//! tags: [fsm, moore, synchronous-reset, state-table]
+//! ---
+//!
+//! Implements the requested state-assigned Moore FSM for Prob121_2014_q3bfsm.
+//! The reset is synchronous active high and returns the state register to 000.
+
+/// Top-level Moore FSM with the exact requested VerilogEval interface.
+///
+/// Port timing/type:
+/// - clk: positive-edge clock input.
+/// - reset: synchronous active-high reset input sampled on clk rising edge.
+/// - x: one-bit input sampled by the state transition logic on clk rising edge.
+/// - z: combinational/state-derived Moore output visible from the current state.
+///
+/// Transition table:
+/// | input condition | current state | next state | output z |
+/// | x=0 | 000 | 000 | 0 |
+/// | x=1 | 000 | 001 | 0 |
+/// | x=0 | 001 | 001 | 0 |
+/// | x=1 | 001 | 100 | 0 |
+/// | x=0 | 010 | 010 | 0 |
+/// | x=1 | 010 | 001 | 0 |
+/// | x=0 | 011 | 001 | 1 |
+/// | x=1 | 011 | 010 | 1 |
+/// | x=0 | 100 | 011 | 1 |
+/// | x=1 | 100 | 100 | 1 |
+module TopModule
+  port clk: in Clock<SysDomain>;
+  port reset: in Reset<Sync, High>;
+  port x: in Bool;
+  port z: out Bool;
+
+  reg y: UInt<3> reset reset => 3'b000;
+
+  let z = (y == 3'b011) or (y == 3'b100);
+
+  default seq on clk rising;
+
+  seq
+    if y == 3'b000
+      if x
+        y <= 3'b001;
+      else
+        y <= 3'b000;
+      end if
+    elsif y == 3'b001
+      if x
+        y <= 3'b100;
+      else
+        y <= 3'b001;
+      end if
+    elsif y == 3'b010
+      if x
+        y <= 3'b001;
+      else
+        y <= 3'b010;
+      end if
+    elsif y == 3'b011
+      if x
+        y <= 3'b010;
+      else
+        y <= 3'b001;
+      end if
+    elsif y == 3'b100
+      if x
+        y <= 3'b100;
+      else
+        y <= 3'b011;
+      end if
+    else
+      y <= 3'b000;
+    end if
+  end seq
+end module TopModule
+[DONE]

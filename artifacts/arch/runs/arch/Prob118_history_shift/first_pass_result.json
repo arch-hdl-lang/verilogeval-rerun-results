@@ -1,0 +1,56 @@
+{
+  "mismatches": 0,
+  "problem": "Prob118_history_shift",
+  "samples": 2055,
+  "source": "runs/arch/Prob118_history_shift/Prob118_history_shift.arch",
+  "status": "pass",
+  "steps": [
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "check",
+        "runs/arch/Prob118_history_shift/Prob118_history_shift.arch"
+      ],
+      "name": "ARCH check",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/shuqingzhao/github/arch-release-tools/v0.70.5/bin/arch",
+        "build",
+        "-o",
+        "runs/arch/Prob118_history_shift/Prob118_history_shift.sv",
+        "runs/arch/Prob118_history_shift/Prob118_history_shift.arch"
+      ],
+      "name": "ARCH build",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "iverilog",
+        "-Wall",
+        "-Winfloop",
+        "-Wno-timescale",
+        "-g2012",
+        "-gsupported-assertions",
+        "-s",
+        "tb",
+        "-o",
+        "runs/arch/Prob118_history_shift/Prob118_history_shift.ivvp",
+        "runs/arch/Prob118_history_shift/Prob118_history_shift.sv",
+        "dataset_spec-to-rtl/Prob118_history_shift_test.sv",
+        "dataset_spec-to-rtl/Prob118_history_shift_ref.sv"
+      ],
+      "name": "Icarus compile",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "vvp",
+        "runs/arch/Prob118_history_shift/Prob118_history_shift.ivvp"
+      ],
+      "name": "Icarus run",
+      "returncode": 0
+    }
+  ]
+}
