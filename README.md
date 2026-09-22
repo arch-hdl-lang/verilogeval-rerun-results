@@ -57,3 +57,17 @@ Both lanes used the same benchmark data boundaries:
 - Use fresh independent context for each problem and for each repair worker.
 - Do not inspect archived prior repair outputs, waveforms, backup histories, or
   hidden checker logic.
+
+## Related benchmark: CVDP
+
+The companion [CVDP evaluation artifact](https://github.com/arch-hdl-lang/cvdp-spec-rtl-eval)
+uses **Comprehensive Verilog Design Problems (CVDP)**, a separate benchmark
+from VerilogEval. Its full dataset has 783 problems spanning 13 task categories;
+those counts do not describe this repository's 156-problem VerilogEval run.
+
+Nathaniel Pinckney, Chenhui Deng, Chia-Tung Ho, Yun-Da Tsai, Mingjie Liu,
+Wenfei Zhou, Brucek Khailany, and Haoxing Ren. *Comprehensive Verilog Design
+Problems: A Next-Generation Benchmark Dataset for Evaluating Large Language
+Models and Agents on RTL Design and Verification*. arXiv:2506.14074, 2025.
+[Paper](https://arxiv.org/abs/2506.14074) ·
+[Dataset and harness](https://github.com/NVlabs/cvdp_benchmark).
